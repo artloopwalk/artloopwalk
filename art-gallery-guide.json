@@ -1,0 +1,2824 @@
+{
+  "title": "Art Gallery Guide",
+  "intro": "",
+  "tagColors": {},
+  "places": [
+    {
+      "name": "Opera Gallery New York",
+      "address": "40.7696364, -73.9666754",
+      "lat": 40.7696364,
+      "lon": -73.9666754,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "Xevi Solà, 'One Year – Scenes in Time': 10 July - 20 October 2026",
+      "onView": "Xevi Solà, One Year – Scenes in Time — Jul 10 – Oct 20, 2026 (the gallery's location has changed; confirm before visiting)",
+      "opening": ""
+    },
+    {
+      "name": "Sotheby's",
+      "address": "40.7734, -73.9638",
+      "lat": 40.7734,
+      "lon": -73.9638,
+      "tags": [
+        "uppereastside",
+        "art"
+      ],
+      "note": "Breuer building, HQ since Nov 2025",
+      "onView": "Fall auction previews: Reflections on Pop (Lichtenstein collection), Contemporary Curated (Robert A.M. Stern collection), Haring's House, Modern & Contemporary Discoveries, Prints, Photographs — on view Oct 2 – 7, 2026",
+      "opening": "Auctions Oct 6 – 9, 2026; previews free and open to the public"
+    },
+    {
+      "name": "Long Gallery, Harlem",
+      "address": "2073 Adam Clayton Powell Jr Blvd",
+      "lat": 40.8079221,
+      "lon": -73.9486624,
+      "tags": [
+        "harlem"
+      ],
+      "note": "Alexandria Smith: The Three Graces: September 13 – November 15, 2026",
+      "onView": "Alexandria Smith, The Three Graces — Sep 13 – Nov 15, 2026",
+      "opening": "Sun, Sep 13"
+    },
+    {
+      "name": "Curtiss Jacobs Gallery",
+      "address": "2075 Adam Clayton Powell Jr Blvd",
+      "lat": 40.8080374,
+      "lon": -73.948704,
+      "tags": [
+        "harlem"
+      ],
+      "note": "Ransome, A Little Sugar in My Bowl: September 13 - October 17, 2026",
+      "onView": "Ransome, A Little Sugar in My Bowl — Sep 13 – Oct 17, 2026",
+      "opening": ""
+    },
+    {
+      "name": "Upsilon Gallery",
+      "address": "23 E 67th St, New York, NY 10065",
+      "lat": 40.7689041,
+      "lon": -73.9678878,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Between shows (Post-war and Pop Prints closed Oct 1)",
+      "opening": "Post-war and Pop Prints ran Sep 12 – Oct 1"
+    },
+    {
+      "name": "Pace Di Donna Schrader Galleries",
+      "address": "744 Madison Ave, New York, NY 10065",
+      "lat": 40.767183,
+      "lon": -73.9690548,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "No current gallery exhibition listed (secondary-market gallery; by appointment)",
+      "opening": ""
+    },
+    {
+      "name": "PHILLIPS",
+      "address": "432 Park Ave, New York, NY 10022",
+      "lat": 40.7614204,
+      "lon": -73.9720131,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "Photographs auction preview — sale Thu, Oct 8, 2026, 10am (check phillips.com for viewing hours)",
+      "opening": ""
+    },
+    {
+      "name": "El Museo del Barrio",
+      "address": "1230 5th Ave, New York, NY 10029",
+      "lat": 40.7930766,
+      "lon": -73.9513662,
+      "tags": [
+        "harlem"
+      ],
+      "note": "Teddy Sandoval and the Butch Gardens School of Art: September 10, 2026 – January 10 2027",
+      "onView": "Teddy Sandoval and the Butch Gardens School of Art — Sep 10, 2026 – Jan 10, 2027",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Christie's New York",
+      "address": "20 Rockefeller Plaza, New York, NY 10020",
+      "lat": 40.7584233,
+      "lon": -73.979789,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "No public exhibition listed for early October — check christies.com for upcoming sale previews",
+      "opening": ""
+    },
+    {
+      "name": "Studio Museum in Harlem",
+      "address": "144 W 125th St, New York, NY 10027",
+      "lat": 40.8082859,
+      "lon": -73.9476925,
+      "tags": [
+        "harlem"
+      ],
+      "note": "GEOMETRIES: September 10, 2026–January 31, 2027",
+      "onView": "GEOMETRIES — Sep 10, 2026 – Jan 31, 2027",
+      "opening": "Thu, Sep 10"
+    },
+    {
+      "name": "The Jewish Museum",
+      "address": "1109 5th Ave, New York, NY 10128",
+      "lat": 40.785405,
+      "lon": -73.9571799,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Sacred Splendor: Jewish Ritual Art and Christian Treasures from St. Vitus Cathedral in Prague — opened Sep 18, 2026; Women of the Wiener Werkstätte — through Nov 15, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Cooper Hewitt",
+      "address": "2 E 91st St, New York, NY 10128",
+      "lat": 40.7842946,
+      "lon": -73.9578179,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "Pay-what-you-wish from 5:00-6:00pm daily for all visitors.",
+      "onView": "Made in America: The Industrial Photography of Christopher Payne — through fall 2026 (check dates)",
+      "opening": "Opened Dec 12, 2025. Pay-what-you-wish daily 5–6pm"
+    },
+    {
+      "name": "Dacia Gallery",
+      "address": "621 E 11th St, New York, NY 10009",
+      "lat": 40.7272055,
+      "lon": -73.9782443,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "Group Exhibition: September 1-13, 2026",
+      "onView": "Couldn't confirm a current show (last listed: Group Exhibition, Sep 1 – 13)",
+      "opening": ""
+    },
+    {
+      "name": "Half Gallery",
+      "address": "235 E 4th St, New York, NY 10009",
+      "lat": 40.7234766,
+      "lon": -73.9826706,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "Meghann Stephenson  Queen of the Neighborhood!: September 9th - October 8th, 2026",
+      "onView": "Meghann Stephenson, Queen of the Neighborhood! — Sep 9 – Oct 8, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Wilmer Jennings Gallery at Kenkeleba",
+      "address": "219 E 2nd St, New York, NY 10009",
+      "lat": 40.7216689,
+      "lon": -73.9830306,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Turntable: Visions of the Jazzmen — Oct 3 – Dec 5, 2026",
+      "opening": "Sat, Oct 3, 3–6pm"
+    },
+    {
+      "name": "TOTAH",
+      "address": "183 Stanton St, New York, NY 10002",
+      "lat": 40.7199476,
+      "lon": -73.983898,
+      "tags": [
+        "eastvillage",
+        "lowereastside"
+      ],
+      "note": "Alexis Hunter, Chimera: Opening September 10th, 2026",
+      "onView": "Alexis Hunter, Chimera — opened Sep 10, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "SHIN GALLERY",
+      "address": "68 Orchard St, New York, NY 10002",
+      "lat": 40.7174263,
+      "lon": -73.9903281,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "The Enduring Line: August 10 - October 3, 2026",
+      "onView": "Spazio e Forma: Lucio Fontana & Carla Prina — through Oct 23, 2026; Qin Shen, Like Birds, Toward Their Mountain — opened Sep 24, 2026",
+      "opening": "Qin Shen: Thu, Sep 24"
+    },
+    {
+      "name": "McKenzie Fine Art",
+      "address": "55 Orchard St, New York, NY 10002",
+      "lat": 40.7166765,
+      "lon": -73.991122,
+      "tags": [
+        "eastvillage",
+        "lowereastside"
+      ],
+      "note": "Pete Schulte, Neither-Nor Stone or Not Not-a-Rock: September 9 - October 25, 2026",
+      "onView": "Pete Schulte, Neither-Nor Stone or Not Not-a-Rock — Sep 9 – Oct 25, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Marc Straus Gallery – Lower East Side",
+      "address": "299 Grand St, New York, NY 10002",
+      "lat": 40.7174112,
+      "lon": -73.9919508,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "Michael Brown, Keep On Truckin': September 10 - October 31, 2026",
+      "onView": "",
+      "opening": ""
+    },
+    {
+      "name": "MoMA",
+      "address": "11 W 53rd St, New York, NY 10019",
+      "lat": 40.7613492,
+      "lon": -73.9773325,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "The Surrealist Book: Tomorrow Lives in Mirrors — Oct 4, 2026 – Jan 23, 2027; Taking Back Our Space: Photographic Perspectives — Sep 20, 2026 – May 2, 2027; Full Disclosure: The Edge of Information Design — Sep 27, 2026 – Jun 13, 2027; Sarah Michelson: nowhere — Sep 15 – Oct 11, 2026",
+      "opening": "The Surrealist Book opened Sun, Oct 4; Sarah Michelson: Tue, Sep 15, 6–8pm; Taking Back Our Space: Sun, Sep 20"
+    },
+    {
+      "name": "NYPL Schwarzman Building",
+      "address": "476 5th Ave, New York, NY 10018",
+      "lat": 40.7531823,
+      "lon": -73.9822534,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "The Polonsky Exhibition of The New York Public Library's Treasures — ongoing",
+      "opening": ""
+    },
+    {
+      "name": "The Morgan Library & Museum",
+      "address": "225 Madison Ave, New York, NY 10016",
+      "lat": 40.7491829,
+      "lon": -73.9813041,
+      "tags": [
+        "midtown"
+      ],
+      "note": "Tarot! Renaissance Symbols, Modern Visions: June 26 - October 4, 2026",
+      "onView": "Hujar: Contact; Friends Who Came to See Me: Drawing from John Ashbery's Collection — through Oct 25, 2026 (Tarot! closes today, Oct 4)",
+      "opening": "Hujar: Contact opened May 22; Ashbery drawings opened May 1"
+    },
+    {
+      "name": "David Peter Francis",
+      "address": "35 E Broadway #3F, New York, NY 10002",
+      "lat": 40.7134285,
+      "lon": -73.9963447,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Unglee, Le souvenir du temps: September 10—October 17, 2026",
+      "onView": "Unglee, Le Souvenir du Temps — Sep 10 – Oct 17, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Lyles & King",
+      "address": "19 Henry St, New York, NY 10002",
+      "lat": 40.7129331,
+      "lon": -73.9969428,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Closed — the gallery shut its doors July 2, 2026",
+      "opening": ""
+    },
+    {
+      "name": "Long Story Short NYC",
+      "address": "52 Henry St, New York, NY 10002",
+      "lat": 40.712753,
+      "lon": -73.9953381,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "After-Images of a Golden Hour 2026 — through Nov 1, 2026",
+      "opening": ""
+    },
+    {
+      "name": "56 HENRY",
+      "address": "46 Walker St, New York, NY 10013",
+      "lat": 40.7193021,
+      "lon": -74.0035319,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Christopher K. Ho, Waterloo!: September 9 – October 23, 2026",
+      "onView": "",
+      "opening": ""
+    },
+    {
+      "name": "Bienvenu Steinberg & C",
+      "address": "35 Walker St, New York, NY 10013",
+      "lat": 40.719253,
+      "lon": -74.0040698,
+      "tags": [
+        "lowermanhattan",
+        "loop 1",
+        "tribeca"
+      ],
+      "note": "Raphaël Denis, Fates of Works September 3 – October 3, 2026",
+      "onView": "Between shows (Raphaël Denis, Fates of Works closed Oct 3)",
+      "opening": "Fates of Works opened Sep 2"
+    },
+    {
+      "name": "Bortolami",
+      "address": "39 Walker St, New York, NY 10013",
+      "lat": 40.7190682,
+      "lon": -74.0040133,
+      "tags": [
+        "lowermanhattan",
+        "tribeca"
+      ],
+      "note": "Christine Safa; Yuan Yuan; Daniel Buren, Barbara Kasten — opens Sept 9, 2026",
+      "onView": "Christine Safa (Main Gallery); Yuan Yuan (The Upstairs); Daniel Buren & Barbara Kasten (55 Walker) — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "David Zwirner",
+      "address": "52 Walker St, New York, NY 10013",
+      "lat": 40.7191723,
+      "lon": -74.0032562,
+      "tags": [
+        "lowermanhattan",
+        "lowereastside"
+      ],
+      "note": "Scott Kahn: Silent Night: September 10 - October 17, 2026",
+      "onView": "Emma McIntyre, This body holds / swamp stuff — opened Sep 18, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "The Journal Gallery",
+      "address": "45 White St, New York, NY 10013",
+      "lat": 40.718426,
+      "lon": -74.0043807,
+      "tags": [
+        "lowermanhattan"
+      ],
+      "note": "Mia Goldstein, Handle With Care:  September 9 - October 3, 2026",
+      "onView": "",
+      "opening": ""
+    },
+    {
+      "name": "P·P·O·W Gallery",
+      "address": "392 Broadway, New York, NY 10013",
+      "lat": 40.7182116,
+      "lon": -74.002315,
+      "tags": [
+        "lowermanhattan"
+      ],
+      "note": "Hew Locke, The Wanderers: September 9 – October 24, 2026",
+      "onView": "",
+      "opening": ""
+    },
+    {
+      "name": "Andrew Kreps Gallery",
+      "address": "394 Broadway, New York, NY 10013",
+      "lat": 40.7183989,
+      "lon": -74.0025698,
+      "tags": [
+        "lowermanhattan",
+        "tribeca"
+      ],
+      "note": "Andrea Bowers: September 18 – October 31, 2026",
+      "onView": "Kenneth Victor Young (394 Broadway); Andrea Bowers (22 Cortlandt Alley) — Sep 18 – Oct 31, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Tappeto Volante Gallery",
+      "address": "4 Cortlandt Alley, New York, NY 10013",
+      "lat": 40.7174117,
+      "lon": -74.0027746,
+      "tags": [
+        "lowermanhattan"
+      ],
+      "note": "Kin Terrains, Bascha Mon Solo Show: September 9 - October 24, 2026",
+      "onView": "",
+      "opening": ""
+    },
+    {
+      "name": "Silke Lindner",
+      "address": "350 Broadway, New York, NY 10013",
+      "lat": 40.7169612,
+      "lon": -74.0036939,
+      "tags": [
+        "lowermanhattan",
+        "tribeca"
+      ],
+      "note": "Gozié Ojini, Careworn: September 9 — October 24, 2026",
+      "onView": "Gozié Ojini, Careworn — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Bowery Gallery",
+      "address": "547 West 27th St, Suite 508, New York, NY 10001",
+      "lat": 40.7513002,
+      "lon": -74.004346,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "Hearne Pardee, Landscaping: September 8 - October 3, 2026",
+      "onView": "Between shows (Hearne Pardee, Landscaping closed Oct 3)",
+      "opening": ""
+    },
+    {
+      "name": "Ceres Gallery New York",
+      "address": "547 W 27th St #201, New York, NY 10001",
+      "lat": 40.7513002,
+      "lon": -74.004346,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "Elizabeth Downer Riker, The Understory: September 8 – October 3, 2026",
+      "onView": "Between shows (Elizabeth Downer Riker and Jane Seavers closed Oct 3)",
+      "opening": ""
+    },
+    {
+      "name": "Grolier Club",
+      "address": "47 E 60th St, New York, NY 10022",
+      "lat": 40.7640195,
+      "lon": -73.9699171,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "Pioneers in Hand Papermaking: 50 Years of Innovation at Dieu Donné: Sept 8 – Nov 28, 2026",
+      "onView": "Pioneers in Hand Papermaking: 50 Years of Innovation at Dieu Donné — Sep 8 – Nov 28, 2026",
+      "opening": "Tue, Sep 8, 6–8pm"
+    },
+    {
+      "name": "Nicelle Beauchene",
+      "address": "7 Franklin Place, New York, NY 10013",
+      "lat": 40.7179994,
+      "lon": -74.0038447,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Alice Tippit, Blue State; Lucy Puls, Righting — opens Sept 9, 2026",
+      "onView": "Alice Tippit, Blue State; Lucy Puls, Righting — Sep 9 – Oct 10, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Matthew Brown",
+      "address": "390 Broadway, New York, NY 10013",
+      "lat": 40.7182401,
+      "lon": -74.0030498,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Carroll Dunham — opens Sept 9, 2026",
+      "onView": "Carroll Dunham — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "CANADA",
+      "address": "60 Lispenard Street, New York, NY 10013",
+      "lat": 40.7192723,
+      "lon": -74.0028823,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Scott Reeder, ideas contd. — opens Sept 9, 2026",
+      "onView": "Scott Reeder, ideas contd. — Sep 9 – Oct 17, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Chapter NY",
+      "address": "60 Walker Street, New York, NY 10013",
+      "lat": 40.7190002,
+      "lon": -74.0029715,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Alix Vernet; Giuseppe Francalanza — opens Sept 9, 2026",
+      "onView": "Alix Vernet, Landmarks; Giuseppe Francalanza, All of My Angels Wear a Rag: I The Tuner — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Chart",
+      "address": "74 Franklin Street, New York, NY 10013",
+      "lat": 40.7179166,
+      "lon": -74.0042953,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Anna Ortiz, Shapeshifter — opens Sept 9, 2026",
+      "onView": "Anna Ortiz, Shapeshifter — Sep 9 – Oct 31, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "D.D.D.D. Pictures",
+      "address": "79 Leonard Street, New York, NY 10013",
+      "lat": 40.7174449,
+      "lon": -74.0049858,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "anna t Gregor; Stefan Reiterer — opens Sept 9, 2026",
+      "onView": "Anna T. Gregor, collected essays; Stefan Reiterer, Two Things Can Be True — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Dimin",
+      "address": "406 Broadway, New York, NY 10013",
+      "lat": 40.7187957,
+      "lon": -74.0020536,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Taj Poscé, looking up from here — opens Sept 9, 2026",
+      "onView": "Taj Poscé, looking up from here — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Anat Ebgi",
+      "address": "372 Broadway, New York, NY 10013",
+      "lat": 40.7176002,
+      "lon": -74.0029122,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Soumya Netrabile, Field Conditions — opens Sept 9, 2026",
+      "onView": "Soumya Netrabile, Field Conditions; Alannah Farrell, Solastalgia — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Andrew Edlin Gallery",
+      "address": "392 Broadway, New York, NY 10013",
+      "lat": 40.7182116,
+      "lon": -74.002315,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Conduits of the Unseen — opens Sept 9, 2026",
+      "onView": "Conduits of the Unseen: Women Artists Imagine Other Worlds — Sep 9 – Oct 31, 2026",
+      "opening": "Wed, Sep 9, 6–8pm. Curators' talk — Wed, Sep 30, 6pm"
+    },
+    {
+      "name": "Derek Eller Gallery",
+      "address": "38 Walker Street, New York, NY 10013",
+      "lat": 40.7194586,
+      "lon": -74.003844,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Julia Bland; Antone Könst — opens Sept 9, 2026",
+      "onView": "Julia Bland, If Blue is a Holy Color; Antone Könst, Curtsy — Sep 9 – Oct 10, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Freight + Volume",
+      "address": "39 Lispenard Street, New York, NY 10013",
+      "lat": 40.7199054,
+      "lon": -74.003348,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Mary DeVincentis — opens Sept 9, 2026",
+      "onView": "Mary DeVincentis, Like a Star at Dawn — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Asya Geisberg Gallery",
+      "address": "45 White Street, New York, NY 10013",
+      "lat": 40.718426,
+      "lon": -74.0043807,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Rebecca Morgan, Painting in the Apocalypse — opens Sept 9, 2026",
+      "onView": "Rebecca Morgan, Painting in the Apocalypse — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Alexander Gray Associates",
+      "address": "384 Broadway, New York, NY 10013",
+      "lat": 40.7180728,
+      "lon": -74.0026345,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "People Make Art: Tribute to Melvin Edwards — opens Sept 9, 2026",
+      "onView": "People Make Art: A Tribute to Melvin Edwards — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Grimm",
+      "address": "54 White Street, New York, NY 10013",
+      "lat": 40.7185657,
+      "lon": -74.0037378,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Volker Hüller, Angelus Novus — opens Sept 9, 2026",
+      "onView": "Volker Hüller, Angelus Novus; Matthias Franz, die dünne Haut der Zivilisation — Sep 9 – Oct 31, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Hesse Flatow",
+      "address": "77 Franklin Street, New York, NY 10013",
+      "lat": 40.7177279,
+      "lon": -74.0045307,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Lizzie Gill; Paloma Izquierdo — opens Sept 9, 2026",
+      "onView": "Lizzie Gill, Carousel; Paloma Izquierdo, carrier — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "High Noon",
+      "address": "68 Reade Street, New York, NY 10007",
+      "lat": 40.7152607,
+      "lon": -74.0066838,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Bobbie Oliver, Field Work — opens Sept 9, 2026",
+      "onView": "Bobbie Oliver, Field Work — Sep 9 – Oct 24, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "The Journal",
+      "address": "45 White Street, New York, NY 10013",
+      "lat": 40.718426,
+      "lon": -74.0043807,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Mia Goldstein, Handle with Care — opens Sept 9, 2026",
+      "onView": "Between shows (Mia Goldstein, Handle with Care closed Oct 3)",
+      "opening": ""
+    },
+    {
+      "name": "Klaus von Nichtssagend",
+      "address": "87 Franklin Street, New York, NY 10013",
+      "lat": 40.7178808,
+      "lon": -74.004886,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Mark Armijo McKnight — opens Sept 9, 2026",
+      "onView": "Mark Armijo McKnight, Cut the World — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Jane Lombard Gallery",
+      "address": "58 White Street, New York, NY 10013",
+      "lat": 40.7185137,
+      "lon": -74.0036104,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Karolina Maszkiewicz, Tending the Wild — opens Sept 9, 2026",
+      "onView": "Karolina Maszkiewicz, Tending the Wild; Howard Smith, Tomorrow Isn't Yesterday — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Mendes Wood DM",
+      "address": "47 Walker Street, New York, NY 10013",
+      "lat": 40.7190123,
+      "lon": -74.0036997,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Vojtěch Kovařík — opens Sept 9, 2026",
+      "onView": "Vojtěch Kovařík — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Charles Moffett Gallery",
+      "address": "394 Broadway, New York, NY 10013",
+      "lat": 40.7183989,
+      "lon": -74.0025698,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Melissa Joseph, Casserole Culture — opens Sept 9, 2026",
+      "onView": "Melissa Joseph, Casserole Culture — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "David Nolan",
+      "address": "74 Leonard Street, New York, NY 10013",
+      "lat": 40.7172904,
+      "lon": -74.0053843,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Valerio Adami — opens Sept 9, 2026",
+      "onView": "Valerio Adami, Alice in the Land of Violence — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Oolong Gallery",
+      "address": "4 Cortlandt Alley, New York, NY 10013",
+      "lat": 40.7174117,
+      "lon": -74.0027746,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Sally Scopa, Ready for the Ceremony — opens Sept 9, 2026",
+      "onView": "Sally Scopa, Ready for the Ceremony — Sep 9 – Oct 25, 2026",
+      "opening": "Wed, Sep 9, 6–8pm. Artist talk with Sally Scopa — Sat, Oct 3, 3pm"
+    },
+    {
+      "name": "P.P.O.W.",
+      "address": "392 Broadway, New York, NY 10013",
+      "lat": 40.7182116,
+      "lon": -74.002315,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Michael Wilkinson, Fluorochiaroscuro — opens Sept 9, 2026",
+      "onView": "Michael Wilkinson, Fluorochiaroscuro — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "RAINRAIN",
+      "address": "110 Lafayette Street, New York, NY 10013",
+      "lat": 40.7182516,
+      "lon": -74.000929,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Lorna Bauer, Peter Brock, Mira Dayal, Emma Safir — opens Sept 9, 2026",
+      "onView": "By Ear: Lorna Bauer, Peter Brock, Mira Dayal, Emma Safir — Sep 9 – Oct 10, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Ellie Rines Gallery (fka 56 Henry)",
+      "address": "46 Walker Street, New York, NY 10013",
+      "lat": 40.7193021,
+      "lon": -74.0035319,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Christopher K. Ho, Waterloo! — opens Sept 9, 2026",
+      "onView": "Christopher K. Ho, Waterloo! — Sep 9 – Oct 23, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Margot Samel",
+      "address": "295 Church Street, New York, NY 10013",
+      "lat": 40.7191405,
+      "lon": -74.0043643,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Narcissister — opens Sept 9, 2026",
+      "onView": "Narcissister, Albert's Paintings, Rachel's Dress — Sep 9 – Oct 10, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Sargent's Daughters",
+      "address": "370 Broadway, New York, NY 10013",
+      "lat": 40.7175084,
+      "lon": -74.0030014,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Sarah Zapata — opens Sept 9, 2026",
+      "onView": "Sarah Zapata, In escape from the vices of idleness — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Shrine",
+      "address": "368 Broadway, New York, NY 10013",
+      "lat": 40.7175678,
+      "lon": -74.0032549,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Rasmus Eckhardt, Passing Light — opens Sept 9, 2026",
+      "onView": "Rasmus Eckhardt, Passing Light — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Tappeto Volante Projects",
+      "address": "4 Cortlandt Alley, New York, NY 10013",
+      "lat": 40.7174117,
+      "lon": -74.0027746,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Bascha Mon, Solo Show — opens Sept 9, 2026",
+      "onView": "Bascha Mon, Solo Show — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Cristin Tierney Gallery",
+      "address": "49 Walker Street, New York, NY 10013",
+      "lat": 40.7189163,
+      "lon": -74.0035683,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Janet Biggs, Path of Totality — opens Sept 9, 2026",
+      "onView": "Janet Biggs, Path of Totality — Sep 9 – Oct 24, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Hoffman Donahue",
+      "address": "99 Bowery, New York, NY 10002",
+      "lat": 40.7173964,
+      "lon": -73.9949726,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Ulrike Müller — opens Sept 9, 2026",
+      "onView": "Ulrike Müller — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Tara Downs",
+      "address": "96 Bowery, New York, NY 10013",
+      "lat": 40.7176817,
+      "lon": -73.9955657,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Nizhonniya Austin, Trying to Be Alaska — opens Sept 9, 2026",
+      "onView": "Nizhonniya Austin, Trying to Be Alaska — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Fridman Gallery",
+      "address": "169 Bowery, New York, NY 10002",
+      "lat": 40.7198478,
+      "lon": -73.9937108,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Dindga McCannon — opens Sept 9, 2026",
+      "onView": "Dindga McCannon, Yesterday and Today — Sep 9 – Oct 14, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Frosch & Co",
+      "address": "34 East Broadway, New York, NY 10002",
+      "lat": 40.7137253,
+      "lon": -73.9964018,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Seth Michael Forman — opens Sept 9, 2026",
+      "onView": "Seth Michael Forman — Sep 9 – Oct 18, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Sebastian Gladstone",
+      "address": "291 Grand Street, New York, NY 10002",
+      "lat": 40.717127,
+      "lon": -73.9923749,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Herman Cherry — opens Sept 9, 2026",
+      "onView": "Herman Cherry, Rivers from 30,000 Feet — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Helm Contemporary",
+      "address": "132 Bowery, New York, NY 10013",
+      "lat": 40.7189498,
+      "lon": -73.9948983,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Linsey Walt, the Measure of things — opens Sept 9, 2026",
+      "onView": "Between shows (Linsey Walt, the Measure of things closed Oct 3)",
+      "opening": ""
+    },
+    {
+      "name": "Nathalie Karg",
+      "address": "127 Elizabeth St, New York, NY 10013",
+      "lat": 40.719567,
+      "lon": -73.9955961,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Peter Barrickman — opens Sept 9, 2026",
+      "onView": "Peter Barrickman, Things Continue Anyway — Sep 9 – Oct 10, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Magenta Plains",
+      "address": "149 Canal Street, New York, NY 10002",
+      "lat": 40.7164326,
+      "lon": -73.9954743,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "10 Year Anniversary — opens Sept 9, 2026",
+      "onView": "10 Year Anniversary — Sep 9 – Oct 31, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Management",
+      "address": "39 East Broadway, New York, NY 10002",
+      "lat": 40.713348,
+      "lon": -73.996191,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Nana Wolke, Halfway out to Heaven — opens Sept 9, 2026",
+      "onView": "Nana Wolke, Halfway out to Heaven — Sep 9 – Oct 18, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "JJ Murphy Gallery",
+      "address": "53 Stanton Street, New York, NY 10002",
+      "lat": 40.7218861,
+      "lon": -73.9903592,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Mala Iqbal, Among Us — opens Sept 9, 2026",
+      "onView": "Mala Iqbal, Among Us — opened Sep 9, 2026",
+      "opening": "Wed, Sep 9, 6–8pm. Next: Brenda Goodman, Pieces of Time — opens Oct 14, 2026"
+    },
+    {
+      "name": "Perrotin",
+      "address": "130 Orchard Street, New York, NY 10002",
+      "lat": 40.7195883,
+      "lon": -73.9892322,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Nikki Maloof, Menagerie — opens Sept 9, 2026",
+      "onView": "Nikki Maloof, Menagerie; Aryo Toh Djojo, Leap into the Void; Young-Il Ahn, Self Reflections — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Peter Blum",
+      "address": "176 Grand Street, New York, NY 10013",
+      "lat": 40.719663,
+      "lon": -73.997675,
+      "tags": [
+        "soho"
+      ],
+      "note": "Paul Fägerskiöld, Ergosphere — opens Sept 9, 2026",
+      "onView": "Paul Fägerskiöld, Ergosphere — Sep 9 – Oct 31, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Garth Greenan",
+      "address": "25 Greene Street, New York, NY 10013",
+      "lat": 40.7212682,
+      "lon": -74.0028147,
+      "tags": [
+        "soho"
+      ],
+      "note": "Cannupa Hanska Luger; Rosalyn Drexler — opens Sept 9, 2026",
+      "onView": "Cannupa Hanska Luger, American Traditional; Rosalyn Drexler, My Life Has a Life of Its Own — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "YveYang",
+      "address": "12 Wooster Street, New York, NY 10013",
+      "lat": 40.7212579,
+      "lon": -74.0033155,
+      "tags": [
+        "soho"
+      ],
+      "note": "Anastazie Anderson, The Children's Villa — opens Sept 9, 2026",
+      "onView": "Huidi Xiang, The Tail Remembers; Anastazie Anderson, The Children's Villa — Sep 9 – Oct 31, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Alexander Berggruen",
+      "address": "1018 Madison Avenue, New York, NY 10075",
+      "lat": 40.7759974,
+      "lon": -73.9625966,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "Danny Fox, Fata Morgana — opens Sept 9, 2026",
+      "onView": "Danny Fox, Fata Morgana — Sep 9 – Oct 7, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Post Times",
+      "address": "29 Henry Street, New York, NY 10002",
+      "lat": 40.7129936,
+      "lon": -73.9964002,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Michael Assiff, USA Flowers — opens Sept 9, 2026",
+      "onView": "Michael Assiff, USA Flowers — Sep 9 – Oct 18, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Opera Gallery",
+      "address": "827 Madison Ave, New York, NY 10065",
+      "lat": 40.7696364,
+      "lon": -73.9666754,
+      "tags": [
+        "uppereastside",
+        "art"
+      ],
+      "note": "",
+      "onView": "Xevi Solà, One Year – Scenes in Time — Jul 10 – Oct 20, 2026 (the gallery's location has changed; confirm before visiting)",
+      "opening": ""
+    },
+    {
+      "name": "2073 Adam Clayton Powell Jr Blvd",
+      "address": "40.8079221, -73.9486624",
+      "lat": 40.8079221,
+      "lon": -73.9486624,
+      "tags": [
+        "harlem"
+      ],
+      "note": "",
+      "onView": "Alexandria Smith, The Three Graces — Sep 13 – Nov 15, 2026",
+      "opening": "Sun, Sep 13"
+    },
+    {
+      "name": "Cooper Hewitt, Smithsonian Design Museum",
+      "address": "2 E 91st St, New York, NY 10128",
+      "lat": 40.7842946,
+      "lon": -73.9578179,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Made in America: The Industrial Photography of Christopher Payne — through fall 2026 (check dates)",
+      "opening": "Opened Dec 12, 2025. Pay-what-you-wish daily 5–6pm"
+    },
+    {
+      "name": "New York Public Library, Schwarzman Building",
+      "address": "476 5th Ave, New York, NY 10018",
+      "lat": 40.7531823,
+      "lon": -73.9822534,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "The Polonsky Exhibition of The New York Public Library's Treasures — ongoing",
+      "opening": ""
+    },
+    {
+      "name": "225 Madison Ave",
+      "address": "40.7491829, -73.9813041",
+      "lat": 40.7491829,
+      "lon": -73.9813041,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "Hujar: Contact; Friends Who Came to See Me: Drawing from John Ashbery's Collection — through Oct 25, 2026 (Tarot! closes today, Oct 4)",
+      "opening": "Hujar: Contact opened May 22; Ashbery drawings opened May 1"
+    },
+    {
+      "name": "1230 5th Ave",
+      "address": "40.7930766, -73.9513662",
+      "lat": 40.7930766,
+      "lon": -73.9513662,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Teddy Sandoval and the Butch Gardens School of Art — Sep 10, 2026 – Jan 10, 2027",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "20 Rockefeller Plaza",
+      "address": "40.7584233, -73.9797890",
+      "lat": 40.7584233,
+      "lon": -73.979789,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "No public exhibition listed for early October — check christies.com for upcoming sale previews",
+      "opening": ""
+    },
+    {
+      "name": "432 Park Ave",
+      "address": "40.7614204, -73.9720131",
+      "lat": 40.7614204,
+      "lon": -73.9720131,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "Photographs auction preview — sale Thu, Oct 8, 2026, 10am (check phillips.com for viewing hours)",
+      "opening": ""
+    },
+    {
+      "name": "744 Madison Ave",
+      "address": "40.7671830, -73.9690548",
+      "lat": 40.767183,
+      "lon": -73.9690548,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "No current gallery exhibition listed (secondary-market gallery; by appointment)",
+      "opening": ""
+    },
+    {
+      "name": "47 E 60th St",
+      "address": "40.7640195, -73.9699171",
+      "lat": 40.7640195,
+      "lon": -73.9699171,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Pioneers in Hand Papermaking: 50 Years of Innovation at Dieu Donné — Sep 8 – Nov 28, 2026",
+      "opening": "Tue, Sep 8, 6–8pm"
+    },
+    {
+      "name": "621 E 11th St",
+      "address": "40.7272055, -73.9782443",
+      "lat": 40.7272055,
+      "lon": -73.9782443,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Couldn't confirm a current show (last listed: Group Exhibition, Sep 1 – 13)",
+      "opening": ""
+    },
+    {
+      "name": "219 E 2nd St",
+      "address": "40.7216689, -73.9830306",
+      "lat": 40.7216689,
+      "lon": -73.9830306,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Turntable: Visions of the Jazzmen — Oct 3 – Dec 5, 2026",
+      "opening": "Sat, Oct 3, 3–6pm"
+    },
+    {
+      "name": "68 Orchard St",
+      "address": "40.7174263, -73.9903281",
+      "lat": 40.7174263,
+      "lon": -73.9903281,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Spazio e Forma: Lucio Fontana & Carla Prina — through Oct 23, 2026; Qin Shen, Like Birds, Toward Their Mountain — opened Sep 24, 2026",
+      "opening": "Qin Shen: Thu, Sep 24"
+    },
+    {
+      "name": "Marc Straus",
+      "address": "299 Grand St, New York, NY 10002",
+      "lat": 40.7174112,
+      "lon": -73.9919508,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Otis Jones, Continuum",
+      "onView": "The Prime of Your Life — Sep 18 – Oct 31, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "19 Henry St",
+      "address": "40.7129331, -73.9969428",
+      "lat": 40.7129331,
+      "lon": -73.9969428,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Closed — the gallery shut its doors July 2, 2026",
+      "opening": ""
+    },
+    {
+      "name": "Norr Cohan (fka James Cohan)",
+      "address": "52 Walker St, New York, NY 10013",
+      "lat": 40.7191723,
+      "lon": -74.0032562,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Vicky Colombet, Memory of the Surface",
+      "onView": "Vicky Colombet, Memory of the Surface (52 Walker) — Sep 17 – Oct 24, 2026; Savdie / Soutine (48 Walker) — Sep 10 – Oct 24, 2026",
+      "opening": "Savdie / Soutine: Thu, Sep 10, 6–8pm; Vicky Colombet: Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Marinaro",
+      "address": "86 Walker Street, New York, NY 10013",
+      "lat": 40.7182973,
+      "lon": -74.0013391,
+      "tags": [
+        "lowereastside",
+        "tribeca"
+      ],
+      "note": "Brenda Mallory — opens Sept 9, 2026",
+      "onView": "Brenda Mallory, Of Seasons and Cycles — Sep 9 – Oct 24, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Victoria Munroe Fine Art",
+      "address": "67 East 80th St, New York, NY 10075",
+      "lat": 40.7768222,
+      "lon": -73.9604113,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "Sachiko Morita, Raja Ram Sharma, Kathryn Lynch — opens Sept 9, 2026",
+      "onView": "Between shows (last show closed Oct 3)",
+      "opening": "Next: Bob Weinstein, Constellations — Oct 14 – Dec 12, 2026"
+    },
+    {
+      "name": "547 W 27th St",
+      "address": "40.7513002, -74.0043460",
+      "lat": 40.7513002,
+      "lon": -74.004346,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "",
+      "opening": ""
+    },
+    {
+      "name": "Guggenheim Museum",
+      "address": "1071 5th Ave, New York, NY 10128",
+      "lat": 40.7829796,
+      "lon": -73.9589706,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Taryn Simon, Father Country I Do Love You — Sep 18, 2026 – Mar 14, 2027; Guggenheim Pop: 1960 to Now — through Jan 10, 2027",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Salon 94",
+      "address": "3 E 89th St, New York, NY 10128",
+      "lat": 40.783428,
+      "lon": -73.958326,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Anthea Hamilton, Comfort Zones — Sep 16 – Oct 24, 2026; Gaetano Pesce, A chair is a nest, is a foot, is a…",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "Whitney Museum of American Art",
+      "address": "99 Gansevoort St, New York, NY 10014",
+      "lat": 40.7395877,
+      "lon": -74.0088629,
+      "tags": [
+        "meatpacking"
+      ],
+      "note": "",
+      "onView": "Coumba Samba, Stars and Stripes — Sep 19, 2026 – Jan 18, 2027; The Lost World: The Art of Minnie Evans — through Jan 10, 2027; Andy Warhol: Family Album — through Oct 19, 2026",
+      "opening": "Coumba Samba: Sat, Sep 19. Next: Roy Lichtenstein: Like New opens Oct 11, 2026"
+    },
+    {
+      "name": "The Metropolitan Museum of Art",
+      "address": "1000 5th Ave, New York, NY 10028",
+      "lat": 40.7794366,
+      "lon": -73.963244,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Krasner and Pollock: Past Continuous — Oct 4, 2026 – Jan 31, 2027; There Are No Words: Si Lewen's Parade — Oct 1, 2026 – Jan 5, 2027; David Hartt: Peripheries — Sep 25, 2026 – Feb 7, 2027; Costume Art — through Jan 10, 2027; Liu Wei, Genesis Facade Commission — Sep 17, 2026 – Jun 8, 2027",
+      "opening": "Krasner and Pollock opened Sun, Oct 4; Liu Wei facade: Thu, Sep 17"
+    },
+    {
+      "name": "Craig Starr Gallery",
+      "address": "5 E 73rd St, New York, NY 10021",
+      "lat": 40.7730401,
+      "lon": -73.9657441,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Louise Bourgeois, Germinal — Sep 17, 2026 – Jan 16, 2027",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Van Doren Waxter",
+      "address": "23 E 73rd St, New York, NY 10021",
+      "lat": 40.7728059,
+      "lon": -73.9652032,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Zoe Longfield, A World of One's Own — Sep 17 – Nov 14, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Sous Les Etoiles Gallery",
+      "address": "16 E 71st St, New York, NY 10021",
+      "lat": 40.7712321,
+      "lon": -73.9664513,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Sophie Delaporte, The Thread Between — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Alexandre Gallery",
+      "address": "25 E 73rd St, New York, NY 10021",
+      "lat": 40.7727768,
+      "lon": -73.9651343,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Lisa Sanditz, Missing Mountain — Sep 18 – Nov 7, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Bookstein Projects",
+      "address": "39 E 78th St, New York, NY 10075",
+      "lat": 40.77566,
+      "lon": -73.9622189,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Olive Ayhens & Ezra Johnson, Call Mom — Sep 17 – Oct 23, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Sprüth Magers",
+      "address": "22 E 80th St, New York, NY 10075",
+      "lat": 40.7770008,
+      "lon": -73.9621343,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Thea Djordjadze, A Well of Night — Sep 18 – Oct 24, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Gagosian (Madison Ave)",
+      "address": "980 Madison Ave, New York, NY 10075",
+      "lat": 40.7747652,
+      "lon": -73.9635069,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Bea Scaccia, Groomed — Sep 22 – Dec 23, 2026",
+      "opening": "Tue, Sep 22"
+    },
+    {
+      "name": "Bonner David Galleries",
+      "address": "4 E 81st St, New York, NY 10028",
+      "lat": 40.7778977,
+      "lon": -73.9623427,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Garden Party — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Lévy Gorvy Dayan",
+      "address": "19 E 64th St, New York, NY 10065",
+      "lat": 40.767004,
+      "lon": -73.9693969,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Pierre Soulages, Paintings on Paper; Wangari Mathenge, Re-membering — Sep 17 – Oct 24, 2026; Inma Barrero, MOTHERS — Sep 17 – Oct 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Americas Society",
+      "address": "680 Park Ave, New York, NY 10065",
+      "lat": 40.7688243,
+      "lon": -73.9659624,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "",
+      "onView": "Telenovela — opened Sep 9, 2026",
+      "opening": "Telenovela — Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Gladstone Gallery",
+      "address": "515 W 24th St, New York, NY 10011",
+      "lat": 40.7489324,
+      "lon": -74.0044772,
+      "tags": [
+        "chelsea",
+        "loop 1"
+      ],
+      "note": "",
+      "onView": "Joseph Yaeger, Agita (24th Street) — Sep 16 – Oct 31, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "Lisson Gallery",
+      "address": "508 W 24th St, New York, NY 10011",
+      "lat": 40.748487,
+      "lon": -74.004583,
+      "tags": [
+        "chelsea",
+        "loop 1"
+      ],
+      "note": "",
+      "onView": "Hiroshi Sugimoto, Unnatural Habitat; Leonilson — Sep 15 – Oct 24, 2026",
+      "opening": "Tue, Sep 15, 6–8pm"
+    },
+    {
+      "name": "Petzel",
+      "address": "520 W 25th St, New York, NY 10001",
+      "lat": 40.7492298,
+      "lon": -74.0044496,
+      "tags": [
+        "chelsea",
+        "loop 1"
+      ],
+      "note": "",
+      "onView": "Emily Mae Smith, Transit of Venus; Ross Bleckner, Octopus — Sep 17 – Oct 24, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Friedman Benda",
+      "address": "515 W 26th St, New York, NY 10001",
+      "lat": 40.7501015,
+      "lon": -74.0035333,
+      "tags": [
+        "chelsea",
+        "loop 2"
+      ],
+      "note": "",
+      "onView": "Wendell Castle, Living — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Hill Art Foundation",
+      "address": "239 10th Ave, New York, NY 10001",
+      "lat": 40.7485756,
+      "lon": -74.0038234,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Thucydides Fever Dream — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm. Talk: Thomas Crow — Mon, Oct 5, 6:30pm (doors 6pm)"
+    },
+    {
+      "name": "National Academy of Design",
+      "address": "519 W 26th St, New York, NY 10001",
+      "lat": 40.7501728,
+      "lon": -74.00356,
+      "tags": [
+        "chelsea",
+        "loop 2"
+      ],
+      "note": "",
+      "onView": "Shelter from the Storm: An Artist's Eye with Stan Allen and Polly Apfelbaum — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Thomas Erben Gallery",
+      "address": "526 W 26th St, New York, NY 10001",
+      "lat": 40.749987,
+      "lon": -74.00439,
+      "tags": [
+        "chelsea",
+        "loop 2"
+      ],
+      "note": "",
+      "onView": "Mike Cloud, Suitcase Paintings — Sep 17 – Oct 24, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Satchel Projects",
+      "address": "526 W 26th St, New York, NY 10001",
+      "lat": 40.7500522,
+      "lon": -74.0042667,
+      "tags": [
+        "chelsea",
+        "loop 2"
+      ],
+      "note": "",
+      "onView": "James Esber, My Thing, Your Thing, and the Thing Itself — through Oct 24, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Harper's",
+      "address": "534 W 22nd St, New York, NY 10011",
+      "lat": 40.7476328,
+      "lon": -74.0064163,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Marc Dennis, Sugar on My Tongue — Sep 10 – Oct 17, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "ACA Galleries",
+      "address": "173 10th Ave, New York, NY 10011",
+      "lat": 40.7460003,
+      "lon": -74.0056317,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Taking up Space: New Works by Kandy G Lopez — Sep 10 – Oct 24, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Bruce Silverstein Gallery",
+      "address": "529 W 20th St, New York, NY 10011",
+      "lat": 40.7465831,
+      "lon": -74.0067873,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Sarah Sense, Land, Line, Blood, Memory — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Ricco/Maresca Gallery",
+      "address": "529 W 20th St, New York, NY 10011",
+      "lat": 40.7465347,
+      "lon": -74.0068307,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Kate Berry Brown, Holding Form; Leopold Strobl, Underneath — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Hunter Dunbar Projects",
+      "address": "524 W 24th St, New York, NY 10011",
+      "lat": 40.7487945,
+      "lon": -74.0051825,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Park Kwang-Jin, Seeker of Nature — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Print Center New York",
+      "address": "535 W 24th St, New York, NY 10011",
+      "lat": 40.7491925,
+      "lon": -74.0052759,
+      "tags": [
+        "chelsea",
+        "loop 1"
+      ],
+      "note": "",
+      "onView": "Parasol Press: Breaking New Ground; Caroline Ongpin, Passage; Mira Dayal, Nets — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Gagosian (Chelsea)",
+      "address": "555 W 24th St, New York, NY 10011",
+      "lat": 40.7494887,
+      "lon": -74.0058521,
+      "tags": [
+        "chelsea",
+        "loop 1"
+      ],
+      "note": "",
+      "onView": "Jordan Wolfson (555 W 24th) — Sep 18 – Oct 24, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Gallery Henoch",
+      "address": "555 W 25th St, New York, NY 10001",
+      "lat": 40.7501181,
+      "lon": -74.0052766,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Igor & Marina, The Garden of Invisible Birds — Sep 17 – Oct 10, 2026",
+      "opening": "Next: John Evans, The Shape of Stillness — opens Oct 15, 2026"
+    },
+    {
+      "name": "Philippe Labaune Gallery",
+      "address": "534 W 24th St, New York, NY 10011",
+      "lat": 40.7489974,
+      "lon": -74.0054359,
+      "tags": [
+        "chelsea",
+        "loop 1"
+      ],
+      "note": "",
+      "onView": "Mike Mignola, Circus of Bones — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Printed Matter",
+      "address": "231 11th Ave, New York, NY 10001",
+      "lat": 40.7506953,
+      "lon": -74.0059269,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "New Openings Against Old Surfaces: On Gordon Matta-Clark's Walls Paper — Sep 9 – Nov 29, 2026",
+      "opening": "Book event: Melissa Auf der Maur, My '90s Rock Photographs — Thu, Oct 1, 6–8pm"
+    },
+    {
+      "name": "Prince Street Gallery",
+      "address": "547 W 27th St, Suite 504, New York, NY 10001",
+      "lat": 40.751227,
+      "lon": -74.0043508,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Between shows (Marcie Bronkar closed Oct 3)",
+      "opening": "Next: Rani Carson & Flavia Bacarella — Oct 6 – 31, 2026"
+    },
+    {
+      "name": "The Painting Center",
+      "address": "547 W 27th St, Suite 500, New York, NY 10001",
+      "lat": 40.751259,
+      "lon": -74.0043461,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Kathleen Beausoleil, Meet at the Ferris Wheel; Ellen Starr Lyon, Nesting Rituals — Sep 29 – Oct 24, 2026",
+      "opening": "Tue, Sep 29, 6–8pm"
+    },
+    {
+      "name": "Polina Berlin Gallery",
+      "address": "121 W 27th St, New York, NY 10001",
+      "lat": 40.7460684,
+      "lon": -73.9919615,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Karlīna Mežecka, Leave Me Where I Lay — Sep 17 – Oct 24, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "The 8th Floor",
+      "address": "17 W 17th St, New York, NY 10011",
+      "lat": 40.738569,
+      "lon": -73.993225,
+      "tags": [
+        "flatiron"
+      ],
+      "note": "",
+      "onView": "Carlos Martiel, Dark Age — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "A Hug From The Art World",
+      "address": "112 10th Ave, New York, NY 10011",
+      "lat": 40.7439014,
+      "lon": -74.0067059,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Jason Mason, Two Nails, Two Globes, a Lipstick, and a Wave — Sep 10 – Oct 24, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "SPACS",
+      "address": "149 W 27th St, New York, NY 10001",
+      "lat": 40.7464463,
+      "lon": -73.9928568,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Yu-Hsu Chou, Finite Matter, Infinite Image — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "The Museum at FIT",
+      "address": "227 W 27th St, New York, NY 10001",
+      "lat": 40.7464494,
+      "lon": -73.994427,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Doll Dressing — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "Dietl International",
+      "address": "207 W 25th St, New York, NY 10001",
+      "lat": 40.7457167,
+      "lon": -73.9952779,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Mike Lee, SIGN LANGUAGE — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Picture Theory",
+      "address": "548 W 28th St, New York, NY 10001",
+      "lat": 40.7515661,
+      "lon": -74.0041872,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Obi Agwam, Faith Be My Wings; Architecture of Longing — Sep 17 – Oct 24, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Aperture",
+      "address": "380 Columbus Ave, New York, NY 10024",
+      "lat": 40.7815674,
+      "lon": -73.976107,
+      "tags": [
+        "upperwestside"
+      ],
+      "note": "",
+      "onView": "Aperture Loves New York — opened Sep 18, 2026",
+      "opening": "Fri, Sep 18, 6–8pm. Artist talk: Stephen Shore with Lucy Gallun — Sat, Oct 3, 1pm"
+    },
+    {
+      "name": "Peter Freeman, Inc.",
+      "address": "140 Grand St, New York, NY 10013",
+      "lat": 40.7203746,
+      "lon": -73.999432,
+      "tags": [
+        "soho"
+      ],
+      "note": "",
+      "onView": "John Dilg, New York — Sep 15 – Oct 24, 2026",
+      "opening": "Tue, Sep 15, 6–8pm"
+    },
+    {
+      "name": "Nino Mier Gallery",
+      "address": "62 Crosby St, New York, NY 10012",
+      "lat": 40.7223743,
+      "lon": -73.9985751,
+      "tags": [
+        "soho"
+      ],
+      "note": "",
+      "onView": "José Lerma, Thespesia Grandiflora — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Pietro Alexander",
+      "address": "59 Wooster St, New York, NY 10012",
+      "lat": 40.723107,
+      "lon": -74.002198,
+      "tags": [
+        "soho"
+      ],
+      "note": "",
+      "onView": "Luminous Landscapes; Eleven Day Paintings — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Jeffrey Deitch",
+      "address": "18 Wooster St, New York, NY 10013",
+      "lat": 40.721435,
+      "lon": -74.003056,
+      "tags": [
+        "soho"
+      ],
+      "note": "",
+      "onView": "Eddie R. Aparicio, Rubberneckers; Celeste Dupuy-Spencer, Burning in the Eyes — Sep 12 – Oct 31, 2026",
+      "opening": "Sat, Sep 12, 6–8pm"
+    },
+    {
+      "name": "WHAAM!",
+      "address": "15 Elizabeth St, New York, NY 10013",
+      "lat": 40.7160251,
+      "lon": -73.9975514,
+      "tags": [
+        "nolita"
+      ],
+      "note": "",
+      "onView": "Charlie Ahearn, New Paintings — opened Sep 18, 2026",
+      "opening": "Fri, Sep 18, 6–8pm. Artist talk with Charlie Ahearn — Fri, Oct 2, 6pm"
+    },
+    {
+      "name": "Martos Gallery",
+      "address": "41 Elizabeth St, New York, NY 10013",
+      "lat": 40.7169717,
+      "lon": -73.9970059,
+      "tags": [
+        "nolita"
+      ],
+      "note": "",
+      "onView": "Dan Asher, In the I of the Beholder — Sep 18 – Nov 7, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Kerry Schuss Gallery",
+      "address": "73 Leonard St, New York, NY 10013",
+      "lat": 40.7176506,
+      "lon": -74.0052007,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Aaron Birnbaum — Sep 22 – Oct 31, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Off Paradise",
+      "address": "120 Walker St, New York, NY 10013",
+      "lat": 40.7175624,
+      "lon": -73.9997927,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Through — Sep 17 – Nov 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Galerie Sardine",
+      "address": "61 Lispenard St, New York, NY 10013",
+      "lat": 40.7195319,
+      "lon": -74.0026506,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Frederik Nystrup-Larsen, Skin to Skin w. Dog Daisy — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "IRL Gallery",
+      "address": "86 Walker St, New York, NY 10013",
+      "lat": 40.718297,
+      "lon": -74.001339,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Gabriele Grones, The Hidden Garden — opened Sep 18, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "LOMEX",
+      "address": "86 Walker St, New York, NY 10013",
+      "lat": 40.7182973,
+      "lon": -74.0013391,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Andrea Fourchy — opened Sep 18, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Artists Space",
+      "address": "11 Cortlandt Alley, New York, NY 10013",
+      "lat": 40.7178475,
+      "lon": -74.0021591,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Theresa Hak Kyung Cha, Multiple Offerings — opened Sep 11, 2026",
+      "opening": "Fri, Sep 11, 6–8pm. Segue Reading Series: Ken Chen & Cici Wu — Sat, Oct 3, 5pm"
+    },
+    {
+      "name": "Triple Canopy",
+      "address": "264 Canal St, New York, NY 10013",
+      "lat": 40.7185721,
+      "lon": -74.0012127,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "No exhibition listed — events and publications",
+      "opening": ""
+    },
+    {
+      "name": "FIERMAN",
+      "address": "19 Pike St, New York, NY 10002",
+      "lat": 40.7134155,
+      "lon": -73.9922826,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "A Portrait of Me Surrounding All of You: Ten Years of Fierman — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "Kim and Gupta Gallery",
+      "address": "144 E Broadway, New York, NY 10002",
+      "lat": 40.7141516,
+      "lon": -73.9912163,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Hannah Beerman, intramural kissing on the Little Dipper — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "601Artspace",
+      "address": "88 Eldridge St, New York, NY 10002",
+      "lat": 40.71721,
+      "lon": -73.992177,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Leaking Collections — opened Sep 18, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Milton Resnick and Pat Passlof Foundation",
+      "address": "87 Eldridge St, New York, NY 10002",
+      "lat": 40.717335,
+      "lon": -73.992622,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Milton Resnick: Painter in the Age of Painting; Three Material Views — Sep 18, 2026 – Jan 16, 2027",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "Kiang Malingue (New York)",
+      "address": "50 Eldridge St, New York, NY 10002",
+      "lat": 40.7159928,
+      "lon": -73.9927892,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Cho Yong-Ik, The Irreducible — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Hashimoto Contemporary",
+      "address": "54 Ludlow St, New York, NY 10002",
+      "lat": 40.7165611,
+      "lon": -73.9899858,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Mu Pan, Micro MUniverse — through Oct 10, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "Baxter St at the Camera Club of New York",
+      "address": "154 Ludlow St, New York, NY 10002",
+      "lat": 40.720855,
+      "lon": -73.9876562,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Allie Tsubota, Milk Teeth; Azikiwe Mohammed, Where To, From Here — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "International Center of Photography",
+      "address": "84 Ludlow St, New York, NY 10002",
+      "lat": 40.7182297,
+      "lon": -73.989171,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Andrea Hernández Briceño, Fire Becomes Spirit — through Oct 11, 2026 (Fuego Camina Conmigo closes today, Oct 4)",
+      "opening": "Next: I'm So Happy You Are Here: Japanese Women Photographers from the 1950s to Now; Laia Abril: On Rape and Institutional Failure — open Oct 15, 2026"
+    },
+    {
+      "name": "Entrance",
+      "address": "48 Ludlow St, New York, NY 10002",
+      "lat": 40.7163815,
+      "lon": -73.9900542,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Tom Friedman, There's No Such Thing as Art — through Oct 10, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Hannah Traore Gallery",
+      "address": "150 Orchard St, New York, NY 10002",
+      "lat": 40.7206744,
+      "lon": -73.9887405,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "James Perkins, Nonsites Revisited — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Gordon Gallery",
+      "address": "139 Norfolk St, New York, NY 10002",
+      "lat": 40.7201261,
+      "lon": -73.9866616,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Smadar Eliasaf, Groundwork — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Ramiken",
+      "address": "389 Grand St, New York, NY 10002",
+      "lat": 40.7156022,
+      "lon": -73.9877822,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Lucas Quietzsch, Reduction to the Horizontal — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Kates-Ferri Projects",
+      "address": "561 Grand St, New York, NY 10002",
+      "lat": 40.7138217,
+      "lon": -73.980015,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Kevin Sabo, Cosmopolitini — opened Sep 18, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "EFA Project Space",
+      "address": "323 W 39th St, New York, NY 10018",
+      "lat": 40.7561631,
+      "lon": -73.9924148,
+      "tags": [
+        "garmentdistrict"
+      ],
+      "note": "",
+      "onView": "Post Seduction; Sarah Leahy, Plain Sense — opened Sep 15, 2026",
+      "opening": "Tue, Sep 15, 6–8pm"
+    },
+    {
+      "name": "FLOHAUS Gallery",
+      "address": "209 W 38th St, New York, NY 10018",
+      "lat": 40.7539571,
+      "lon": -73.9892718,
+      "tags": [
+        "garmentdistrict"
+      ],
+      "note": "",
+      "onView": "The Horizon Was Closer Than I Remembered — opened Sep 10, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Nguyen Wahed",
+      "address": "504 E 12th St, New York, NY 10009",
+      "lat": 40.7287361,
+      "lon": -73.9809525,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Malleable Archives: What the Future Remembers — opened Sep 15, 2026",
+      "opening": "Tue, Sep 15, 6–8pm"
+    },
+    {
+      "name": "dieFirma",
+      "address": "32A Cooper Sq, New York, NY 10003",
+      "lat": 40.7281833,
+      "lon": -73.9914308,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Bill Miller, Spanning Time — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "14BC",
+      "address": "626 E 14th St, New York, NY 10009",
+      "lat": 40.7287759,
+      "lon": -73.9769193,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Alex Mitchell, Sex, War and the Devil (opened Sep 17); Joan LeMay, CRYPTICAL ENVELOPMENT (opened Sep 19)",
+      "opening": "Alex Mitchell: Thu, Sep 17, 6–8pm; Joan LeMay: Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "All Street Gallery",
+      "address": "77 E 3rd St, New York, NY 10003",
+      "lat": 40.7251103,
+      "lon": -73.9883096,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Jade Doskow, The Dark Bright Sky — opened Sep 12, 2026",
+      "opening": "Sat, Sep 12, 6–8pm"
+    },
+    {
+      "name": "Performance Space New York",
+      "address": "150 1st Ave, New York, NY 10009",
+      "lat": 40.7283438,
+      "lon": -73.9845441,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Jesús Hilario-Reyes, Cavernous Shoal — opened Sep 19, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "Cooper Union",
+      "address": "30 Cooper Sq, New York, NY 10003",
+      "lat": 40.7280822,
+      "lon": -73.9916086,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "Guild & Greyshkul — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "Goethe-Institut New York",
+      "address": "30 Irving Pl, New York, NY 10003",
+      "lat": 40.734963,
+      "lon": -73.987732,
+      "tags": [
+        "unionsquare"
+      ],
+      "note": "",
+      "onView": "Tammam Azzam, A Horizon Remains — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "Fou Gallery",
+      "address": "89 5th Ave, New York, NY 10003",
+      "lat": 40.7374678,
+      "lon": -73.992205,
+      "tags": [
+        "unionsquare"
+      ],
+      "note": "",
+      "onView": "Synthetic Mobility — Sep 19 – Nov 8, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "Mishkin Gallery",
+      "address": "135 E 22nd St, New York, NY 10010",
+      "lat": 40.7389252,
+      "lon": -73.9850039,
+      "tags": [
+        "gramercy"
+      ],
+      "note": "",
+      "onView": "People in the City: Modern Portraits from the Baruch College Art Collection — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "The James Gallery",
+      "address": "365 5th Ave, New York, NY 10016",
+      "lat": 40.7485794,
+      "lon": -73.9838783,
+      "tags": [
+        "midtown"
+      ],
+      "note": "",
+      "onView": "ART/WORK: The Practice and Politics of CETA and the Arts, 1974–1981 — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "Eli Klein Gallery",
+      "address": "398 West St, New York, NY 10014",
+      "lat": 40.7334131,
+      "lon": -74.0098832,
+      "tags": [
+        "westvillage"
+      ],
+      "note": "",
+      "onView": "Best by 07/21/2026 — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Greenwich House Pottery",
+      "address": "16 Jones St, New York, NY 10014",
+      "lat": 40.7318995,
+      "lon": -74.0023487,
+      "tags": [
+        "westvillage"
+      ],
+      "note": "",
+      "onView": "Ryan Flores, The Watchers — opened Sep 17, 2026",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "Center for Art, Research and Alliances (CARA)",
+      "address": "225 W 13th St, New York, NY 10011",
+      "lat": 40.7385041,
+      "lon": -74.0013329,
+      "tags": [
+        "westvillage"
+      ],
+      "note": "",
+      "onView": "Johanna Hedva, Gravity, My / Favorite Enemy — opened Sep 19, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "A Space Gallery",
+      "address": "13 Grattan St, Brooklyn, NY 11206",
+      "lat": 40.7057069,
+      "lon": -73.932705,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "vivmoe solo show: I'm tired of making content, can u pls come to vivmoe's solo show, thanks — opened Sep 16, 2026",
+      "opening": "Wed, Sep 16, 6–8pm"
+    },
+    {
+      "name": "CARVALHO",
+      "address": "112 Waterbury St, Brooklyn, NY 11206",
+      "lat": 40.7114356,
+      "lon": -73.9376365,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "Alicja Biała + Diana Orving, Aether's Long Roots — Sep 19 – Oct 24, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "SculptureCenter",
+      "address": "44-19 Purves St, Long Island City, NY 11101",
+      "lat": 40.7469298,
+      "lon": -73.9408275,
+      "tags": [
+        "queens"
+      ],
+      "note": "",
+      "onView": "Aziz Hazara, Coming Home; Yining Fei, Feral Sediment; Cevdet Erek, Americas — opened Sep 19, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "Smack Mellon",
+      "address": "92 Plymouth St, Brooklyn, NY 11201",
+      "lat": 40.7037442,
+      "lon": -73.9897586,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "How We Work: Smack Mellon at 30 — Sep 19 – Dec 6, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "Kentler International Drawing Space",
+      "address": "353 Van Brunt St, Brooklyn, NY 11231",
+      "lat": 40.6769834,
+      "lon": -74.0130443,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "100 Works on Paper Benefit Exhibition 2026 — opened Sep 19, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "Head Hi",
+      "address": "146 Flushing Ave, Brooklyn, NY 11205",
+      "lat": 40.6975344,
+      "lon": -73.9709636,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "No exhibition listed — events space (talks, book launches)",
+      "opening": "NY Architecture + Design Book Club: Charlotte Perriand — Thu, Oct 22, 6:30–8:30pm"
+    },
+    {
+      "name": "International Studio & Curatorial Program (ISCP)",
+      "address": "1040 Metropolitan Ave, Brooklyn, NY 11211",
+      "lat": 40.7141639,
+      "lon": -73.9343024,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "Hans Rosenström, Conspirare — through Oct 9, 2026",
+      "opening": "Next: The Skin of the Earth Is Seamless — Oct 27, 2026 – Feb 12, 2027. Talk: Madeleine Andersson, Mon, Oct 5, 6:30pm"
+    },
+    {
+      "name": "e-flux",
+      "address": "172 Classon Ave, Brooklyn, NY 11205",
+      "lat": 40.6945365,
+      "lon": -73.9613927,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "No exhibition listed — screenings and talks",
+      "opening": "Under the Red Sky: Pınar Öğrenci retrospective — Sat, Oct 10; Charles Mudede lecture — Thu, Oct 15"
+    },
+    {
+      "name": "Wythe Hotel",
+      "address": "80 Wythe Ave, Brooklyn, NY 11249",
+      "lat": 40.7218996,
+      "lon": -73.9580678,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "No exhibition listed",
+      "opening": ""
+    },
+    {
+      "name": "Transmitter",
+      "address": "1329 Willoughby Ave, Brooklyn, NY 11237",
+      "lat": 40.7062345,
+      "lon": -73.9212102,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "Amy Rose Khoshbin, ANAHITA — Oct 3 – Nov 1, 2026",
+      "opening": "Sat, Oct 3, 6–8pm"
+    },
+    {
+      "name": "ISSUE Project Room",
+      "address": "22 Boerum Pl, Brooklyn, NY 11201",
+      "lat": 40.6908467,
+      "lon": -73.9897215,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "Performance venue — no exhibition",
+      "opening": "Sergei Tcherepnin performance — Thu, Oct 1, 8pm"
+    },
+    {
+      "name": "New York Irish Center",
+      "address": "10-40 Jackson Ave, Long Island City, NY 11101",
+      "lat": 40.7420844,
+      "lon": -73.9529986,
+      "tags": [
+        "queens"
+      ],
+      "note": "",
+      "onView": "No exhibition listed",
+      "opening": ""
+    },
+    {
+      "name": "International Waters",
+      "address": "262 Meserole St, Brooklyn, NY 11206",
+      "lat": 40.708491,
+      "lon": -73.937938,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "Marie Lorenz & Jeff Williams, Roll, Pitch, and Yaw — opened Sep 19, 2026",
+      "opening": "Sat, Sep 19, 6–8pm"
+    },
+    {
+      "name": "2075 Adam Clayton Powell Jr Blvd",
+      "address": "40.8080374, -73.9487040",
+      "lat": 40.8080374,
+      "lon": -73.948704,
+      "tags": [
+        "harlem"
+      ],
+      "note": "",
+      "onView": "Ransome, A Little Sugar in My Bowl — Sep 13 – Oct 17, 2026",
+      "opening": ""
+    },
+    {
+      "name": "Amant",
+      "address": "315 Maujer St, Brooklyn, NY 11206",
+      "lat": 40.7123117,
+      "lon": -73.9370708,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "Sentient Earth — through Feb 14, 2027; Matthew Lutz-Kinoy, The Mud Room",
+      "opening": "Thu, Sep 17, 6–8pm"
+    },
+    {
+      "name": "47 Canal",
+      "address": "529 W 20th St, New York, NY 10011",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Cici Wu, Auld Lang Syne (Prelude) — Oct 1 – Nov 7, 2026",
+      "opening": "Thu, Oct 1, 6–8pm"
+    },
+    {
+      "name": "AINA Gallery",
+      "address": "550 W 29th St, New York, NY 10001",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "Formerly Aicon Art",
+      "onView": "Other Stories — A Genealogy for the Present — Oct 1 – Dec 5, 2026",
+      "opening": "Thu, Oct 1, 6–8pm"
+    },
+    {
+      "name": "Collective Z",
+      "address": "325 Broome St, New York, NY 10002",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Unit 1W",
+      "onView": "Cécile Roberfroid, Carried, Not Told — opened Oct 1, 2026",
+      "opening": "Thu, Oct 1, 6–8pm"
+    },
+    {
+      "name": "Medium Rare Project Space",
+      "address": "68 Jay St, Brooklyn, NY 11201",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "Dumbo, Suite 619",
+      "onView": "Irit Baniel & Alexis Granwell, Plumb Line — Oct 1 – Oct 17, 2026",
+      "opening": "Thu, Oct 1, 6–8pm"
+    },
+    {
+      "name": "Pen and Brush",
+      "address": "29 E 22nd St, New York, NY 10010",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "flatiron"
+      ],
+      "note": "",
+      "onView": "Deborah Buck, New Jewels — opened Oct 1, 2026",
+      "opening": "Thu, Oct 1, 6–8pm"
+    },
+    {
+      "name": "Renee & Chaim Gross Foundation",
+      "address": "526 LaGuardia Pl, New York, NY 10012",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "greenwichvillage"
+      ],
+      "note": "",
+      "onView": "Gedi Sibony, The Carver's Order — opened Oct 1, 2026",
+      "opening": "Thu, Oct 1, 6–8pm"
+    },
+    {
+      "name": "Spielzug",
+      "address": "165 Allen St, New York, NY 10002",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Spielzug x Ward Gallery",
+      "onView": "The Holes (Spielzug x Ward Gallery) — opened Oct 1, 2026",
+      "opening": "Thu, Oct 1, 6–8pm (rescheduled from the week before)"
+    },
+    {
+      "name": "Brooklyn Museum",
+      "address": "200 Eastern Pkwy, Brooklyn, NY 11238",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "",
+      "onView": "Hopi Kachina Dolls: Blessings for a Balanced World; Cézanne to Modigliani: Gifts of Modern Art from the Pearlman Collection — Oct 2, 2026 – Apr 18, 2027; Art of Manga — Oct 3, 2026 – Jan 31, 2027; Iris van Herpen: Sculpting the Senses — through Dec 6, 2026",
+      "opening": "Hopi Kachina Dolls and Cézanne to Modigliani opened Fri, Oct 2; Art of Manga opened Sat, Oct 3"
+    },
+    {
+      "name": "Duane Thomas Gallery",
+      "address": "137 West Broadway, New York, NY 10013",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "3rd floor",
+      "onView": "Women's Drawings, Feminist Works on Paper — opened Oct 2, 2026",
+      "opening": "Fri, Oct 2, 6–8pm"
+    },
+    {
+      "name": "Frisson Gallery",
+      "address": "141 Attorney St, New York, NY 10002",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Noah Pica & Paul Negron, 2 x Self — Oct 2 – Nov 7, 2026",
+      "opening": "Fri, Oct 2, 6–8pm"
+    },
+    {
+      "name": "Meredith Rosen Gallery",
+      "address": "327 W 36th St, New York, NY 10018",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "garmentdistrict"
+      ],
+      "note": "6th floor",
+      "onView": "Anna Uddenberg, White Noise — opened Oct 2, 2026",
+      "opening": "Fri, Oct 2, 6–8pm"
+    },
+    {
+      "name": "The Java Project",
+      "address": "252 Java St, Brooklyn, NY 11222",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "Greenpoint",
+      "onView": "Norm Paris, Cover — opened Oct 2, 2026",
+      "opening": "Fri, Oct 2, 6–8pm"
+    },
+    {
+      "name": "Wallach Art Gallery",
+      "address": "615 W 129th St, New York, NY 10027",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "harlem"
+      ],
+      "note": "Columbia Lenfest Center",
+      "onView": "Allan Sekula, Fish Story — opened Oct 2, 2026",
+      "opening": "Opened Fri, Oct 2"
+    },
+    {
+      "name": "Art Cake",
+      "address": "214 40th St, Brooklyn, NY 11232",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "Sunset Park",
+      "onView": "Thomas Nozkowski, The Mysterious Beauty of Everything — Oct 3 – Dec 12, 2026; plus Robin Dintiman, Carrie Johnson, Susan Poirer — Oct 3 – Nov 1",
+      "opening": "Sat, Oct 3, 6–8pm"
+    },
+    {
+      "name": "Below Grand",
+      "address": "53 Orchard St, New York, NY 10002",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "Also 52 Allen St",
+      "onView": "Where Are My Keys? — Oct 3 – Nov 7, 2026",
+      "opening": "Sat, Oct 3, 6–8pm"
+    },
+    {
+      "name": "Jacqueline Sullivan Gallery",
+      "address": "52 Walker St, New York, NY 10013",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Fernberger Group Show — Sep 10 – Nov 21, 2026; Mirrors by Peter Rippon: A Unique Selection for the Library — opened Oct 3, 2026",
+      "opening": "Fernberger: Thu, Sep 10, 6–8pm; Peter Rippon: Sat, Oct 3, 6–8pm"
+    },
+    {
+      "name": "Tiger Strikes Asteroid New York",
+      "address": "1329 Willoughby Ave, Brooklyn, NY 11237",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "brooklyn"
+      ],
+      "note": "Bushwick, #2 (same building as Transmitter)",
+      "onView": "Absorption: Nivia Hernandez, Daniel Anthony Vasquez, Kristen Jensen — Oct 3 – Nov 1, 2026",
+      "opening": "Sat, Oct 3, 6–8pm"
+    },
+    {
+      "name": "The FLAG Art Foundation",
+      "address": "545 W 25th St, New York, NY 10001",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "9th floor",
+      "onView": "Sable Elyse Smith, Clockwork; Hank Willis Thomas — opened Sep 24, 2026",
+      "opening": "Thu, Sep 24 (artist talk with Hank Willis Thomas Wed, Sep 30, 6pm)"
+    },
+    {
+      "name": "Rodder",
+      "address": "22 E 80th St, New York, NY 10075",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "uppereastside"
+      ],
+      "note": "5th floor",
+      "onView": "David Reed, Terrible Idea — Sep 9 – Oct 24, 2026",
+      "opening": ""
+    },
+    {
+      "name": "Uffner & Liu",
+      "address": "170 Suffolk St, New York, NY 10002",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Laurie Nye, The Battlefield Where the Moon Says I Love You; Hanz Ronald, A Charmed Hour — Sep 10 – Oct 31, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Storefront for Art and Architecture",
+      "address": "97 Kenmare St, New York, NY 10012",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "nolita"
+      ],
+      "note": "",
+      "onView": "The Biography of a Building: Runik's House of Culture — Hajde! Foundation and Petrit Halilaj with Ars Atelier — opened Sep 25, 2026",
+      "opening": "Fri, Sep 25"
+    },
+    {
+      "name": "Serving the People",
+      "address": "602 E 9th St, New York, NY 10009",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "eastvillage"
+      ],
+      "note": "",
+      "onView": "No exhibition listed — events space",
+      "opening": "SEEN / UNSEEN / OBSERVED (Jo Shane, Maya Martinez, Riley Mac) — Wed, Sep 30, 7:30pm"
+    },
+    {
+      "name": "Nancy Hoffman Gallery",
+      "address": "520 W 27th St, New York, NY 10001",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "Jody Guralnick, As Close As Breath — Sep 10 – Oct 28, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Sofia Sominsky",
+      "address": "62 White St, New York, NY 10013",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Samuel Farrier, Immediate Possession — Sep 9 – Oct 17, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Heft",
+      "address": "300 Broome St, New York, NY 10002",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Auriea Harvey, Ready To Die — opened Sep 9, 2026",
+      "opening": "Wed, Sep 9, 6–8pm"
+    },
+    {
+      "name": "Miguel Abreu Gallery",
+      "address": "88 Eldridge St, New York, NY 10002",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "lowereastside"
+      ],
+      "note": "",
+      "onView": "Eileen Quinlan, Line Call — Sep 10 – Oct 31, 2026",
+      "opening": "Thu, Sep 10, 6–8pm"
+    },
+    {
+      "name": "Dia Chelsea",
+      "address": "537 W 22nd St, New York, NY 10011",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "chelsea"
+      ],
+      "note": "",
+      "onView": "David Lamelas, The Machine — Mar 6, 2026 – Jan 16, 2027",
+      "opening": "Symposium: Not Assimilated by Contemplation (Argentine avant-garde of the 1960s) — Fri, Oct 2, 10am–6:30pm"
+    },
+    {
+      "name": "ISLAA",
+      "address": "142 Franklin St, New York, NY 10013",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Institute for Studies on Latin American Art",
+      "onView": "The New York Graphic Workshop: Towards Total Art — Sep 26, 2026 – Jan 9, 2027",
+      "opening": "Symposium day 2: Sat, Oct 3, 10:30am–4:30pm"
+    },
+    {
+      "name": "Hal Bromm Gallery",
+      "address": "90 West Broadway, New York, NY 10007",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "2nd floor",
+      "onView": "Grace Graupe-Pillard, Burning Point — Sep 9 – Nov 21, 2026",
+      "opening": "Wed, Sep 9"
+    },
+    {
+      "name": "Emily Harvey Foundation",
+      "address": "537 Broadway, New York, NY 10012",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "soho"
+      ],
+      "note": "",
+      "onView": "No exhibition listed",
+      "opening": "Anh Vo: Tỳ Bà Hành…But Alas There Was No Music (performance) — Sat, Oct 3, 4pm"
+    },
+    {
+      "name": "125 Newbury",
+      "address": "395 Broadway, New York, NY 10013",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "",
+      "onView": "Asher Liftin, Recent Work — Sep 18 – Oct 31, 2026",
+      "opening": "Fri, Sep 18, 6–8pm"
+    },
+    {
+      "name": "WSA",
+      "address": "161 Water St, New York, NY 10038",
+      "lat": null,
+      "lon": null,
+      "tags": [
+        "financialdistrict"
+      ],
+      "note": "",
+      "onView": "SI Offsite — Rafał Skoczek, Kino Drift (Swiss Institute, 7th floor) — Sep 23 – Nov 14, 2026",
+      "opening": "Opened Wed, Sep 23. Publication launch for zweikommasieben: Sat, Oct 3, 7pm"
+    }
+  ]
+}
