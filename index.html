@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Place Guide</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root{
+    --paper:#EAE6DA;
+    --card:#F5F2E8;
+    --ink:#20281F;
+    --ink-soft:#5A6459;
+    --teal:#2B6E6E;
+    --teal-deep:#1D4E4E;
+    --gold:#B98B2A;
+    --rule:#CCC4AE;
+    --danger:#A24C3D;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+  }
+  .wrap{
+    max-width:840px;
+    margin:0 auto;
+    padding:40px 24px 100px;
+  }
+  header.masthead{
+    border-bottom:1px solid var(--rule);
+    padding-bottom:22px;
+    margin-bottom:28px;
+  }
+  .guide-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(32px,6vw,46px);
+    margin:0;
+  }
+  .guide-intro{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:16px;
+    color:var(--ink-soft);
+    margin:8px 0 0;
+  }
+  .meta-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-top:14px;
+    font-size:13px;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .meta-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  button{
+    font-family:'Work Sans', sans-serif;
+    cursor:pointer;
+    border:none;
+  }
+  .btn{
+    background:var(--teal);
+    color:#fff;
+    padding:8px 15px;
+    border-radius:2px;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:.2px;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--teal-deep);}
+  .btn.text{
+    background:none;
+    color:var(--ink-soft);
+    padding:4px 6px;
+    font-size:13px;
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+
+  .tab-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:22px;
+    border-bottom:1px solid var(--rule);
+  }
+  .tab-btn{
+    background:none;
+    padding:10px 4px;
+    margin-right:20px;
+    font-size:15px;
+    font-weight:500;
+    color:var(--ink-soft);
+    border-bottom:2px solid transparent;
+    position:relative;
+    top:1px;
+  }
+  .tab-btn.active{
+    color:var(--ink);
+    border-bottom-color:var(--teal);
+  }
+
+  .search-row{
+    margin-bottom:18px;
+  }
+  .custom-picker{
+    max-height:340px;
+    overflow-y:auto;
+    border:1px solid var(--rule);
+    background:#fff;
+    margin-bottom:20px;
+  }
+  .custom-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 12px;
+    border-bottom:1px solid var(--rule);
+    font-size:13px;
+  }
+  .custom-item:last-child{border-bottom:none;}
+  .custom-item-dot{
+    width:10px;height:10px;border-radius:50%;
+    flex:none;
+  }
+  .custom-item-label{flex:1;color:var(--ink);}
+  .custom-item .tag{
+    font-size:11px;
+    padding:3px 9px;
+    border-radius:20px;
+    color:#fff;
+    white-space:nowrap;
+    flex:none;
+  }
+  .custom-item .icon-btn{padding:2px 6px;font-size:15px;}
+  .custom-selected-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 0;
+    border-bottom:1px solid var(--rule);
+    font-size:13px;
+  }
+  .custom-selected-item:last-child{border-bottom:none;}
+  .custom-selected-item span:first-child{flex:1;color:var(--ink);}
+  #custom-maps-links{display:block;margin-top:14px;}
+  #custom-maps-links .maps-link{display:block;margin-bottom:6px;}
+  #custom-selected:empty::after{
+    content:"No stops yet — check off places below to add them.";
+    color:var(--ink-soft);
+    font-size:13px;
+  }
+  .search-row input{
+    width:100%;
+    font-family:'Work Sans', sans-serif;
+    font-size:15px;
+    padding:12px 14px;
+    border:1px solid var(--rule);
+    background:#fff;
+    color:var(--ink);
+    outline:none;
+  }
+  .search-row input:focus{border-color:var(--teal);}
+  .search-row input::placeholder{color:#8b9186;}
+
+  section.panel{
+    border:1px solid var(--rule);
+    background:var(--card);
+    padding:20px 22px;
+    margin-bottom:26px;
+  }
+  .panel h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:19px;
+    margin:0 0 4px;
+  }
+  .panel p.hint{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  textarea#bulk{
+    width:100%;
+    min-height:110px;
+    font-family:'Work Sans', sans-serif;
+    font-size:14px;
+    padding:12px;
+    border:1px solid var(--rule);
+    background:#fff;
+    color:var(--ink);
+    resize:vertical;
+    outline:none;
+  }
+  textarea#bulk:focus{border-color:var(--teal);}
+  .panel-actions{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-top:12px;
+  }
+  #status-line{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  #map{
+    height:380px;
+    width:100%;
+    border:1px solid var(--rule);
+    margin-bottom:16px;
+    filter:saturate(.85);
+  }
+  @media (max-width:600px){ #map{height:300px;} }
+
+  #loop-cta, #loop-report{
+    display:none !important;
+  }
+  .loop-cta{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:26px;
+  }
+  .btn.loop-btn{
+    display:inline-block;
+    padding:11px 24px;
+    font-size:14px;
+    letter-spacing:.4px;
+  }
+  .btn.loop-btn.disabled{
+    background:#b7bdb4;
+    pointer-events:none;
+  }
+
+  .loop-report{
+    margin-bottom:26px;
+    border:1px solid var(--rule);
+    background:var(--card);
+    padding:14px 16px;
+  }
+  .loop-report:empty{display:none;}
+  .loop-report h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    margin:0 0 10px;
+  }
+  .loop-report-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    font-size:13px;
+    padding:5px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .loop-report-row:last-child{border-bottom:none;}
+  .loop-report-row .name{color:var(--ink);}
+  .loop-report-row .count{
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .loop-report-row.flag-high .count{color:var(--danger); font-weight:600;}
+  .loop-report-row.flag-low .count{color:var(--gold); font-weight:600;}
+  .loop-report-row.flag-ok .count{color:var(--teal-deep);}
+  .loop-report-note{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .chip{
+    font-size:12px;
+    padding:5px 12px;
+    border-radius:20px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+  }
+  .chip.active{
+    color:#fff;
+    border-color:transparent;
+  }
+
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 20px;
+    margin-bottom:26px;
+    padding:14px 16px;
+    border:1px solid var(--rule);
+    background:var(--card);
+  }
+  .legend:empty{display:none;}
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .legend-item .swatch{
+    width:12px;height:12px;
+    border-radius:50%;
+    flex:none;
+  }
+
+  .empty{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--ink-soft);
+    font-size:14px;
+  }
+  .empty strong{display:block;color:var(--ink);font-family:'Fraunces',serif;font-size:18px;font-weight:500;margin-bottom:6px;}
+
+  .group{
+    margin-bottom:34px;
+  }
+  .group-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px 12px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:8px;
+    margin-bottom:6px;
+  }
+  .group-header .label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+  }
+  .group-header .label .swatch{
+    width:11px;height:11px;
+    border-radius:50%;
+    flex:none;
+  }
+  .group-header .maps-link{
+    font-size:12px;
+    color:var(--teal-deep);
+    text-decoration:underline;
+    text-underline-offset:2px;
+    white-space:nowrap;
+  }
+  .group-header .maps-link:hover{color:var(--teal);}
+
+  .place-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .place-card{
+    display:flex;
+    gap:16px;
+    padding:16px 4px;
+    border-bottom:1px solid var(--rule);
+  }
+  .place-card .dot{
+    width:10px;height:10px;border-radius:50%;
+    margin-top:8px;flex:none;
+  }
+  .place-card .body{flex:1;min-width:0;}
+  .place-card h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+    margin:0 0 2px;
+  }
+  .featured-star{
+    color:var(--gold);
+    font-size:15px;
+  }
+  .place-card .addr{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:2px;
+  }
+  .place-card .addr.coord{
+    font-size:12px;
+    color:#8b9186;
+  }
+  .place-card .exhibit{
+    font-size:13.5px;
+    color:var(--ink);
+    margin-top:6px;
+    line-height:1.45;
+  }
+  .place-card .exhibit + .exhibit{margin-top:2px;}
+  .place-card .exhibit-label{
+    font-weight:600;
+    color:var(--teal-deep);
+    margin-right:4px;
+  }
+  .place-card .exhibit.muted{color:var(--ink-soft);}
+  .place-card .note{
+    font-size:14px;
+    color:var(--ink);
+    margin-top:6px;
+    font-style:italic;
+  }
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+  }
+  .tag{
+    font-size:11px;
+    padding:2px 9px;
+    border-radius:20px;
+    color:#fff;
+    letter-spacing:.2px;
+  }
+
+  .edit-field{
+    width:100%;
+    border:none;
+    border-bottom:1px solid var(--rule);
+    background:transparent;
+    font-family:'Work Sans', sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    outline:none;
+    padding:3px 0;
+    margin-bottom:6px;
+  }
+  .edit-field.name-field{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:18px;
+  }
+  .edit-actions{
+    display:flex;
+    gap:12px;
+    margin-top:6px;
+  }
+  .card-actions{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    flex:none;
+  }
+  .icon-btn{
+    background:none;
+    color:var(--ink-soft);
+    font-size:12px;
+    text-decoration:underline;
+    text-underline-offset:2px;
+  }
+  .icon-btn:hover{color:var(--danger);}
+  .btn.ghost{
+    background:transparent;
+    color:var(--teal-deep);
+    border:1px solid var(--teal-deep);
+    padding:7px 14px;
+  }
+  .btn.ghost:hover{background:rgba(43,110,110,.08);}
+
+  footer.tip{
+    margin-top:36px;
+    font-size:12px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--rule);
+    padding-top:16px;
+  }
+
+  section.archive{
+    margin-top:38px;
+    border-top:1px solid var(--rule);
+    padding-top:22px;
+  }
+  section.archive h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:22px;
+    margin:0 0 4px;
+  }
+  section.archive p.hint{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin:0 0 18px;
+  }
+  .archive-week{
+    border:1px solid var(--rule);
+    background:var(--card);
+    padding:14px 18px;
+    margin-bottom:14px;
+  }
+  .archive-week-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .archive-week-header h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    margin:0;
+  }
+  .archive-week-header a{
+    font-size:12px;
+    color:var(--teal-deep);
+    text-decoration:underline;
+    text-underline-offset:2px;
+    white-space:nowrap;
+  }
+  .archive-week-header a:hover{color:var(--teal);}
+  .archive-week ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .archive-empty{
+    font-size:13px;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+
+  @media print{
+    .search-row, .filters, .legend, footer.tip, .group-header .maps-link{display:none !important;}
+    #map{border:none;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="guide-title" id="guide-title"></h1>
+    <p class="guide-intro" id="guide-intro"></p>
+    <div class="meta-row">
+      <span id="place-count">0 places</span>
+      <div class="meta-actions">
+        <button class="btn text" id="copy-btn">Copy guide as text</button>
+        <button class="btn text" id="export-json-btn">Export JSON</button>
+        <button class="btn text" id="import-json-btn">Import JSON</button>
+        <input type="file" id="import-json-file" accept="application/json" style="display:none" />
+        <button class="btn text" id="export-xlsx-btn">Export Excel</button>
+        <button class="btn text" id="dedupe-btn">Remove duplicates</button>
+        <button class="btn text" id="autoloop-btn">Auto-tag loops</button>
+        <button class="btn text" id="clearloops-btn">Clear all loops</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="tab-row" id="tab-row">
+    <button class="tab-btn active" id="tab-featured-btn" type="button">Galleries</button>
+    <button class="tab-btn" id="tab-custom-btn" type="button">Make your own loop</button>
+  </div>
+
+  <div id="featured-view">
+
+    <section class="panel" id="add-panel">
+      <h2>Add places</h2>
+      <p class="hint">One place per line. Format: <em>Name — Address — lat, lon #tag1 #tag2 | a short note</em>.</p>
+      <textarea id="bulk" placeholder="Opera Gallery — 827 Madison Ave, New York, NY 10065 — 40.7696364, -73.9666754 #art
+Lil' Deb's Oasis — 90 Seneca St, Hudson, NY #dinner #favorite | tasting menu, book ahead"></textarea>
+      <div class="panel-actions">
+        <button class="btn" id="parse-btn">Add to guide</button>
+        <span id="status-line"></span>
+      </div>
+    </section>
+
+    <div class="search-row">
+      <input id="search" type="text" placeholder="Search places, addresses, or tags…" />
+    </div>
+
+    <div id="map"></div>
+
+    <div class="loop-cta" id="loop-cta"></div>
+
+    <div class="loop-report" id="loop-report"></div>
+
+    <div class="filters" id="filters"></div>
+    <div class="legend" id="legend"></div>
+
+    <div id="list-wrap">
+      <div class="empty" id="empty-state">
+        <strong>No places match</strong>
+        Try a different search term or clear the filters above.
+      </div>
+      <div id="groups"></div>
+    </div>
+
+    <section class="archive" id="archive-section">
+      <h2>Archive — galleries visited by week</h2>
+      <p class="hint">Tag a place <em>#week1</em>, <em>#week2</em>, etc. as you visit it. Each week appears here automatically, in addition to whatever neighborhood loop it already belongs to.</p>
+      <div id="archive-list"></div>
+    </section>
+
+  </div>
+
+  <div id="custom-view" style="display:none">
+
+    <section class="panel" id="custom-panel">
+      <h2>Make your own loop</h2>
+      <p class="hint">Check off any places to build your own route, reorder them, then send the whole thing to Google Maps.</p>
+      <input id="custom-search" type="text" placeholder="Search all places…" style="width:100%;font-family:'Work Sans', sans-serif;font-size:14px;padding:10px 12px;border:1px solid var(--rule);background:#fff;color:var(--ink);outline:none;margin-bottom:14px;" />
+      <div class="custom-picker" id="custom-picker"></div>
+      <h2 style="font-size:16px;margin-top:22px;">Your route (<span id="custom-count">0</span> stops)</h2>
+      <div id="custom-selected"></div>
+      <div class="panel-actions">
+        <button class="btn ghost" id="custom-clear-btn" type="button">Clear route</button>
+      </div>
+      <div id="custom-maps-links"></div>
+    </section>
+
+  </div>
+
+  <footer class="tip">Search or filter by tag to find a place, then use "Open in Google Maps" on any loop to get walking directions through every stop in it.</footer>
+</div>
+
+<script>
+const PALETTE = ['#2B6E6E','#B98B2A','#6B4C6B','#46586B','#6E7B4E','#A24C3D'];
+const LOOP_COLORS = ['#3C7A4E','#C9A227','#6B4C6B','#B98B2A','#A24C3D','#46586B'];
+let state = { title:'', intro:'', places:[], tagColors:{} };
+let map, markersLayer;
+let activeFilters = new Set();
+let searchQuery = '';
+let editingIds = new Set();
+let currentTab = 'featured';
+let customSearchQuery = '';
+
+function tagColor(tag){
+  if (state.tagColors && state.tagColors[tag]) return state.tagColors[tag];
+  const loopMatch = tag.match(/^loop(\d+)$/i);
+  if (loopMatch){
+    const idx = (parseInt(loopMatch[1], 10) - 1) % LOOP_COLORS.length;
+    return LOOP_COLORS[idx >= 0 ? idx : 0];
+  }
+  let h = 0;
+  for (let i=0;i<tag.length;i++) h = (h*31 + tag.charCodeAt(i)) >>> 0;
+  return PALETTE[h % PALETTE.length];
+}
+
+async function loadState(){
+  try{
+    const r = await window.storage.get('guide');
+    if (r && r.value) state = JSON.parse(r.value);
+  }catch(e){ /* nothing saved yet */ }
+  if (!state.tagColors) state.tagColors = {};
+  if (!state.places) state.places = [];
+  if (!state.customSelection) state.customSelection = [];
+  if (!state.places.length){
+    try{
+      const r = await fetch('art-gallery-guide.json', { cache: 'no-store' });
+      if (r.ok){
+        const g = await r.json();
+        if (g && Array.isArray(g.places) && g.places.length){
+          state.title = state.title || g.title || '';
+          state.intro = state.intro || g.intro || '';
+          state.tagColors = Object.assign({}, g.tagColors || {}, state.tagColors);
+          state.places = g.places.map(p => Object.assign({ id: uid(), status: (p.lat != null ? 'ok' : 'failed') }, p));
+          // The published JSON already includes past one-time updates
+          state.appliedAdditions = ['galleries-2026-10-04', 'exhibits-2026-10-04'];
+        }
+      }
+    }catch(e){ /* JSON not reachable; fall back to built-in list */ }
+  }
+  if (!state.places.length && typeof BASE_GUIDE !== 'undefined'){
+    state.title = state.title || BASE_GUIDE.title || '';
+    state.intro = state.intro || BASE_GUIDE.intro || '';
+    state.tagColors = Object.assign({}, BASE_GUIDE.tagColors || {}, state.tagColors);
+    state.places = BASE_GUIDE.places.map(p => Object.assign({ id: uid(), status: (p.lat != null ? 'ok' : 'failed') }, p));
+  }
+  document.getElementById('guide-title').textContent = state.title || 'Place Guide';
+  document.getElementById('guide-intro').textContent = state.intro || '';
+  document.getElementById('guide-intro').style.display = state.intro ? 'block' : 'none';
+  render();
+  applyPendingAdditions();
+  applyExhibitUpdate();
+}
+
+function initMap(){
+  map = L.map('map', { scrollWheelZoom:false }).setView([40.7128,-74.0060], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'&copy; OpenStreetMap contributors',
+    maxZoom:19
+  }).addTo(map);
+  markersLayer = L.layerGroup().addTo(map);
+}
+
+function makeIcon(color){
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:16px;height:16px;border-radius:50% 50% 50% 0;background:${color};border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.4);transform:rotate(-45deg);"></div>`,
+    iconSize:[16,16],
+    iconAnchor:[8,16]
+  });
+}
+
+function isLoopTag(t){
+  return /^loop\d+$/i.test(t) || t === 'featured';
+}
+
+function primaryTag(p){
+  return (p.tags||[]).find(t => !isLoopTag(t)) || null;
+}
+
+function allTags(){
+  const s = new Set();
+  state.places.forEach(p => (p.tags||[]).forEach(t => { if (!isLoopTag(t)) s.add(t); }));
+  return [...s].sort();
+}
+
+function matchesSearch(p, q){
+  if (!q) return true;
+  const hay = [p.name, p.address, p.note, p.onView, p.opening, ...(p.tags||[])].join(' ').toLowerCase();
+  return hay.includes(q);
+}
+
+function visiblePlaces(){
+  const q = searchQuery.trim().toLowerCase();
+  return state.places.filter(p => {
+    const tagOk = activeFilters.size === 0 || (p.tags||[]).some(t => activeFilters.has(t));
+    return tagOk && matchesSearch(p, q);
+  });
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+function googleMapsUrlForGroup(places){
+  const pts = places.filter(p => p.lat != null && p.lon != null);
+  if (!pts.length) return null;
+  if (pts.length === 1){
+    return `https://www.google.com/maps/search/?api=1&query=${pts[0].lat},${pts[0].lon}`;
+  }
+  const coords = pts.map(p => `${p.lat},${p.lon}`);
+  const origin = coords[0];
+  const destination = coords[coords.length - 1];
+  const waypoints = coords.slice(1, -1);
+  let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
+  if (waypoints.length) url += `&waypoints=${encodeURIComponent(waypoints.join('|'))}`;
+  return url;
+}
+
+function renderFilters(){
+  const el = document.getElementById('filters');
+  const tags = allTags();
+  el.innerHTML = '';
+  tags.forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'chip' + (activeFilters.has(t) ? ' active' : '');
+    b.textContent = '#' + t;
+    if (activeFilters.has(t)) b.style.background = tagColor(t);
+    b.onclick = () => {
+      if (activeFilters.has(t)) activeFilters.delete(t); else activeFilters.add(t);
+      render();
+    };
+    el.appendChild(b);
+  });
+}
+
+function renderLegend(){
+  const el = document.getElementById('legend');
+  const tags = allTags();
+  el.innerHTML = '';
+  tags.forEach(t => {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    const sw = document.createElement('span');
+    sw.className = 'swatch';
+    sw.style.background = tagColor(t);
+    const label = document.createElement('span');
+    label.textContent = '#' + t;
+    item.appendChild(sw);
+    item.appendChild(label);
+    el.appendChild(item);
+  });
+}
+
+function renderMap(){
+  markersLayer.clearLayers();
+  const pts = [];
+  visiblePlaces().forEach(p => {
+    if (p.lat == null || p.lon == null) return;
+    const tag = primaryTag(p);
+    const color = tag ? tagColor(tag) : '#2B6E6E';
+    const m = L.marker([p.lat, p.lon], { icon: makeIcon(color) });
+    const tagsHtml = (p.tags||[]).filter(t => !isLoopTag(t)).map(t=>`#${t}`).join(' ');
+    m.bindPopup(`<strong>${escapeHtml(p.name)}</strong><br>${escapeHtml(p.address||'')}<br><span style="color:${color}">${tagsHtml}</span>`);
+    markersLayer.addLayer(m);
+    pts.push([p.lat, p.lon]);
+  });
+  if (pts.length){
+    map.fitBounds(pts, { padding:[30,30], maxZoom:14 });
+  }
+}
+
+function renderGroups(){
+  const groupsEl = document.getElementById('groups');
+  const emptyEl = document.getElementById('empty-state');
+  const vis = visiblePlaces();
+  groupsEl.innerHTML = '';
+  emptyEl.style.display = vis.length === 0 ? 'block' : 'none';
+
+  const byGroup = {};
+  const order = [];
+  vis.forEach(p => {
+    const key = primaryTag(p) || 'Other';
+    if (!byGroup[key]){ byGroup[key] = []; order.push(key); }
+    byGroup[key].push(p);
+  });
+  order.sort((a,b) => a === 'Other' ? 1 : b === 'Other' ? -1 : a.localeCompare(b));
+
+  order.forEach(key => {
+    const items = byGroup[key];
+    const group = document.createElement('div');
+    group.className = 'group';
+
+    const header = document.createElement('div');
+    header.className = 'group-header';
+
+    const label = document.createElement('div');
+    label.className = 'label';
+    if (key !== 'Other'){
+      const sw = document.createElement('span');
+      sw.className = 'swatch';
+      sw.style.background = tagColor(key);
+      label.appendChild(sw);
+    }
+    const labelText = document.createElement('span');
+    labelText.textContent = key === 'Other' ? 'Other' : ('#' + key);
+    label.appendChild(labelText);
+    header.appendChild(label);
+
+    const mapsChunks = chunkPlacesForMaps(items);
+    if (mapsChunks.length && mapsChunks[0].length){
+      mapsChunks.forEach((chunk, idx) => {
+        const mapsUrl = googleMapsUrlForGroup(chunk);
+        if (!mapsUrl) return;
+        const a = document.createElement('a');
+        a.className = 'maps-link';
+        a.href = mapsUrl;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        const base = 'Open in Google Maps';
+        a.textContent = mapsChunks.length > 1 ? `${base} (Part ${idx + 1} of ${mapsChunks.length})` : base;
+        header.appendChild(a);
+      });
+    }
+
+    group.appendChild(header);
+
+    const list = document.createElement('div');
+    list.className = 'place-list';
+    items.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'place-card';
+
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.style.background = primaryTag(p) ? tagColor(primaryTag(p)) : '#9aa79f';
+      card.appendChild(dot);
+
+      const body = document.createElement('div');
+      body.className = 'body';
+
+      if (editingIds.has(p.id)){
+        const nameField = document.createElement('input');
+        nameField.className = 'edit-field name-field';
+        nameField.value = p.name;
+        body.appendChild(nameField);
+
+        const addrField = document.createElement('input');
+        addrField.className = 'edit-field';
+        addrField.placeholder = 'Address';
+        addrField.value = p.address || '';
+        body.appendChild(addrField);
+
+        const coordsField = document.createElement('input');
+        coordsField.className = 'edit-field';
+        coordsField.placeholder = 'lat, lon (or a Google Maps link)';
+        coordsField.value = (p.lat != null && p.lon != null) ? `${p.lat}, ${p.lon}` : '';
+        body.appendChild(coordsField);
+
+        const tagsField = document.createElement('input');
+        tagsField.className = 'edit-field';
+        tagsField.placeholder = 'tags, comma separated';
+        tagsField.value = (p.tags || []).join(', ');
+        body.appendChild(tagsField);
+
+        const noteField = document.createElement('input');
+        noteField.className = 'edit-field';
+        noteField.placeholder = 'Note';
+        noteField.value = p.note || '';
+        body.appendChild(noteField);
+
+        const onViewField = document.createElement('input');
+        onViewField.className = 'edit-field';
+        onViewField.placeholder = 'On View (show title — dates)';
+        onViewField.value = p.onView || '';
+        body.appendChild(onViewField);
+
+        const openingField = document.createElement('input');
+        openingField.className = 'edit-field';
+        openingField.placeholder = 'Opening (reception date and time)';
+        openingField.value = p.opening || '';
+        body.appendChild(openingField);
+
+        const editActions = document.createElement('div');
+        editActions.className = 'edit-actions';
+        const saveBtn = document.createElement('button');
+        saveBtn.className = 'btn';
+        saveBtn.textContent = 'Save';
+        saveBtn.onclick = async () => {
+          const newAddress = addrField.value.trim();
+          const coordsInput = coordsField.value.trim();
+          const addressChanged = newAddress !== (p.address || '');
+          p.name = nameField.value.trim() || p.name;
+          p.address = newAddress;
+          p.tags = tagsField.value.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+          p.note = noteField.value.trim();
+          p.onView = onViewField.value.trim();
+          p.opening = openingField.value.trim();
+          editingIds.delete(p.id);
+
+          const explicitCoords = extractCoordsFromText(coordsInput);
+          if (explicitCoords){
+            p.lat = explicitCoords.lat; p.lon = explicitCoords.lon; p.status = 'ok';
+          } else if (!coordsInput && addressChanged && newAddress){
+            const direct = extractCoordsFromText(newAddress);
+            if (direct){
+              p.lat = direct.lat; p.lon = direct.lon; p.status = 'ok';
+            } else {
+              p.status = 'pending';
+              render();
+              try{
+                const geo = await geocode(newAddress);
+                if (geo){ p.lat = geo.lat; p.lon = geo.lon; p.status = 'ok'; }
+                else { p.status = 'failed'; }
+              }catch(e){ p.status = 'failed'; }
+            }
+          }
+          saveState(); render();
+        };
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'btn ghost';
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.onclick = () => { editingIds.delete(p.id); render(); };
+        editActions.appendChild(saveBtn);
+        editActions.appendChild(cancelBtn);
+        body.appendChild(editActions);
+
+        card.appendChild(body);
+        list.appendChild(card);
+        return;
+      }
+
+      const h3 = document.createElement('h3');
+      h3.textContent = p.name;
+      if ((p.tags||[]).includes('featured')){
+        const star = document.createElement('span');
+        star.className = 'featured-star';
+        star.textContent = ' ★';
+        star.title = 'In Galleries';
+        h3.appendChild(star);
+      }
+      body.appendChild(h3);
+
+      if (p.status === 'pending'){
+        const pendingLine = document.createElement('div');
+        pendingLine.className = 'addr';
+        pendingLine.textContent = 'Locating…';
+        body.appendChild(pendingLine);
+      } else {
+        if (p.address){
+          const addrLine = document.createElement('div');
+          addrLine.className = 'addr';
+          addrLine.textContent = p.address;
+          body.appendChild(addrLine);
+        }
+        if (p.lat != null && p.lon != null){
+          const coordLine = document.createElement('div');
+          coordLine.className = 'addr coord';
+          coordLine.textContent = `${p.lat.toFixed(4)}, ${p.lon.toFixed(4)}`;
+          body.appendChild(coordLine);
+        } else if (p.status === 'failed'){
+          const warnLine = document.createElement('div');
+          warnLine.className = 'addr';
+          warnLine.style.color = 'var(--danger)';
+          warnLine.textContent = 'Couldn\'t place this on the map — try a Google Maps link or "lat, lon" instead.';
+          body.appendChild(warnLine);
+        }
+      }
+      if (p.onView){
+        const ov = document.createElement('div');
+        ov.className = 'exhibit';
+        const ovL = document.createElement('span');
+        ovL.className = 'exhibit-label';
+        ovL.textContent = 'On View:';
+        ov.appendChild(ovL);
+        ov.appendChild(document.createTextNode(p.onView));
+        body.appendChild(ov);
+
+        const op = document.createElement('div');
+        op.className = 'exhibit' + (p.opening ? '' : ' muted');
+        const opL = document.createElement('span');
+        opL.className = 'exhibit-label';
+        opL.textContent = 'Opening:';
+        op.appendChild(opL);
+        op.appendChild(document.createTextNode(p.opening || 'Not listed'));
+        body.appendChild(op);
+      }
+      if (p.note){
+        const noteEl = document.createElement('div');
+        noteEl.className = 'note';
+        noteEl.textContent = p.note;
+        body.appendChild(noteEl);
+      }
+      const visibleTags = (p.tags||[]).filter(t => !isLoopTag(t));
+      if (visibleTags.length){
+        const row = document.createElement('div');
+        row.className = 'tag-row';
+        visibleTags.forEach(t => {
+          const chip = document.createElement('span');
+          chip.className = 'tag';
+          chip.textContent = '#' + t;
+          chip.style.background = tagColor(t);
+          row.appendChild(chip);
+        });
+        body.appendChild(row);
+      }
+
+      card.appendChild(body);
+
+      const actions = document.createElement('div');
+      actions.className = 'card-actions';
+      const editBtn = document.createElement('button');
+      editBtn.className = 'icon-btn';
+      editBtn.textContent = 'Edit';
+      editBtn.onclick = () => { editingIds.add(p.id); render(); };
+      actions.appendChild(editBtn);
+      const del = document.createElement('button');
+      del.className = 'icon-btn';
+      del.textContent = 'Remove';
+      del.onclick = () => {
+        state.places = state.places.filter(x => x.id !== p.id);
+        saveState(); render();
+      };
+      actions.appendChild(del);
+      card.appendChild(actions);
+
+      list.appendChild(card);
+    });
+    group.appendChild(list);
+    groupsEl.appendChild(group);
+  });
+
+  document.getElementById('place-count').textContent =
+    vis.length + (vis.length === 1 ? ' place' : ' places') +
+    (vis.length !== state.places.length ? ` of ${state.places.length}` : '');
+}
+
+function computeLoopGroups(){
+  const combos = {};
+  state.places.forEach(p => {
+    const tags = p.tags || [];
+    const loopTags = tags.filter(t => /^loop\d+$/i.test(t));
+    if (!loopTags.length) return;
+    const areaTags = tags.filter(t => !/^loop\d+$/i.test(t) && !/^week\d+$/i.test(t));
+    const effectiveAreaTags = areaTags.length ? areaTags : ['general'];
+    loopTags.forEach(loopTag => {
+      effectiveAreaTags.forEach(areaTag => {
+        const key = areaTag + '|' + loopTag;
+        if (!combos[key]) combos[key] = { areaTag, loopTag };
+      });
+    });
+  });
+  Object.values(combos).forEach(c => {
+    c.places = state.places.filter(p => {
+      const tags = p.tags || [];
+      const hasArea = c.areaTag === 'general' ? true : tags.includes(c.areaTag);
+      return hasArea && tags.includes(c.loopTag);
+    });
+  });
+  return Object.values(combos).sort((a,b) =>
+    a.areaTag.localeCompare(b.areaTag) || a.loopTag.localeCompare(b.loopTag)
+  );
+}
+
+function renderLoopReport(){
+  const el = document.getElementById('loop-report');
+  const groups = computeLoopGroups();
+  el.innerHTML = '';
+  if (!groups.length) return;
+
+  const MAX_STOPS = 5;
+  const RADIUS_MILES = 0.15; // ~3 NYC blocks
+
+  function centroid(pts){
+    const lat = pts.reduce((s, p) => s + p.lat, 0) / pts.length;
+    const lon = pts.reduce((s, p) => s + p.lon, 0) / pts.length;
+    return { lat, lon };
+  }
+
+  const evaluated = groups.map(g => {
+    const geo = g.places.filter(p => p.lat != null && p.lon != null);
+    let maxD = null;
+    if (geo.length >= 2){
+      const c = centroid(geo);
+      maxD = Math.max(...geo.map(p => distMiles(c.lat, c.lon, p.lat, p.lon)));
+    }
+    const overSize = g.places.length > MAX_STOPS;
+    const single = g.places.length === 1;
+    const overRadius = maxD != null && maxD > RADIUS_MILES;
+    const ok = !overSize && !single && !overRadius;
+    return { g, maxD, overSize, single, overRadius, ok };
+  });
+
+  evaluated.sort((a, b) => b.g.places.length - a.g.places.length);
+
+  const heading = document.createElement('h3');
+  heading.textContent = 'Loop review';
+  el.appendChild(heading);
+
+  evaluated.forEach(({ g, maxD, overSize, single, overRadius, ok }) => {
+    const row = document.createElement('div');
+    row.className = 'loop-report-row ' + (ok ? 'flag-ok' : (overSize || overRadius ? 'flag-high' : 'flag-low'));
+
+    const name = document.createElement('span');
+    name.className = 'name';
+    const loopNum = g.loopTag.replace(/^loop/i, '');
+    name.textContent = `${g.areaTag.toUpperCase()} LOOP ${loopNum}`;
+    row.appendChild(name);
+
+    const stat = document.createElement('span');
+    stat.className = 'count';
+    const stopText = `${g.places.length} stop${g.places.length === 1 ? '' : 's'}`;
+    const radiusText = maxD != null ? `${maxD.toFixed(2)} mi radius` : 'no coords';
+    const reasons = [];
+    if (overSize) reasons.push(`over ${MAX_STOPS}-stop max`);
+    if (single) reasons.push('not a real loop');
+    if (overRadius) reasons.push(`over ~3-block radius`);
+    stat.textContent = `${stopText}, ${radiusText}${reasons.length ? ' — ' + reasons.join(', ') : ' — OK'}`;
+    row.appendChild(stat);
+
+    el.appendChild(row);
+  });
+
+  const note = document.createElement('div');
+  note.className = 'loop-report-note';
+  note.textContent = `Healthy loop: 2–${MAX_STOPS} stops, all within ~3 blocks (${RADIUS_MILES} mi) of the loop's center. "Auto-tag loops" builds to this standard automatically — anything flagged here was likely set up by hand, or predates the current clustering rules.`;
+  el.appendChild(note);
+}
+
+const MAX_STOPS_PER_MAPS_LINK = 10; // Google's directions URL breaks down beyond ~9-10 stops
+
+function chunkPlacesForMaps(places, maxStops = MAX_STOPS_PER_MAPS_LINK){
+  const pts = places.filter(p => p.lat != null && p.lon != null);
+  if (pts.length <= maxStops) return [pts];
+  const chunks = [];
+  let i = 0;
+  while (i < pts.length){
+    const end = Math.min(i + maxStops, pts.length);
+    chunks.push(pts.slice(i, end));
+    if (end >= pts.length) break;
+    i = end - 1; // overlap the last stop as the next chunk's start, so the walk stays continuous
+  }
+  return chunks;
+}
+
+function renderLoopButtons(){
+  const container = document.getElementById('loop-cta');
+  container.innerHTML = '';
+  const groups = computeLoopGroups().filter(g => g.places.some(p => p.lat != null && p.lon != null));
+  container.style.display = groups.length ? 'flex' : 'none';
+  groups.forEach(g => {
+    const chunks = chunkPlacesForMaps(g.places);
+    const loopNum = g.loopTag.replace(/^loop/i, '');
+    const label = `${g.areaTag.toUpperCase()} LOOP ${loopNum}`;
+
+    chunks.forEach((chunk, idx) => {
+      const url = googleMapsUrlForGroup(chunk);
+      if (!url) return;
+      const a = document.createElement('a');
+      a.className = 'btn loop-btn';
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = chunks.length > 1 ? `${label} (Part ${idx + 1} of ${chunks.length})` : label;
+      container.appendChild(a);
+    });
+  });
+}
+
+function computeWeekArchive(){
+  const weeks = {};
+  state.places.forEach(p => {
+    (p.tags||[]).forEach(t => {
+      const m = t.match(/^week(\d+)$/i);
+      if (m){
+        const num = parseInt(m[1], 10);
+        if (!weeks[num]) weeks[num] = [];
+        weeks[num].push(p);
+      }
+    });
+  });
+  return Object.keys(weeks)
+    .map(n => parseInt(n, 10))
+    .sort((a,b) => b - a)
+    .map(n => ({ week: n, places: weeks[n] }));
+}
+
+function renderArchive(){
+  const el = document.getElementById('archive-list');
+  const weeks = computeWeekArchive();
+  el.innerHTML = '';
+  if (!weeks.length){
+    const p = document.createElement('p');
+    p.className = 'archive-empty';
+    p.textContent = 'No weeks logged yet — tag a visited place #week1 to start the archive.';
+    el.appendChild(p);
+    return;
+  }
+  weeks.forEach(w => {
+    const box = document.createElement('div');
+    box.className = 'archive-week';
+
+    const header = document.createElement('div');
+    header.className = 'archive-week-header';
+    const h3 = document.createElement('h3');
+    h3.textContent = `Week ${w.week}`;
+    header.appendChild(h3);
+
+    const url = googleMapsUrlForGroup(w.places);
+    if (url){
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = w.places.length > 1 ? 'Open in Google Maps' : 'Open in Google Maps';
+      header.appendChild(a);
+    }
+    box.appendChild(header);
+
+    const ul = document.createElement('ul');
+    w.places.forEach(p => {
+      const li = document.createElement('li');
+      li.textContent = p.name + (p.address ? ` — ${p.address}` : '');
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+
+    el.appendChild(box);
+  });
+}
+
+function render(){
+  renderFilters();
+  renderLegend();
+  renderGroups();
+  renderMap();
+  renderLoopButtons();
+  renderLoopReport();
+  renderArchive();
+  renderCustomPicker();
+  renderCustomSelected();
+}
+
+function switchTab(tab){
+  currentTab = tab;
+  document.getElementById('tab-featured-btn').classList.toggle('active', tab === 'featured');
+  document.getElementById('tab-custom-btn').classList.toggle('active', tab === 'custom');
+  document.getElementById('featured-view').style.display = tab === 'featured' ? '' : 'none';
+  document.getElementById('custom-view').style.display = tab === 'custom' ? '' : 'none';
+  if (tab === 'featured' && map) setTimeout(() => map.invalidateSize(), 0);
+  render();
+}
+
+function renderCustomPicker(){
+  const el = document.getElementById('custom-picker');
+  if (!el) return;
+  const q = customSearchQuery.trim().toLowerCase();
+  if (!state.customSelection) state.customSelection = [];
+  const selectedSet = new Set(state.customSelection);
+  const items = state.places.filter(p => matchesSearch(p, q));
+  el.innerHTML = '';
+  if (!items.length){
+    el.innerHTML = '<div class="custom-item" style="color:var(--ink-soft);">No places match.</div>';
+    return;
+  }
+  items.forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'custom-item';
+
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = selectedSet.has(p.id);
+    cb.onchange = () => {
+      state.customSelection = state.customSelection || [];
+      if (cb.checked){
+        if (!state.customSelection.includes(p.id)) state.customSelection.push(p.id);
+      } else {
+        state.customSelection = state.customSelection.filter(id => id !== p.id);
+      }
+      saveState();
+      renderCustomSelected();
+    };
+    row.appendChild(cb);
+
+    const dot = document.createElement('span');
+    dot.className = 'custom-item-dot';
+    const colorTag = (p.tags||[]).find(t => t !== 'featured');
+    dot.style.background = colorTag ? tagColor(colorTag) : '#9aa79f';
+    row.appendChild(dot);
+
+    const label = document.createElement('span');
+    label.className = 'custom-item-label';
+    label.textContent = p.name + (p.address ? ' — ' + p.address : '');
+    row.appendChild(label);
+
+    if (colorTag){
+      const tagChip = document.createElement('span');
+      tagChip.className = 'tag';
+      tagChip.textContent = '#' + colorTag;
+      tagChip.style.background = tagColor(colorTag);
+      row.appendChild(tagChip);
+    }
+
+    el.appendChild(row);
+  });
+}
+
+function renderCustomSelected(){
+  const el = document.getElementById('custom-selected');
+  const countEl = document.getElementById('custom-count');
+  const linksEl = document.getElementById('custom-maps-links');
+  if (!el) return;
+  if (!state.customSelection) state.customSelection = [];
+  const ids = state.customSelection;
+  const selected = ids.map(id => state.places.find(p => p.id === id)).filter(Boolean);
+  countEl.textContent = selected.length;
+  el.innerHTML = '';
+  selected.forEach((p, idx) => {
+    const row = document.createElement('div');
+    row.className = 'custom-selected-item';
+
+    const label = document.createElement('span');
+    label.textContent = `${idx + 1}. ${p.name}`;
+    row.appendChild(label);
+
+    const upBtn = document.createElement('button');
+    upBtn.className = 'icon-btn';
+    upBtn.type = 'button';
+    upBtn.textContent = '↑';
+    upBtn.disabled = idx === 0;
+    upBtn.onclick = () => {
+      [ids[idx - 1], ids[idx]] = [ids[idx], ids[idx - 1]];
+      saveState(); renderCustomSelected();
+    };
+    row.appendChild(upBtn);
+
+    const downBtn = document.createElement('button');
+    downBtn.className = 'icon-btn';
+    downBtn.type = 'button';
+    downBtn.textContent = '↓';
+    downBtn.disabled = idx === selected.length - 1;
+    downBtn.onclick = () => {
+      [ids[idx + 1], ids[idx]] = [ids[idx], ids[idx + 1]];
+      saveState(); renderCustomSelected();
+    };
+    row.appendChild(downBtn);
+
+    const rmBtn = document.createElement('button');
+    rmBtn.className = 'icon-btn';
+    rmBtn.type = 'button';
+    rmBtn.textContent = 'Remove';
+    rmBtn.onclick = () => {
+      state.customSelection = ids.filter(id => id !== p.id);
+      saveState(); renderCustomSelected(); renderCustomPicker();
+    };
+    row.appendChild(rmBtn);
+
+    el.appendChild(row);
+  });
+
+  linksEl.innerHTML = '';
+  const chunks = chunkPlacesForMaps(selected);
+  chunks.forEach((chunk, idx) => {
+    if (!chunk.length) return;
+    const url = googleMapsUrlForGroup(chunk);
+    if (!url) return;
+    const a = document.createElement('a');
+    a.className = 'maps-link';
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    const base = chunk.length > 1 ? 'Open route in Google Maps' : 'Open in Google Maps';
+    a.textContent = chunks.length > 1 ? `${base} (Part ${idx + 1} of ${chunks.length})` : base;
+    linksEl.appendChild(a);
+  });
+}
+
+function guideAsText(){
+  let out = (state.title || 'Untitled guide') + '\n';
+  if (state.intro) out += state.intro + '\n';
+  out += '\n';
+  const byGroup = {};
+  visiblePlaces().forEach(p => {
+    const key = primaryTag(p) || 'Other';
+    if (!byGroup[key]) byGroup[key] = [];
+    byGroup[key].push(p);
+  });
+  Object.keys(byGroup).sort().forEach(key => {
+    out += (key === 'Other' ? 'Other' : '#' + key) + '\n';
+    byGroup[key].forEach(p => {
+      out += `  • ${p.name}`;
+      if (p.address) out += ` — ${p.address}`;
+      out += '\n';
+      if (p.note) out += `    ${p.note}\n`;
+    });
+    out += '\n';
+  });
+  return out.trim();
+}
+
+function extractCoordsFromText(text){
+  if (!text) return null;
+  let m = text.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);
+  if (m) return { lat: parseFloat(m[1]), lon: parseFloat(m[2]) };
+  m = text.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (m) return { lat: parseFloat(m[1]), lon: parseFloat(m[2]) };
+  m = text.match(/[?&](?:q|ll|query)=(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (m) return { lat: parseFloat(m[1]), lon: parseFloat(m[2]) };
+  const trimmed = text.trim();
+  if (/^-?\d{1,2}\.\d{3,},\s*-?\d{1,3}\.\d{3,}$/.test(trimmed)){
+    const [latS, lonS] = trimmed.split(',').map(s => s.trim());
+    const lat = parseFloat(latS), lon = parseFloat(lonS);
+    if (Math.abs(lat) <= 90 && Math.abs(lon) <= 180) return { lat, lon };
+  }
+  return null;
+}
+
+async function geocode(address){
+  if (!address) return null;
+  try{
+    const url = `https://photon.komoot.io/api/?limit=1&q=${encodeURIComponent(address)}`;
+    const res = await fetch(url);
+    if (res.ok){
+      const data = await res.json();
+      const f = data && data.features && data.features[0];
+      if (f && f.geometry && f.geometry.coordinates){
+        return { lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0] };
+      }
+    }
+  }catch(e){ /* fall through to backup */ }
+  try{
+    const url2 = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+    const res2 = await fetch(url2);
+    if (res2.ok){
+      const data2 = await res2.json();
+      if (data2 && data2[0]){
+        return { lat: parseFloat(data2[0].lat), lon: parseFloat(data2[0].lon) };
+      }
+    }
+  }catch(e){ /* both failed */ }
+  return null;
+}
+
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+function uid(){ return Math.random().toString(36).slice(2,10); }
+
+async function saveState(){
+  try{
+    await window.storage.set('guide', JSON.stringify(state));
+  }catch(e){ console.error('save failed', e); }
+}
+
+function parseLine(line){
+  let note = '';
+  let rest = line;
+  const pipeIdx = rest.indexOf('|');
+  if (pipeIdx !== -1){
+    note = rest.slice(pipeIdx+1).trim();
+    rest = rest.slice(0, pipeIdx);
+  }
+  const tags = [];
+  rest = rest.replace(/#(\w[\w-]*)(?=\s|$)/g, (m, t) => { tags.push(t.toLowerCase()); return ''; }).trim();
+  const dashSplit = rest.split(/\s+[—–-]\s+/).map(s => s.trim()).filter(Boolean);
+
+  let name, address = '', presetCoords = null;
+
+  if (dashSplit.length >= 3){
+    const last = dashSplit[dashSplit.length - 1];
+    const coords = extractCoordsFromText(last);
+    if (coords){
+      name = dashSplit[0];
+      address = dashSplit.slice(1, -1).join(' - ');
+      presetCoords = coords;
+    } else {
+      name = dashSplit[0];
+      address = dashSplit.slice(1).join(' - ');
+    }
+  } else if (dashSplit.length === 2){
+    name = dashSplit[0];
+    address = dashSplit[1];
+  } else {
+    name = rest;
+    const commaIdx = rest.indexOf(',');
+    if (commaIdx !== -1){
+      name = rest.slice(0, commaIdx).trim();
+      address = rest.slice(commaIdx+1).trim();
+    }
+  }
+
+  return { name: name || rest.trim(), address, tags, note, presetCoords };
+}
+
+async function handleParse(){
+  const raw = document.getElementById('bulk').value;
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  if (!lines.length) return;
+
+  const btn = document.getElementById('parse-btn');
+  const statusEl = document.getElementById('status-line');
+  btn.disabled = true;
+
+  const newPlaces = lines.map(line => {
+    const parsed = parseLine(line);
+    const preset = parsed.presetCoords;
+    return {
+      id: uid(),
+      name: parsed.name,
+      address: parsed.address,
+      tags: parsed.tags,
+      note: parsed.note,
+      lat: preset ? preset.lat : null,
+      lon: preset ? preset.lon : null,
+      status: preset ? 'ok' : 'pending'
+    };
+  });
+  state.places = state.places.concat(newPlaces);
+  document.getElementById('bulk').value = '';
+  render();
+
+  for (let i=0; i<newPlaces.length; i++){
+    const p = newPlaces[i];
+    if (p.status === 'ok') continue;
+    statusEl.textContent = `Locating ${i+1} of ${newPlaces.length}: ${p.name}`;
+    const direct = extractCoordsFromText(p.address) || extractCoordsFromText(p.name);
+    if (direct){
+      p.lat = direct.lat; p.lon = direct.lon; p.status = 'ok';
+      render();
+      continue;
+    }
+    try{
+      const q = p.address ? `${p.name} ${p.address}` : p.name;
+      let geo = await geocode(p.address || q);
+      if (!geo) geo = await geocode(q);
+      if (geo){ p.lat = geo.lat; p.lon = geo.lon; p.status = 'ok'; }
+      else { p.status = 'failed'; }
+    }catch(e){ p.status = 'failed'; }
+    render();
+    if (i < newPlaces.length - 1) await sleep(500);
+  }
+
+  statusEl.textContent = '';
+  btn.disabled = false;
+  saveState();
+}
+
+
+function downloadBlob(content, filename, mime){
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportJSON(){
+  const cleanTagColors = Object.assign({}, state.tagColors || {});
+  delete cleanTagColors.featured;
+  const payload = {
+    title: state.title || '',
+    intro: state.intro || '',
+    tagColors: cleanTagColors,
+    places: state.places.map(p => ({
+      name: p.name,
+      address: p.address || '',
+      lat: p.lat != null ? p.lat : null,
+      lon: p.lon != null ? p.lon : null,
+      tags: (p.tags || []).filter(t => t !== 'featured'),
+      note: p.note || '',
+      onView: p.onView || '',
+      opening: p.opening || ''
+    }))
+  };
+  const slug = (state.title || 'place-guide').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'place-guide';
+  downloadBlob(JSON.stringify(payload, null, 2), `${slug}.json`, 'application/json');
+}
+
+function exportXLSX(){
+  const placesSheet = state.places.map(p => ({
+    Name: p.name,
+    Address: p.address || '',
+    Latitude: p.lat != null ? p.lat : '',
+    Longitude: p.lon != null ? p.lon : '',
+    Tags: (p.tags || []).filter(t => t !== 'featured').join(', '),
+    Note: p.note || '',
+    'On View': p.onView || '',
+    Opening: p.opening || ''
+  }));
+  const colorsSheet = Object.keys(state.tagColors || {}).filter(tag => tag !== 'featured').map(tag => ({
+    Tag: tag,
+    Color: state.tagColors[tag]
+  }));
+  const infoSheet = [
+    { Field: 'Title', Value: state.title || '' },
+    { Field: 'Intro', Value: state.intro || '' }
+  ];
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(placesSheet), 'Places');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(colorsSheet), 'Tag Colors');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(infoSheet), 'Guide Info');
+
+  const slug = (state.title || 'place-guide').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'place-guide';
+  XLSX.writeFile(wb, `${slug}.xlsx`);
+}
+
+function dedupeKey(p){
+  const name = (p.name || '').toLowerCase().trim();
+  if (name) return 'name:' + name;
+  const addr = (p.address || '').toLowerCase().trim();
+  if (addr) return 'addr:' + addr;
+  if (p.lat != null && p.lon != null) return `coord:${p.lat.toFixed(5)},${p.lon.toFixed(5)}`;
+  return null;
+}
+
+function removeDuplicates(){
+  const groups = new Map();
+  state.places.forEach(p => {
+    const key = dedupeKey(p);
+    if (!key) return;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(p);
+  });
+
+  const toRemoveIds = new Set();
+  let mergedGroups = 0;
+
+  groups.forEach(group => {
+    if (group.length < 2) return;
+    mergedGroups++;
+
+    const survivor = group.find(p => (p.tags || []).some(t => /^loop\d+$/i.test(t))) || group[0];
+
+    const tagSet = new Map();
+    group.forEach(p => (p.tags || []).forEach(t => tagSet.set(t.toLowerCase(), t)));
+    survivor.tags = [...tagSet.values()];
+
+    if (!survivor.note){
+      const withNote = group.find(p => p.note);
+      if (withNote) survivor.note = withNote.note;
+    }
+    if (!survivor.address){
+      const withAddr = group.find(p => p.address);
+      if (withAddr) survivor.address = withAddr.address;
+    }
+    if (survivor.lat == null || survivor.lon == null){
+      const withCoords = group.find(p => p.lat != null && p.lon != null);
+      if (withCoords){ survivor.lat = withCoords.lat; survivor.lon = withCoords.lon; survivor.status = 'ok'; }
+    }
+
+    group.forEach(p => { if (p.id !== survivor.id) toRemoveIds.add(p.id); });
+  });
+
+  if (!toRemoveIds.size){
+    alert('No duplicates found.');
+    return;
+  }
+  state.places = state.places.filter(p => !toRemoveIds.has(p.id));
+  saveState();
+  render();
+  alert(`Merged and removed ${toRemoveIds.size} duplicate place${toRemoveIds.size === 1 ? '' : 's'} across ${mergedGroups} name${mergedGroups === 1 ? '' : 's'}.`);
+}
+
+function distMiles(lat1, lon1, lat2, lon2){
+  const R = 3958.8;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function autoAssignLoopsForArea(){
+  const input = prompt('Cluster which tag into loops of up to 5 stops each, within a 3-block radius? (e.g. chelsea)');
+  if (!input) return;
+  const tag = input.trim().toLowerCase().replace(/^#/, '');
+  if (!tag) return;
+
+  const MAX_STOPS = 5;
+  const RADIUS_MILES = 0.15; // roughly 3 NYC blocks
+  const places = state.places.filter(p => (p.tags || []).includes(tag) && p.lat != null && p.lon != null);
+  if (places.length < 2){
+    alert(`Found ${places.length} place(s) tagged #${tag} with coordinates — need at least 2 to form a loop.`);
+    return;
+  }
+
+  // Strip any existing loopN tags from these places before reclustering
+  places.forEach(p => { p.tags = (p.tags || []).filter(t => !/^loop\d+$/i.test(t)); });
+
+  function centroid(cluster){
+    const lat = cluster.reduce((s, p) => s + p.lat, 0) / cluster.length;
+    const lon = cluster.reduce((s, p) => s + p.lon, 0) / cluster.length;
+    return { lat, lon };
+  }
+
+  const remaining = [...places];
+  const clusters = [];
+  const leftover = [];
+
+  while (remaining.length){
+    // Seed the next loop near where the previous one ended, for a sensible reading order.
+    let seedIdx = 0;
+    if (clusters.length){
+      const lastPoint = clusters.at(-1).at(-1);
+      let bestD = Infinity;
+      remaining.forEach((p, i) => {
+        const d = distMiles(lastPoint.lat, lastPoint.lon, p.lat, p.lon);
+        if (d < bestD){ bestD = d; seedIdx = i; }
+      });
+    }
+    const cluster = [remaining.splice(seedIdx, 1)[0]];
+
+    // Only add a place if it keeps EVERY member of the cluster within the radius
+    // of the cluster's center — not just close to the last stop added.
+    while (cluster.length < MAX_STOPS){
+      const c = centroid(cluster);
+      let bestIdx = -1, bestD = Infinity;
+      remaining.forEach((p, i) => {
+        const d = distMiles(c.lat, c.lon, p.lat, p.lon);
+        if (d <= RADIUS_MILES && d < bestD){ bestD = d; bestIdx = i; }
+      });
+      if (bestIdx === -1) break; // nothing left is close enough — stop growing this loop
+      cluster.push(remaining.splice(bestIdx, 1)[0]);
+    }
+
+    if (cluster.length >= 2){
+      clusters.push(cluster);
+    } else {
+      leftover.push(...cluster); // couldn't pair this one with anything nearby
+    }
+  }
+
+  clusters.forEach((cluster, idx) => {
+    const loopTag = 'loop' + (idx + 1);
+    cluster.forEach(p => p.tags.push(loopTag));
+  });
+
+  saveState();
+  render();
+  const sizes = clusters.map(c => c.length).join(', ');
+  const loopedCount = clusters.reduce((s, c) => s + c.length, 0);
+  let msg = `Tagged ${loopedCount} of ${places.length} #${tag} places into ${clusters.length} loop${clusters.length === 1 ? '' : 's'} (max ${MAX_STOPS} stops, ~3-block radius each).\n\nSizes: ${sizes}`;
+  if (leftover.length){
+    msg += `\n\n${leftover.length} place${leftover.length === 1 ? ' was' : 's were'} left untagged — nothing else was close enough (within ~3 blocks) to pair with: ${leftover.map(p => p.name).join(', ')}`;
+  }
+  alert(msg);
+}
+
+document.getElementById('autoloop-btn').addEventListener('click', autoAssignLoopsForArea);
+
+function clearAllLoops(){
+  const affected = state.places.filter(p => (p.tags || []).some(t => /^loop\d+$/i.test(t)));
+  if (!affected.length){
+    alert('No loop tags found — nothing to clear.');
+    return;
+  }
+  state.places.forEach(p => { p.tags = (p.tags || []).filter(t => !/^loop\d+$/i.test(t)); });
+  saveState();
+  render();
+  alert(`Cleared loop tags from ${affected.length} place${affected.length === 1 ? '' : 's'}. Every neighborhood tag stays intact — run "Auto-tag loops" whenever you're ready to rebuild.`);
+}
+document.getElementById('clearloops-btn').addEventListener('click', clearAllLoops);
+
+document.getElementById('dedupe-btn').addEventListener('click', removeDuplicates);
+document.getElementById('parse-btn').addEventListener('click', handleParse);
+
+document.getElementById('export-json-btn').addEventListener('click', exportJSON);
+
+document.getElementById('import-json-btn').addEventListener('click', () => {
+  document.getElementById('import-json-file').click();
+});
+document.getElementById('import-json-file').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    try{
+      const data = JSON.parse(evt.target.result);
+      if (!data || !Array.isArray(data.places)) throw new Error('Not a valid guide export — missing a "places" array.');
+      const ok = confirm(`This will replace your current guide (title, intro, tag colors, and all places) with the imported file: "${data.title || 'Untitled'}" — ${data.places.length} places. Continue?`);
+      if (!ok) return;
+      state = {
+        title: data.title || '',
+        intro: data.intro || '',
+        tagColors: data.tagColors || {},
+        places: data.places.map(p => ({
+          id: uid(),
+          name: p.name || '',
+          address: p.address || '',
+          lat: p.lat != null ? p.lat : null,
+          lon: p.lon != null ? p.lon : null,
+          tags: p.tags || [],
+          note: p.note || '',
+          onView: p.onView || '',
+          opening: p.opening || '',
+          status: (p.lat != null && p.lon != null) ? 'ok' : 'failed'
+        }))
+      };
+      document.getElementById('guide-title').textContent = state.title || 'Place Guide';
+      document.getElementById('guide-intro').textContent = state.intro || '';
+      document.getElementById('guide-intro').style.display = state.intro ? 'block' : 'none';
+      saveState();
+      render();
+      alert(`Imported ${state.places.length} places.`);
+    }catch(err){
+      alert('Import failed: ' + err.message);
+    }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+});
+document.getElementById('export-xlsx-btn').addEventListener('click', exportXLSX);
+
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  render();
+});
+
+document.getElementById('tab-featured-btn').addEventListener('click', () => switchTab('featured'));
+document.getElementById('tab-custom-btn').addEventListener('click', () => switchTab('custom'));
+
+document.getElementById('custom-search').addEventListener('input', e => {
+  customSearchQuery = e.target.value;
+  renderCustomPicker();
+});
+
+document.getElementById('custom-clear-btn').addEventListener('click', () => {
+  state.customSelection = [];
+  saveState();
+  renderCustomSelected();
+  renderCustomPicker();
+});
+
+document.getElementById('copy-btn').addEventListener('click', async () => {
+  const text = guideAsText();
+  try{
+    await navigator.clipboard.writeText(text);
+    const btn = document.getElementById('copy-btn');
+    const original = btn.textContent;
+    btn.textContent = 'Copied';
+    setTimeout(() => btn.textContent = original, 1500);
+  }catch(e){
+    alert(text);
+  }
+});
+
+initMap();
+
+// ---- One-time additions (Oct 4, 2026 list). Adds only galleries not already in the guide. ----
+const BASE_GUIDE = {"title": "Art Gallery Guide", "intro": "", "tagColors": {}, "places": [{"name": "Opera Gallery New York", "address": "40.7696364, -73.9666754", "lat": 40.7696364, "lon": -73.9666754, "tags": ["uppereastside"], "note": "Xevi Solà, 'One Year – Scenes in Time': 10 July - 20 October 2026"}, {"name": "Sotheby's", "address": "40.7734, -73.9638", "lat": 40.7734, "lon": -73.9638, "tags": ["uppereastside", "art"], "note": "Breuer building, HQ since Nov 2025"}, {"name": "Long Gallery, Harlem", "address": "2073 Adam Clayton Powell Jr Blvd", "lat": 40.8079221, "lon": -73.9486624, "tags": ["harlem"], "note": "Alexandria Smith: The Three Graces: September 13 – November 15, 2026"}, {"name": "Curtiss Jacobs Gallery", "address": "2075 Adam Clayton Powell Jr Blvd", "lat": 40.8080374, "lon": -73.948704, "tags": ["harlem"], "note": "Ransome, A Little Sugar in My Bowl: September 13 - October 17, 2026"}, {"name": "Upsilon Gallery", "address": "23 E 67th St, New York, NY 10065", "lat": 40.7689041, "lon": -73.9678878, "tags": ["uppereastside"], "note": ""}, {"name": "Pace Di Donna Schrader Galleries", "address": "744 Madison Ave, New York, NY 10065", "lat": 40.767183, "lon": -73.9690548, "tags": ["uppereastside"], "note": ""}, {"name": "PHILLIPS", "address": "432 Park Ave, New York, NY 10022", "lat": 40.7614204, "lon": -73.9720131, "tags": ["midtown"], "note": ""}, {"name": "El Museo del Barrio", "address": "1230 5th Ave, New York, NY 10029", "lat": 40.7930766, "lon": -73.9513662, "tags": ["harlem"], "note": "Teddy Sandoval and the Butch Gardens School of Art: September 10, 2026 – January 10 2027"}, {"name": "Christie's New York", "address": "20 Rockefeller Plaza, New York, NY 10020", "lat": 40.7584233, "lon": -73.979789, "tags": ["midtown"], "note": ""}, {"name": "Studio Museum in Harlem", "address": "144 W 125th St, New York, NY 10027", "lat": 40.8082859, "lon": -73.9476925, "tags": ["harlem"], "note": "GEOMETRIES: September 10, 2026–January 31, 2027"}, {"name": "The Jewish Museum", "address": "1109 5th Ave, New York, NY 10128", "lat": 40.785405, "lon": -73.9571799, "tags": ["uppereastside"], "note": ""}, {"name": "Cooper Hewitt", "address": "2 E 91st St, New York, NY 10128", "lat": 40.7842946, "lon": -73.9578179, "tags": ["uppereastside"], "note": "Pay-what-you-wish from 5:00-6:00pm daily for all visitors."}, {"name": "Dacia Gallery", "address": "621 E 11th St, New York, NY 10009", "lat": 40.7272055, "lon": -73.9782443, "tags": ["eastvillage"], "note": "Group Exhibition: September 1-13, 2026"}, {"name": "Half Gallery", "address": "235 E 4th St, New York, NY 10009", "lat": 40.7234766, "lon": -73.9826706, "tags": ["eastvillage"], "note": "Meghann Stephenson  Queen of the Neighborhood!: September 9th - October 8th, 2026"}, {"name": "Wilmer Jennings Gallery at Kenkeleba", "address": "219 E 2nd St, New York, NY 10009", "lat": 40.7216689, "lon": -73.9830306, "tags": ["eastvillage"], "note": ""}, {"name": "TOTAH", "address": "183 Stanton St, New York, NY 10002", "lat": 40.7199476, "lon": -73.983898, "tags": ["lowereastside"], "note": "Alexis Hunter, Chimera: Opening September 10th, 2026"}, {"name": "SHIN GALLERY", "address": "68 Orchard St, New York, NY 10002", "lat": 40.7174263, "lon": -73.9903281, "tags": ["lowereastside"], "note": "The Enduring Line: August 10 - October 3, 2026"}, {"name": "McKenzie Fine Art", "address": "55 Orchard St, New York, NY 10002", "lat": 40.7166765, "lon": -73.991122, "tags": ["lowereastside"], "note": "Pete Schulte, Neither-Nor Stone or Not Not-a-Rock: September 9 - October 25, 2026"}, {"name": "MoMA", "address": "11 W 53rd St, New York, NY 10019", "lat": 40.7613492, "lon": -73.9773325, "tags": ["midtown"], "note": ""}, {"name": "NYPL Schwarzman Building", "address": "476 5th Ave, New York, NY 10018", "lat": 40.7531823, "lon": -73.9822534, "tags": ["midtown"], "note": ""}, {"name": "The Morgan Library & Museum", "address": "225 Madison Ave, New York, NY 10016", "lat": 40.7491829, "lon": -73.9813041, "tags": ["midtown"], "note": "Tarot! Renaissance Symbols, Modern Visions: June 26 - October 4, 2026"}, {"name": "David Peter Francis", "address": "35 E Broadway #3F, New York, NY 10002", "lat": 40.7134285, "lon": -73.9963447, "tags": ["lowereastside"], "note": "Unglee, Le souvenir du temps: September 10—October 17, 2026"}, {"name": "Lyles & King", "address": "19 Henry St, New York, NY 10002", "lat": 40.7129331, "lon": -73.9969428, "tags": ["lowereastside"], "note": ""}, {"name": "Long Story Short NYC", "address": "52 Henry St, New York, NY 10002", "lat": 40.712753, "lon": -73.9953381, "tags": ["lowereastside"], "note": ""}, {"name": "Bienvenu Steinberg & C", "address": "35 Walker St, New York, NY 10013", "lat": 40.719253, "lon": -74.0040698, "tags": ["tribeca"], "note": "Raphaël Denis, Fates of Works September 3 – October 3, 2026"}, {"name": "Bortolami", "address": "39 Walker St, New York, NY 10013", "lat": 40.7190682, "lon": -74.0040133, "tags": ["tribeca"], "note": "Christine Safa; Yuan Yuan; Daniel Buren, Barbara Kasten — opens Sept 9, 2026"}, {"name": "David Zwirner", "address": "52 Walker St, New York, NY 10013", "lat": 40.7191723, "lon": -74.0032562, "tags": ["tribeca"], "note": "Scott Kahn: Silent Night: September 10 - October 17, 2026"}, {"name": "Andrew Kreps Gallery", "address": "394 Broadway, New York, NY 10013", "lat": 40.7183989, "lon": -74.0025698, "tags": ["tribeca"], "note": "Andrea Bowers: September 18 – October 31, 2026"}, {"name": "Silke Lindner", "address": "350 Broadway, New York, NY 10013", "lat": 40.7169612, "lon": -74.0036939, "tags": ["tribeca"], "note": "Gozié Ojini, Careworn: September 9 — October 24, 2026"}, {"name": "Bowery Gallery", "address": "547 West 27th St, Suite 508, New York, NY 10001", "lat": 40.7513002, "lon": -74.004346, "tags": ["chelsea"], "note": "Hearne Pardee, Landscaping: September 8 - October 3, 2026"}, {"name": "Ceres Gallery New York", "address": "547 W 27th St #201, New York, NY 10001", "lat": 40.7513002, "lon": -74.004346, "tags": ["chelsea"], "note": "Elizabeth Downer Riker, The Understory: September 8 – October 3, 2026"}, {"name": "Grolier Club", "address": "47 E 60th St, New York, NY 10022", "lat": 40.7640195, "lon": -73.9699171, "tags": ["uppereastside"], "note": "Pioneers in Hand Papermaking: 50 Years of Innovation at Dieu Donné: Sept 8 – Nov 28, 2026"}, {"name": "Nicelle Beauchene", "address": "7 Franklin Place, New York, NY 10013", "lat": 40.7179994, "lon": -74.0038447, "tags": ["tribeca"], "note": "Alice Tippit, Blue State; Lucy Puls, Righting — opens Sept 9, 2026"}, {"name": "Matthew Brown", "address": "390 Broadway, New York, NY 10013", "lat": 40.7182401, "lon": -74.0030498, "tags": ["tribeca"], "note": "Carroll Dunham — opens Sept 9, 2026"}, {"name": "CANADA", "address": "60 Lispenard Street, New York, NY 10013", "lat": 40.7192723, "lon": -74.0028823, "tags": ["tribeca"], "note": "Scott Reeder, ideas contd. — opens Sept 9, 2026"}, {"name": "Chapter NY", "address": "60 Walker Street, New York, NY 10013", "lat": 40.7190002, "lon": -74.0029715, "tags": ["tribeca"], "note": "Alix Vernet; Giuseppe Francalanza — opens Sept 9, 2026"}, {"name": "Chart", "address": "74 Franklin Street, New York, NY 10013", "lat": 40.7179166, "lon": -74.0042953, "tags": ["tribeca"], "note": "Anna Ortiz, Shapeshifter — opens Sept 9, 2026"}, {"name": "D.D.D.D. Pictures", "address": "79 Leonard Street, New York, NY 10013", "lat": 40.7174449, "lon": -74.0049858, "tags": ["tribeca"], "note": "anna t Gregor; Stefan Reiterer — opens Sept 9, 2026"}, {"name": "Dimin", "address": "406 Broadway, New York, NY 10013", "lat": 40.7187957, "lon": -74.0020536, "tags": ["tribeca"], "note": "Taj Poscé, looking up from here — opens Sept 9, 2026"}, {"name": "Anat Ebgi", "address": "372 Broadway, New York, NY 10013", "lat": 40.7176002, "lon": -74.0029122, "tags": ["tribeca"], "note": "Soumya Netrabile, Field Conditions — opens Sept 9, 2026"}, {"name": "Andrew Edlin Gallery", "address": "392 Broadway, New York, NY 10013", "lat": 40.7182116, "lon": -74.002315, "tags": ["tribeca"], "note": "Conduits of the Unseen — opens Sept 9, 2026"}, {"name": "Derek Eller Gallery", "address": "38 Walker Street, New York, NY 10013", "lat": 40.7194586, "lon": -74.003844, "tags": ["tribeca"], "note": "Julia Bland; Antone Könst — opens Sept 9, 2026"}, {"name": "Freight + Volume", "address": "39 Lispenard Street, New York, NY 10013", "lat": 40.7199054, "lon": -74.003348, "tags": ["tribeca"], "note": "Mary DeVincentis — opens Sept 9, 2026"}, {"name": "Asya Geisberg Gallery", "address": "45 White Street, New York, NY 10013", "lat": 40.718426, "lon": -74.0043807, "tags": ["tribeca"], "note": "Rebecca Morgan, Painting in the Apocalypse — opens Sept 9, 2026"}, {"name": "Alexander Gray Associates", "address": "384 Broadway, New York, NY 10013", "lat": 40.7180728, "lon": -74.0026345, "tags": ["tribeca"], "note": "People Make Art: Tribute to Melvin Edwards — opens Sept 9, 2026"}, {"name": "Grimm", "address": "54 White Street, New York, NY 10013", "lat": 40.7185657, "lon": -74.0037378, "tags": ["tribeca"], "note": "Volker Hüller, Angelus Novus — opens Sept 9, 2026"}, {"name": "Hesse Flatow", "address": "77 Franklin Street, New York, NY 10013", "lat": 40.7177279, "lon": -74.0045307, "tags": ["tribeca"], "note": "Lizzie Gill; Paloma Izquierdo — opens Sept 9, 2026"}, {"name": "High Noon", "address": "68 Reade Street, New York, NY 10007", "lat": 40.7152607, "lon": -74.0066838, "tags": ["tribeca"], "note": "Bobbie Oliver, Field Work — opens Sept 9, 2026"}, {"name": "The Journal", "address": "45 White Street, New York, NY 10013", "lat": 40.718426, "lon": -74.0043807, "tags": ["tribeca"], "note": "Mia Goldstein, Handle with Care — opens Sept 9, 2026"}, {"name": "Klaus von Nichtssagend", "address": "87 Franklin Street, New York, NY 10013", "lat": 40.7178808, "lon": -74.004886, "tags": ["tribeca"], "note": "Mark Armijo McKnight — opens Sept 9, 2026"}, {"name": "Jane Lombard Gallery", "address": "58 White Street, New York, NY 10013", "lat": 40.7185137, "lon": -74.0036104, "tags": ["tribeca"], "note": "Karolina Maszkiewicz, Tending the Wild — opens Sept 9, 2026"}, {"name": "Mendes Wood DM", "address": "47 Walker Street, New York, NY 10013", "lat": 40.7190123, "lon": -74.0036997, "tags": ["tribeca"], "note": "Vojtěch Kovařík — opens Sept 9, 2026"}, {"name": "Charles Moffett Gallery", "address": "394 Broadway, New York, NY 10013", "lat": 40.7183989, "lon": -74.0025698, "tags": ["tribeca"], "note": "Melissa Joseph, Casserole Culture — opens Sept 9, 2026"}, {"name": "David Nolan", "address": "74 Leonard Street, New York, NY 10013", "lat": 40.7172904, "lon": -74.0053843, "tags": ["tribeca"], "note": "Valerio Adami — opens Sept 9, 2026"}, {"name": "Oolong Gallery", "address": "4 Cortlandt Alley, New York, NY 10013", "lat": 40.7174117, "lon": -74.0027746, "tags": ["tribeca"], "note": "Sally Scopa, Ready for the Ceremony — opens Sept 9, 2026"}, {"name": "P.P.O.W.", "address": "392 Broadway, New York, NY 10013", "lat": 40.7182116, "lon": -74.002315, "tags": ["tribeca"], "note": "Michael Wilkinson, Fluorochiaroscuro — opens Sept 9, 2026"}, {"name": "RAINRAIN", "address": "110 Lafayette Street, New York, NY 10013", "lat": 40.7182516, "lon": -74.000929, "tags": ["tribeca"], "note": "Lorna Bauer, Peter Brock, Mira Dayal, Emma Safir — opens Sept 9, 2026"}, {"name": "Ellie Rines Gallery (fka 56 Henry)", "address": "46 Walker Street, New York, NY 10013", "lat": 40.7193021, "lon": -74.0035319, "tags": ["tribeca"], "note": "Christopher K. Ho, Waterloo! — opens Sept 9, 2026"}, {"name": "Margot Samel", "address": "295 Church Street, New York, NY 10013", "lat": 40.7191405, "lon": -74.0043643, "tags": ["tribeca"], "note": "Narcissister — opens Sept 9, 2026"}, {"name": "Sargent's Daughters", "address": "370 Broadway, New York, NY 10013", "lat": 40.7175084, "lon": -74.0030014, "tags": ["tribeca"], "note": "Sarah Zapata — opens Sept 9, 2026"}, {"name": "Shrine", "address": "368 Broadway, New York, NY 10013", "lat": 40.7175678, "lon": -74.0032549, "tags": ["tribeca"], "note": "Rasmus Eckhardt, Passing Light — opens Sept 9, 2026"}, {"name": "Tappeto Volante Projects", "address": "4 Cortlandt Alley, New York, NY 10013", "lat": 40.7174117, "lon": -74.0027746, "tags": ["tribeca"], "note": "Bascha Mon, Solo Show — opens Sept 9, 2026"}, {"name": "Cristin Tierney Gallery", "address": "49 Walker Street, New York, NY 10013", "lat": 40.7189163, "lon": -74.0035683, "tags": ["tribeca"], "note": "Janet Biggs, Path of Totality — opens Sept 9, 2026"}, {"name": "Hoffman Donahue", "address": "99 Bowery, New York, NY 10002", "lat": 40.7173964, "lon": -73.9949726, "tags": ["lowereastside"], "note": "Ulrike Müller — opens Sept 9, 2026"}, {"name": "Tara Downs", "address": "96 Bowery, New York, NY 10013", "lat": 40.7176817, "lon": -73.9955657, "tags": ["lowereastside"], "note": "Nizhonniya Austin, Trying to Be Alaska — opens Sept 9, 2026"}, {"name": "Fridman Gallery", "address": "169 Bowery, New York, NY 10002", "lat": 40.7198478, "lon": -73.9937108, "tags": ["lowereastside"], "note": "Dindga McCannon — opens Sept 9, 2026"}, {"name": "Frosch & Co", "address": "34 East Broadway, New York, NY 10002", "lat": 40.7137253, "lon": -73.9964018, "tags": ["lowereastside"], "note": "Seth Michael Forman — opens Sept 9, 2026"}, {"name": "Sebastian Gladstone", "address": "291 Grand Street, New York, NY 10002", "lat": 40.717127, "lon": -73.9923749, "tags": ["lowereastside"], "note": "Herman Cherry — opens Sept 9, 2026"}, {"name": "Helm Contemporary", "address": "132 Bowery, New York, NY 10013", "lat": 40.7189498, "lon": -73.9948983, "tags": ["lowereastside"], "note": "Linsey Walt, the Measure of things — opens Sept 9, 2026"}, {"name": "Nathalie Karg", "address": "127 Elizabeth St, New York, NY 10013", "lat": 40.719567, "lon": -73.9955961, "tags": ["nolita"], "note": "Peter Barrickman — opens Sept 9, 2026"}, {"name": "Magenta Plains", "address": "149 Canal Street, New York, NY 10002", "lat": 40.7164326, "lon": -73.9954743, "tags": ["lowereastside"], "note": "10 Year Anniversary — opens Sept 9, 2026"}, {"name": "Management", "address": "39 East Broadway, New York, NY 10002", "lat": 40.713348, "lon": -73.996191, "tags": ["lowereastside"], "note": "Nana Wolke, Halfway out to Heaven — opens Sept 9, 2026"}, {"name": "JJ Murphy Gallery", "address": "53 Stanton Street, New York, NY 10002", "lat": 40.7218861, "lon": -73.9903592, "tags": ["lowereastside"], "note": "Mala Iqbal, Among Us — opens Sept 9, 2026"}, {"name": "Perrotin", "address": "130 Orchard Street, New York, NY 10002", "lat": 40.7195883, "lon": -73.9892322, "tags": ["lowereastside"], "note": "Nikki Maloof, Menagerie — opens Sept 9, 2026"}, {"name": "Peter Blum", "address": "176 Grand Street, New York, NY 10013", "lat": 40.719663, "lon": -73.997675, "tags": ["nolita"], "note": "Paul Fägerskiöld, Ergosphere — opens Sept 9, 2026"}, {"name": "Garth Greenan", "address": "25 Greene Street, New York, NY 10013", "lat": 40.7212682, "lon": -74.0028147, "tags": ["soho"], "note": "Cannupa Hanska Luger; Rosalyn Drexler — opens Sept 9, 2026"}, {"name": "YveYang", "address": "12 Wooster Street, New York, NY 10013", "lat": 40.7212579, "lon": -74.0033155, "tags": ["soho"], "note": "Anastazie Anderson, The Children's Villa — opens Sept 9, 2026"}, {"name": "Alexander Berggruen", "address": "1018 Madison Avenue, New York, NY 10075", "lat": 40.7759974, "lon": -73.9625966, "tags": ["uppereastside"], "note": "Danny Fox, Fata Morgana — opens Sept 9, 2026"}, {"name": "Post Times", "address": "29 Henry Street, New York, NY 10002", "lat": 40.7129936, "lon": -73.9964002, "tags": ["lowereastside"], "note": "Michael Assiff, USA Flowers — opens Sept 9, 2026"}, {"name": "Opera Gallery", "address": "827 Madison Ave, New York, NY 10065", "lat": 40.7696364, "lon": -73.9666754, "tags": ["uppereastside", "art"], "note": ""}, {"name": "2073 Adam Clayton Powell Jr Blvd", "address": "40.8079221, -73.9486624", "lat": 40.8079221, "lon": -73.9486624, "tags": ["harlem"], "note": ""}, {"name": "Cooper Hewitt, Smithsonian Design Museum", "address": "2 E 91st St, New York, NY 10128", "lat": 40.7842946, "lon": -73.9578179, "tags": ["uppereastside"], "note": ""}, {"name": "New York Public Library, Schwarzman Building", "address": "476 5th Ave, New York, NY 10018", "lat": 40.7531823, "lon": -73.9822534, "tags": ["midtown"], "note": ""}, {"name": "225 Madison Ave", "address": "40.7491829, -73.9813041", "lat": 40.7491829, "lon": -73.9813041, "tags": ["midtown"], "note": ""}, {"name": "1230 5th Ave", "address": "40.7930766, -73.9513662", "lat": 40.7930766, "lon": -73.9513662, "tags": ["uppereastside"], "note": ""}, {"name": "20 Rockefeller Plaza", "address": "40.7584233, -73.9797890", "lat": 40.7584233, "lon": -73.979789, "tags": ["midtown"], "note": ""}, {"name": "432 Park Ave", "address": "40.7614204, -73.9720131", "lat": 40.7614204, "lon": -73.9720131, "tags": ["midtown"], "note": ""}, {"name": "744 Madison Ave", "address": "40.7671830, -73.9690548", "lat": 40.767183, "lon": -73.9690548, "tags": ["uppereastside"], "note": ""}, {"name": "47 E 60th St", "address": "40.7640195, -73.9699171", "lat": 40.7640195, "lon": -73.9699171, "tags": ["uppereastside"], "note": ""}, {"name": "621 E 11th St", "address": "40.7272055, -73.9782443", "lat": 40.7272055, "lon": -73.9782443, "tags": ["eastvillage"], "note": ""}, {"name": "219 E 2nd St", "address": "40.7216689, -73.9830306", "lat": 40.7216689, "lon": -73.9830306, "tags": ["eastvillage"], "note": ""}, {"name": "68 Orchard St", "address": "40.7174263, -73.9903281", "lat": 40.7174263, "lon": -73.9903281, "tags": ["lowereastside"], "note": ""}, {"name": "Marc Straus", "address": "299 Grand St, New York, NY 10002", "lat": 40.7174112, "lon": -73.9919508, "tags": ["lowereastside"], "note": "Otis Jones, Continuum"}, {"name": "19 Henry St", "address": "40.7129331, -73.9969428", "lat": 40.7129331, "lon": -73.9969428, "tags": ["lowereastside"], "note": ""}, {"name": "Norr Cohan (fka James Cohan)", "address": "52 Walker St, New York, NY 10013", "lat": 40.7191723, "lon": -74.0032562, "tags": ["tribeca"], "note": "Vicky Colombet, Memory of the Surface"}, {"name": "Marinaro", "address": "86 Walker Street, New York, NY 10013", "lat": 40.7182973, "lon": -74.0013391, "tags": ["tribeca"], "note": "Brenda Mallory — opens Sept 9, 2026"}, {"name": "Victoria Munroe Fine Art", "address": "67 East 80th St, New York, NY 10075", "lat": 40.7768222, "lon": -73.9604113, "tags": ["uppereastside"], "note": "Sachiko Morita, Raja Ram Sharma, Kathryn Lynch — opens Sept 9, 2026"}, {"name": "547 W 27th St", "address": "40.7513002, -74.0043460", "lat": 40.7513002, "lon": -74.004346, "tags": ["chelsea"], "note": ""}, {"name": "Guggenheim Museum", "address": "1071 5th Ave, New York, NY 10128", "lat": 40.7829796, "lon": -73.9589706, "tags": ["uppereastside"], "note": ""}, {"name": "Salon 94", "address": "3 E 89th St, New York, NY 10128", "lat": 40.783428, "lon": -73.958326, "tags": ["uppereastside"], "note": ""}, {"name": "Whitney Museum of American Art", "address": "99 Gansevoort St, New York, NY 10014", "lat": 40.7395877, "lon": -74.0088629, "tags": ["meatpacking"], "note": ""}, {"name": "The Metropolitan Museum of Art", "address": "1000 5th Ave, New York, NY 10028", "lat": 40.7794366, "lon": -73.963244, "tags": ["uppereastside"], "note": ""}, {"name": "Craig Starr Gallery", "address": "5 E 73rd St, New York, NY 10021", "lat": 40.7730401, "lon": -73.9657441, "tags": ["uppereastside"], "note": ""}, {"name": "Van Doren Waxter", "address": "23 E 73rd St, New York, NY 10021", "lat": 40.7728059, "lon": -73.9652032, "tags": ["uppereastside"], "note": ""}, {"name": "Sous Les Etoiles Gallery", "address": "16 E 71st St, New York, NY 10021", "lat": 40.7712321, "lon": -73.9664513, "tags": ["uppereastside"], "note": ""}, {"name": "Alexandre Gallery", "address": "25 E 73rd St, New York, NY 10021", "lat": 40.7727768, "lon": -73.9651343, "tags": ["uppereastside"], "note": ""}, {"name": "Bookstein Projects", "address": "39 E 78th St, New York, NY 10075", "lat": 40.77566, "lon": -73.9622189, "tags": ["uppereastside"], "note": ""}, {"name": "Sprüth Magers", "address": "22 E 80th St, New York, NY 10075", "lat": 40.7770008, "lon": -73.9621343, "tags": ["uppereastside"], "note": ""}, {"name": "Gagosian (Madison Ave)", "address": "980 Madison Ave, New York, NY 10075", "lat": 40.7747652, "lon": -73.9635069, "tags": ["uppereastside"], "note": ""}, {"name": "Bonner David Galleries", "address": "4 E 81st St, New York, NY 10028", "lat": 40.7778977, "lon": -73.9623427, "tags": ["uppereastside"], "note": ""}, {"name": "Lévy Gorvy Dayan", "address": "19 E 64th St, New York, NY 10065", "lat": 40.767004, "lon": -73.9693969, "tags": ["uppereastside"], "note": ""}, {"name": "Americas Society", "address": "680 Park Ave, New York, NY 10065", "lat": 40.7688243, "lon": -73.9659624, "tags": ["uppereastside"], "note": ""}, {"name": "Gladstone Gallery", "address": "515 W 24th St, New York, NY 10011", "lat": 40.7489324, "lon": -74.0044772, "tags": ["chelsea"], "note": ""}, {"name": "Lisson Gallery", "address": "508 W 24th St, New York, NY 10011", "lat": 40.748487, "lon": -74.004583, "tags": ["chelsea"], "note": ""}, {"name": "Petzel", "address": "520 W 25th St, New York, NY 10001", "lat": 40.7492298, "lon": -74.0044496, "tags": ["chelsea"], "note": ""}, {"name": "Friedman Benda", "address": "515 W 26th St, New York, NY 10001", "lat": 40.7501015, "lon": -74.0035333, "tags": ["chelsea"], "note": ""}, {"name": "Hill Art Foundation", "address": "239 10th Ave, New York, NY 10001", "lat": 40.7485756, "lon": -74.0038234, "tags": ["chelsea"], "note": ""}, {"name": "National Academy of Design", "address": "519 W 26th St, New York, NY 10001", "lat": 40.7501728, "lon": -74.00356, "tags": ["chelsea"], "note": ""}, {"name": "Thomas Erben Gallery", "address": "526 W 26th St, New York, NY 10001", "lat": 40.749987, "lon": -74.00439, "tags": ["chelsea"], "note": ""}, {"name": "Satchel Projects", "address": "526 W 26th St, New York, NY 10001", "lat": 40.7500522, "lon": -74.0042667, "tags": ["chelsea"], "note": ""}, {"name": "Harper's", "address": "534 W 22nd St, New York, NY 10011", "lat": 40.7476328, "lon": -74.0064163, "tags": ["chelsea"], "note": ""}, {"name": "ACA Galleries", "address": "173 10th Ave, New York, NY 10011", "lat": 40.7460003, "lon": -74.0056317, "tags": ["chelsea"], "note": ""}, {"name": "Bruce Silverstein Gallery", "address": "529 W 20th St, New York, NY 10011", "lat": 40.7465831, "lon": -74.0067873, "tags": ["chelsea"], "note": ""}, {"name": "Ricco/Maresca Gallery", "address": "529 W 20th St, New York, NY 10011", "lat": 40.7465347, "lon": -74.0068307, "tags": ["chelsea"], "note": ""}, {"name": "Hunter Dunbar Projects", "address": "524 W 24th St, New York, NY 10011", "lat": 40.7487945, "lon": -74.0051825, "tags": ["chelsea"], "note": ""}, {"name": "Print Center New York", "address": "535 W 24th St, New York, NY 10011", "lat": 40.7491925, "lon": -74.0052759, "tags": ["chelsea"], "note": ""}, {"name": "Gagosian (Chelsea)", "address": "555 W 24th St, New York, NY 10011", "lat": 40.7494887, "lon": -74.0058521, "tags": ["chelsea"], "note": ""}, {"name": "Gallery Henoch", "address": "555 W 25th St, New York, NY 10001", "lat": 40.7501181, "lon": -74.0052766, "tags": ["chelsea"], "note": ""}, {"name": "Philippe Labaune Gallery", "address": "534 W 24th St, New York, NY 10011", "lat": 40.7489974, "lon": -74.0054359, "tags": ["chelsea"], "note": ""}, {"name": "Printed Matter", "address": "231 11th Ave, New York, NY 10001", "lat": 40.7506953, "lon": -74.0059269, "tags": ["chelsea"], "note": ""}, {"name": "Prince Street Gallery", "address": "547 W 27th St, Suite 504, New York, NY 10001", "lat": 40.751227, "lon": -74.0043508, "tags": ["chelsea"], "note": ""}, {"name": "The Painting Center", "address": "547 W 27th St, Suite 500, New York, NY 10001", "lat": 40.751259, "lon": -74.0043461, "tags": ["chelsea"], "note": ""}, {"name": "Polina Berlin Gallery", "address": "121 W 27th St, New York, NY 10001", "lat": 40.7460684, "lon": -73.9919615, "tags": ["chelsea"], "note": ""}, {"name": "The 8th Floor", "address": "17 W 17th St, New York, NY 10011", "lat": 40.738569, "lon": -73.993225, "tags": ["flatiron"], "note": ""}, {"name": "A Hug From The Art World", "address": "112 10th Ave, New York, NY 10011", "lat": 40.7439014, "lon": -74.0067059, "tags": ["chelsea"], "note": ""}, {"name": "SPACS", "address": "149 W 27th St, New York, NY 10001", "lat": 40.7464463, "lon": -73.9928568, "tags": ["chelsea"], "note": ""}, {"name": "The Museum at FIT", "address": "227 W 27th St, New York, NY 10001", "lat": 40.7464494, "lon": -73.994427, "tags": ["chelsea"], "note": ""}, {"name": "Dietl International", "address": "207 W 25th St, New York, NY 10001", "lat": 40.7457167, "lon": -73.9952779, "tags": ["chelsea"], "note": ""}, {"name": "Picture Theory", "address": "548 W 28th St, New York, NY 10001", "lat": 40.7515661, "lon": -74.0041872, "tags": ["chelsea"], "note": ""}, {"name": "Aperture", "address": "380 Columbus Ave, New York, NY 10024", "lat": 40.7815674, "lon": -73.976107, "tags": ["upperwestside"], "note": ""}, {"name": "Peter Freeman, Inc.", "address": "140 Grand St, New York, NY 10013", "lat": 40.7203746, "lon": -73.999432, "tags": ["nolita"], "note": ""}, {"name": "Nino Mier Gallery", "address": "62 Crosby St, New York, NY 10012", "lat": 40.7223743, "lon": -73.9985751, "tags": ["soho"], "note": ""}, {"name": "Pietro Alexander", "address": "59 Wooster St, New York, NY 10012", "lat": 40.723107, "lon": -74.002198, "tags": ["soho"], "note": ""}, {"name": "Jeffrey Deitch", "address": "18 Wooster St, New York, NY 10013", "lat": 40.721435, "lon": -74.003056, "tags": ["soho"], "note": ""}, {"name": "WHAAM!", "address": "15 Elizabeth St, New York, NY 10013", "lat": 40.7160251, "lon": -73.9975514, "tags": ["nolita"], "note": ""}, {"name": "Martos Gallery", "address": "41 Elizabeth St, New York, NY 10013", "lat": 40.7169717, "lon": -73.9970059, "tags": ["nolita"], "note": ""}, {"name": "Kerry Schuss Gallery", "address": "73 Leonard St, New York, NY 10013", "lat": 40.7176506, "lon": -74.0052007, "tags": ["tribeca"], "note": ""}, {"name": "Off Paradise", "address": "120 Walker St, New York, NY 10013", "lat": 40.7175624, "lon": -73.9997927, "tags": ["tribeca"], "note": ""}, {"name": "Galerie Sardine", "address": "61 Lispenard St, New York, NY 10013", "lat": 40.7195319, "lon": -74.0026506, "tags": ["tribeca"], "note": ""}, {"name": "IRL Gallery", "address": "86 Walker St, New York, NY 10013", "lat": 40.718297, "lon": -74.001339, "tags": ["tribeca"], "note": ""}, {"name": "LOMEX", "address": "86 Walker St, New York, NY 10013", "lat": 40.7182973, "lon": -74.0013391, "tags": ["tribeca"], "note": ""}, {"name": "Artists Space", "address": "11 Cortlandt Alley, New York, NY 10013", "lat": 40.7178475, "lon": -74.0021591, "tags": ["tribeca"], "note": ""}, {"name": "Triple Canopy", "address": "264 Canal St, New York, NY 10013", "lat": 40.7185721, "lon": -74.0012127, "tags": ["tribeca"], "note": ""}, {"name": "FIERMAN", "address": "19 Pike St, New York, NY 10002", "lat": 40.7134155, "lon": -73.9922826, "tags": ["lowereastside"], "note": ""}, {"name": "Kim and Gupta Gallery", "address": "144 E Broadway, New York, NY 10002", "lat": 40.7141516, "lon": -73.9912163, "tags": ["lowereastside"], "note": ""}, {"name": "601Artspace", "address": "88 Eldridge St, New York, NY 10002", "lat": 40.71721, "lon": -73.992177, "tags": ["lowereastside"], "note": ""}, {"name": "Milton Resnick and Pat Passlof Foundation", "address": "87 Eldridge St, New York, NY 10002", "lat": 40.717335, "lon": -73.992622, "tags": ["lowereastside"], "note": ""}, {"name": "Kiang Malingue (New York)", "address": "50 Eldridge St, New York, NY 10002", "lat": 40.7159928, "lon": -73.9927892, "tags": ["lowereastside"], "note": ""}, {"name": "Hashimoto Contemporary", "address": "54 Ludlow St, New York, NY 10002", "lat": 40.7165611, "lon": -73.9899858, "tags": ["lowereastside"], "note": ""}, {"name": "Baxter St at the Camera Club of New York", "address": "154 Ludlow St, New York, NY 10002", "lat": 40.720855, "lon": -73.9876562, "tags": ["lowereastside"], "note": ""}, {"name": "International Center of Photography", "address": "84 Ludlow St, New York, NY 10002", "lat": 40.7182297, "lon": -73.989171, "tags": ["lowereastside"], "note": ""}, {"name": "Entrance", "address": "48 Ludlow St, New York, NY 10002", "lat": 40.7163815, "lon": -73.9900542, "tags": ["lowereastside"], "note": ""}, {"name": "Hannah Traore Gallery", "address": "150 Orchard St, New York, NY 10002", "lat": 40.7206744, "lon": -73.9887405, "tags": ["lowereastside"], "note": ""}, {"name": "Gordon Gallery", "address": "139 Norfolk St, New York, NY 10002", "lat": 40.7201261, "lon": -73.9866616, "tags": ["lowereastside"], "note": ""}, {"name": "Ramiken", "address": "389 Grand St, New York, NY 10002", "lat": 40.7156022, "lon": -73.9877822, "tags": ["lowereastside"], "note": ""}, {"name": "Kates-Ferri Projects", "address": "561 Grand St, New York, NY 10002", "lat": 40.7138217, "lon": -73.980015, "tags": ["lowereastside"], "note": ""}, {"name": "EFA Project Space", "address": "323 W 39th St, New York, NY 10018", "lat": 40.7561631, "lon": -73.9924148, "tags": ["garmentdistrict"], "note": ""}, {"name": "FLOHAUS Gallery", "address": "209 W 38th St, New York, NY 10018", "lat": 40.7539571, "lon": -73.9892718, "tags": ["garmentdistrict"], "note": ""}, {"name": "Nguyen Wahed", "address": "504 E 12th St, New York, NY 10009", "lat": 40.7287361, "lon": -73.9809525, "tags": ["eastvillage"], "note": ""}, {"name": "dieFirma", "address": "32A Cooper Sq, New York, NY 10003", "lat": 40.7281833, "lon": -73.9914308, "tags": ["eastvillage"], "note": ""}, {"name": "14BC", "address": "626 E 14th St, New York, NY 10009", "lat": 40.7287759, "lon": -73.9769193, "tags": ["eastvillage"], "note": ""}, {"name": "All Street Gallery", "address": "77 E 3rd St, New York, NY 10003", "lat": 40.7251103, "lon": -73.9883096, "tags": ["eastvillage"], "note": ""}, {"name": "Performance Space New York", "address": "150 1st Ave, New York, NY 10009", "lat": 40.7283438, "lon": -73.9845441, "tags": ["eastvillage"], "note": ""}, {"name": "Cooper Union", "address": "30 Cooper Sq, New York, NY 10003", "lat": 40.7280822, "lon": -73.9916086, "tags": ["eastvillage"], "note": ""}, {"name": "Goethe-Institut New York", "address": "30 Irving Pl, New York, NY 10003", "lat": 40.734963, "lon": -73.987732, "tags": ["unionsquare"], "note": ""}, {"name": "Fou Gallery", "address": "89 5th Ave, New York, NY 10003", "lat": 40.7374678, "lon": -73.992205, "tags": ["unionsquare"], "note": ""}, {"name": "Mishkin Gallery", "address": "135 E 22nd St, New York, NY 10010", "lat": 40.7389252, "lon": -73.9850039, "tags": ["gramercy"], "note": ""}, {"name": "The James Gallery", "address": "365 5th Ave, New York, NY 10016", "lat": 40.7485794, "lon": -73.9838783, "tags": ["midtown"], "note": ""}, {"name": "Eli Klein Gallery", "address": "398 West St, New York, NY 10014", "lat": 40.7334131, "lon": -74.0098832, "tags": ["westvillage"], "note": ""}, {"name": "Greenwich House Pottery", "address": "16 Jones St, New York, NY 10014", "lat": 40.7318995, "lon": -74.0023487, "tags": ["westvillage"], "note": ""}, {"name": "Center for Art, Research and Alliances (CARA)", "address": "225 W 13th St, New York, NY 10011", "lat": 40.7385041, "lon": -74.0013329, "tags": ["westvillage"], "note": ""}, {"name": "A Space Gallery", "address": "13 Grattan St, Brooklyn, NY 11206", "lat": 40.7057069, "lon": -73.932705, "tags": ["brooklyn"], "note": ""}, {"name": "CARVALHO", "address": "112 Waterbury St, Brooklyn, NY 11206", "lat": 40.7114356, "lon": -73.9376365, "tags": ["brooklyn"], "note": ""}, {"name": "SculptureCenter", "address": "44-19 Purves St, Long Island City, NY 11101", "lat": 40.7469298, "lon": -73.9408275, "tags": ["queens"], "note": ""}, {"name": "Smack Mellon", "address": "92 Plymouth St, Brooklyn, NY 11201", "lat": 40.7037442, "lon": -73.9897586, "tags": ["brooklyn"], "note": ""}, {"name": "Kentler International Drawing Space", "address": "353 Van Brunt St, Brooklyn, NY 11231", "lat": 40.6769834, "lon": -74.0130443, "tags": ["brooklyn"], "note": ""}, {"name": "Head Hi", "address": "146 Flushing Ave, Brooklyn, NY 11205", "lat": 40.6975344, "lon": -73.9709636, "tags": ["brooklyn"], "note": ""}, {"name": "International Studio & Curatorial Program (ISCP)", "address": "1040 Metropolitan Ave, Brooklyn, NY 11211", "lat": 40.7141639, "lon": -73.9343024, "tags": ["brooklyn"], "note": ""}, {"name": "e-flux", "address": "172 Classon Ave, Brooklyn, NY 11205", "lat": 40.6945365, "lon": -73.9613927, "tags": ["brooklyn"], "note": ""}, {"name": "Wythe Hotel", "address": "80 Wythe Ave, Brooklyn, NY 11249", "lat": 40.7218996, "lon": -73.9580678, "tags": ["brooklyn"], "note": ""}, {"name": "Transmitter", "address": "1329 Willoughby Ave, Brooklyn, NY 11237", "lat": 40.7062345, "lon": -73.9212102, "tags": ["brooklyn"], "note": ""}, {"name": "ISSUE Project Room", "address": "22 Boerum Pl, Brooklyn, NY 11201", "lat": 40.6908467, "lon": -73.9897215, "tags": ["brooklyn"], "note": ""}, {"name": "New York Irish Center", "address": "10-40 Jackson Ave, Long Island City, NY 11101", "lat": 40.7420844, "lon": -73.9529986, "tags": ["queens"], "note": ""}, {"name": "International Waters", "address": "262 Meserole St, Brooklyn, NY 11206", "lat": 40.708491, "lon": -73.937938, "tags": ["brooklyn"], "note": ""}, {"name": "2075 Adam Clayton Powell Jr Blvd", "address": "40.8080374, -73.9487040", "lat": 40.8080374, "lon": -73.948704, "tags": ["harlem"], "note": ""}, {"name": "Amant", "address": "315 Maujer St, Brooklyn, NY 11206", "lat": 40.7123117, "lon": -73.9370708, "tags": ["brooklyn"], "note": ""}]};
+const PENDING_ADDITIONS = { id: 'galleries-2026-10-04', lines: ["47 Canal — 529 W 20th St, New York, NY 10011 #chelsea", "AINA Gallery — 550 W 29th St, New York, NY 10001 #chelsea | Formerly Aicon Art", "Collective Z — 325 Broome St, New York, NY 10002 #lowereastside | Unit 1W", "Medium Rare Project Space — 68 Jay St, Brooklyn, NY 11201 #brooklyn | Dumbo, Suite 619", "Pen and Brush — 29 E 22nd St, New York, NY 10010 #flatiron", "Renee & Chaim Gross Foundation — 526 LaGuardia Pl, New York, NY 10012 #greenwichvillage", "Spielzug — 165 Allen St, New York, NY 10002 #lowereastside | Spielzug x Ward Gallery", "Brooklyn Museum — 200 Eastern Pkwy, Brooklyn, NY 11238 #brooklyn", "Duane Thomas Gallery — 137 West Broadway, New York, NY 10013 #tribeca | 3rd floor", "Frisson Gallery — 141 Attorney St, New York, NY 10002 #lowereastside", "Meredith Rosen Gallery — 327 W 36th St, New York, NY 10018 #garmentdistrict | 6th floor", "The Java Project — 252 Java St, Brooklyn, NY 11222 #brooklyn | Greenpoint", "Wallach Art Gallery — 615 W 129th St, New York, NY 10027 #harlem | Columbia Lenfest Center", "Art Cake — 214 40th St, Brooklyn, NY 11232 #brooklyn | Sunset Park", "Below Grand — 53 Orchard St, New York, NY 10002 #lowereastside | Also 52 Allen St", "Jacqueline Sullivan Gallery — 52 Walker St, New York, NY 10013 #tribeca", "Tiger Strikes Asteroid New York — 1329 Willoughby Ave, Brooklyn, NY 11237 #brooklyn | Bushwick, #2 (same building as Transmitter)", "The FLAG Art Foundation — 545 W 25th St, New York, NY 10001 #chelsea | 9th floor", "Rodder — 22 E 80th St, New York, NY 10075 #uppereastside | 5th floor", "Uffner & Liu — 170 Suffolk St, New York, NY 10002 #lowereastside", "Storefront for Art and Architecture — 97 Kenmare St, New York, NY 10012 #nolita", "Serving the People — 602 E 9th St, New York, NY 10009 #eastvillage", "Nancy Hoffman Gallery — 520 W 27th St, New York, NY 10001 #chelsea", "Sofia Sominsky — 62 White St, New York, NY 10013 #tribeca", "Heft — 300 Broome St, New York, NY 10002 #lowereastside", "Miguel Abreu Gallery — 88 Eldridge St, New York, NY 10002 #lowereastside", "Dia Chelsea — 537 W 22nd St, New York, NY 10011 #chelsea", "ISLAA — 142 Franklin St, New York, NY 10013 #tribeca | Institute for Studies on Latin American Art", "Hal Bromm Gallery — 90 West Broadway, New York, NY 10007 #tribeca | 2nd floor", "Emily Harvey Foundation — 537 Broadway, New York, NY 10012 #soho", "125 Newbury — 395 Broadway, New York, NY 10013 #tribeca", "WSA — 161 Water St, New York, NY 10038 #financialdistrict"] };
+
+function normKey(s){ return (s||'').toLowerCase().replace(/[^a-z0-9]/g,''); }
+
+async function applyPendingAdditions(){
+  if (!state.appliedAdditions) state.appliedAdditions = [];
+  if (state.appliedAdditions.includes(PENDING_ADDITIONS.id)) return;
+
+  const names = new Set(state.places.map(p => normKey(p.name)));
+
+  const added = [];
+  PENDING_ADDITIONS.lines.forEach(line => {
+    const parsed = parseLine(line);
+    const nk = normKey(parsed.name);
+    if (names.has(nk)) return;                 // same gallery already in guide
+    const p = {
+      id: uid(), name: parsed.name, address: parsed.address,
+      tags: parsed.tags, note: parsed.note,
+      lat: null, lon: null, status: 'pending'
+    };
+    state.places.push(p);
+    names.add(nk);
+    added.push(p);
+  });
+
+  state.appliedAdditions.push(PENDING_ADDITIONS.id);
+  saveState();
+  render();
+  if (!added.length) return;
+
+  const statusEl = document.getElementById('status-line');
+  for (let i = 0; i < added.length; i++){
+    const p = added[i];
+    if (statusEl) statusEl.textContent = `Adding new galleries — locating ${i+1} of ${added.length}: ${p.name}`;
+    try{
+      let geo = await geocode(p.address);
+      if (!geo) geo = await geocode(`${p.name} ${p.address}`);
+      if (geo){ p.lat = geo.lat; p.lon = geo.lon; p.status = 'ok'; }
+      else { p.status = 'failed'; }
+    }catch(e){ p.status = 'failed'; }
+    render();
+    await sleep(500);
+  }
+  if (statusEl) statusEl.textContent = `Added ${added.length} new galleries.`;
+  saveState();
+}
+
+
+// ---- One-time exhibit update (researched Oct 4, 2026). Fills On View / Opening by gallery name. ----
+const EXHIBIT_UPDATE = { id: 'exhibits-2026-10-04', byName: {"Opera Gallery New York": {"onView": "Xevi Solà, One Year – Scenes in Time — Jul 10 – Oct 20, 2026 (the gallery's location has changed; confirm before visiting)", "opening": ""}, "Long Gallery, Harlem": {"onView": "Alexandria Smith, The Three Graces — Sep 13 – Nov 15, 2026", "opening": "Sun, Sep 13"}, "Curtiss Jacobs Gallery": {"onView": "Ransome, A Little Sugar in My Bowl — Sep 13 – Oct 17, 2026", "opening": ""}, "El Museo del Barrio": {"onView": "Teddy Sandoval and the Butch Gardens School of Art — Sep 10, 2026 – Jan 10, 2027", "opening": "Thu, Sep 10, 6–8pm"}, "Studio Museum in Harlem": {"onView": "GEOMETRIES — Sep 10, 2026 – Jan 31, 2027", "opening": "Thu, Sep 10"}, "Half Gallery": {"onView": "Meghann Stephenson, Queen of the Neighborhood! — Sep 9 – Oct 8, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "SHIN GALLERY": {"onView": "Spazio e Forma: Lucio Fontana & Carla Prina — through Oct 23, 2026; Qin Shen, Like Birds, Toward Their Mountain — opened Sep 24, 2026", "opening": "Qin Shen: Thu, Sep 24"}, "McKenzie Fine Art": {"onView": "Pete Schulte, Neither-Nor Stone or Not Not-a-Rock — Sep 9 – Oct 25, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "David Peter Francis": {"onView": "Unglee, Le Souvenir du Temps — Sep 10 – Oct 17, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Long Story Short NYC": {"onView": "After-Images of a Golden Hour 2026 — through Nov 1, 2026", "opening": ""}, "Bortolami": {"onView": "Christine Safa (Main Gallery); Yuan Yuan (The Upstairs); Daniel Buren & Barbara Kasten (55 Walker) — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Andrew Kreps Gallery": {"onView": "Kenneth Victor Young (394 Broadway); Andrea Bowers (22 Cortlandt Alley) — Sep 18 – Oct 31, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Silke Lindner": {"onView": "Gozié Ojini, Careworn — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Grolier Club": {"onView": "Pioneers in Hand Papermaking: 50 Years of Innovation at Dieu Donné — Sep 8 – Nov 28, 2026", "opening": "Tue, Sep 8, 6–8pm"}, "Nicelle Beauchene": {"onView": "Alice Tippit, Blue State; Lucy Puls, Righting — Sep 9 – Oct 10, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Matthew Brown": {"onView": "Carroll Dunham — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "CANADA": {"onView": "Scott Reeder, ideas contd. — Sep 9 – Oct 17, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Chapter NY": {"onView": "Alix Vernet, Landmarks; Giuseppe Francalanza, All of My Angels Wear a Rag: I The Tuner — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Chart": {"onView": "Anna Ortiz, Shapeshifter — Sep 9 – Oct 31, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "D.D.D.D. Pictures": {"onView": "Anna T. Gregor, collected essays; Stefan Reiterer, Two Things Can Be True — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Dimin": {"onView": "Taj Poscé, looking up from here — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Anat Ebgi": {"onView": "Soumya Netrabile, Field Conditions; Alannah Farrell, Solastalgia — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Andrew Edlin Gallery": {"onView": "Conduits of the Unseen: Women Artists Imagine Other Worlds — Sep 9 – Oct 31, 2026", "opening": "Wed, Sep 9, 6–8pm. Curators' talk — Wed, Sep 30, 6pm"}, "Derek Eller Gallery": {"onView": "Julia Bland, If Blue is a Holy Color; Antone Könst, Curtsy — Sep 9 – Oct 10, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Freight + Volume": {"onView": "Mary DeVincentis, Like a Star at Dawn — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Asya Geisberg Gallery": {"onView": "Rebecca Morgan, Painting in the Apocalypse — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Alexander Gray Associates": {"onView": "People Make Art: A Tribute to Melvin Edwards — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Grimm": {"onView": "Volker Hüller, Angelus Novus; Matthias Franz, die dünne Haut der Zivilisation — Sep 9 – Oct 31, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Hesse Flatow": {"onView": "Lizzie Gill, Carousel; Paloma Izquierdo, carrier — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "High Noon": {"onView": "Bobbie Oliver, Field Work — Sep 9 – Oct 24, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Klaus von Nichtssagend": {"onView": "Mark Armijo McKnight, Cut the World — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Jane Lombard Gallery": {"onView": "Karolina Maszkiewicz, Tending the Wild; Howard Smith, Tomorrow Isn't Yesterday — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Mendes Wood DM": {"onView": "Vojtěch Kovařík — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Charles Moffett Gallery": {"onView": "Melissa Joseph, Casserole Culture — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "David Nolan": {"onView": "Valerio Adami, Alice in the Land of Violence — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Oolong Gallery": {"onView": "Sally Scopa, Ready for the Ceremony — Sep 9 – Oct 25, 2026", "opening": "Wed, Sep 9, 6–8pm. Artist talk with Sally Scopa — Sat, Oct 3, 3pm"}, "P.P.O.W.": {"onView": "Michael Wilkinson, Fluorochiaroscuro — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "RAINRAIN": {"onView": "By Ear: Lorna Bauer, Peter Brock, Mira Dayal, Emma Safir — Sep 9 – Oct 10, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Ellie Rines Gallery (fka 56 Henry)": {"onView": "Christopher K. Ho, Waterloo! — Sep 9 – Oct 23, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Margot Samel": {"onView": "Narcissister, Albert's Paintings, Rachel's Dress — Sep 9 – Oct 10, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Sargent's Daughters": {"onView": "Sarah Zapata, In escape from the vices of idleness — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Shrine": {"onView": "Rasmus Eckhardt, Passing Light — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Tappeto Volante Projects": {"onView": "Bascha Mon, Solo Show — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Cristin Tierney Gallery": {"onView": "Janet Biggs, Path of Totality — Sep 9 – Oct 24, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Hoffman Donahue": {"onView": "Ulrike Müller — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Tara Downs": {"onView": "Nizhonniya Austin, Trying to Be Alaska — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Fridman Gallery": {"onView": "Dindga McCannon, Yesterday and Today — Sep 9 – Oct 14, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Frosch & Co": {"onView": "Seth Michael Forman — Sep 9 – Oct 18, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Sebastian Gladstone": {"onView": "Herman Cherry, Rivers from 30,000 Feet — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Nathalie Karg": {"onView": "Peter Barrickman, Things Continue Anyway — Sep 9 – Oct 10, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Magenta Plains": {"onView": "10 Year Anniversary — Sep 9 – Oct 31, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Management": {"onView": "Nana Wolke, Halfway out to Heaven — Sep 9 – Oct 18, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Perrotin": {"onView": "Nikki Maloof, Menagerie; Aryo Toh Djojo, Leap into the Void; Young-Il Ahn, Self Reflections — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Peter Blum": {"onView": "Paul Fägerskiöld, Ergosphere — Sep 9 – Oct 31, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Garth Greenan": {"onView": "Cannupa Hanska Luger, American Traditional; Rosalyn Drexler, My Life Has a Life of Its Own — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "YveYang": {"onView": "Huidi Xiang, The Tail Remembers; Anastazie Anderson, The Children's Villa — Sep 9 – Oct 31, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Alexander Berggruen": {"onView": "Danny Fox, Fata Morgana — Sep 9 – Oct 7, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Post Times": {"onView": "Michael Assiff, USA Flowers — Sep 9 – Oct 18, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Opera Gallery": {"onView": "Xevi Solà, One Year – Scenes in Time — Jul 10 – Oct 20, 2026 (the gallery's location has changed; confirm before visiting)", "opening": ""}, "Norr Cohan (fka James Cohan)": {"onView": "Vicky Colombet, Memory of the Surface (52 Walker) — Sep 17 – Oct 24, 2026; Savdie / Soutine (48 Walker) — Sep 10 – Oct 24, 2026", "opening": "Savdie / Soutine: Thu, Sep 10, 6–8pm; Vicky Colombet: Thu, Sep 17, 6–8pm"}, "Marinaro": {"onView": "Brenda Mallory, Of Seasons and Cycles — Sep 9 – Oct 24, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Salon 94": {"onView": "Anthea Hamilton, Comfort Zones — Sep 16 – Oct 24, 2026; Gaetano Pesce, A chair is a nest, is a foot, is a…", "opening": "Wed, Sep 16, 6–8pm"}, "Craig Starr Gallery": {"onView": "Louise Bourgeois, Germinal — Sep 17, 2026 – Jan 16, 2027", "opening": "Thu, Sep 17, 6–8pm"}, "Van Doren Waxter": {"onView": "Zoe Longfield, A World of One's Own — Sep 17 – Nov 14, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Alexandre Gallery": {"onView": "Lisa Sanditz, Missing Mountain — Sep 18 – Nov 7, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Bookstein Projects": {"onView": "Olive Ayhens & Ezra Johnson, Call Mom — Sep 17 – Oct 23, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Sprüth Magers": {"onView": "Thea Djordjadze, A Well of Night — Sep 18 – Oct 24, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Gagosian (Madison Ave)": {"onView": "Bea Scaccia, Groomed — Sep 22 – Dec 23, 2026", "opening": "Tue, Sep 22"}, "Lévy Gorvy Dayan": {"onView": "Pierre Soulages, Paintings on Paper; Wangari Mathenge, Re-membering — Sep 17 – Oct 24, 2026; Inma Barrero, MOTHERS — Sep 17 – Oct 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Gladstone Gallery": {"onView": "Joseph Yaeger, Agita (24th Street) — Sep 16 – Oct 31, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "Lisson Gallery": {"onView": "Hiroshi Sugimoto, Unnatural Habitat; Leonilson — Sep 15 – Oct 24, 2026", "opening": "Tue, Sep 15, 6–8pm"}, "Petzel": {"onView": "Emily Mae Smith, Transit of Venus; Ross Bleckner, Octopus — Sep 17 – Oct 24, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Thomas Erben Gallery": {"onView": "Mike Cloud, Suitcase Paintings — Sep 17 – Oct 24, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Satchel Projects": {"onView": "James Esber, My Thing, Your Thing, and the Thing Itself — through Oct 24, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Harper's": {"onView": "Marc Dennis, Sugar on My Tongue — Sep 10 – Oct 17, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "ACA Galleries": {"onView": "Taking up Space: New Works by Kandy G Lopez — Sep 10 – Oct 24, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Gagosian (Chelsea)": {"onView": "Jordan Wolfson (555 W 24th) — Sep 18 – Oct 24, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Gallery Henoch": {"onView": "Igor & Marina, The Garden of Invisible Birds — Sep 17 – Oct 10, 2026", "opening": "Next: John Evans, The Shape of Stillness — opens Oct 15, 2026"}, "The Painting Center": {"onView": "Kathleen Beausoleil, Meet at the Ferris Wheel; Ellen Starr Lyon, Nesting Rituals — Sep 29 – Oct 24, 2026", "opening": "Tue, Sep 29, 6–8pm"}, "Polina Berlin Gallery": {"onView": "Karlīna Mežecka, Leave Me Where I Lay — Sep 17 – Oct 24, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "A Hug From The Art World": {"onView": "Jason Mason, Two Nails, Two Globes, a Lipstick, and a Wave — Sep 10 – Oct 24, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Picture Theory": {"onView": "Obi Agwam, Faith Be My Wings; Architecture of Longing — Sep 17 – Oct 24, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Peter Freeman, Inc.": {"onView": "John Dilg, New York — Sep 15 – Oct 24, 2026", "opening": "Tue, Sep 15, 6–8pm"}, "Nino Mier Gallery": {"onView": "José Lerma, Thespesia Grandiflora — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Jeffrey Deitch": {"onView": "Eddie R. Aparicio, Rubberneckers; Celeste Dupuy-Spencer, Burning in the Eyes — Sep 12 – Oct 31, 2026", "opening": "Sat, Sep 12, 6–8pm"}, "Martos Gallery": {"onView": "Dan Asher, In the I of the Beholder — Sep 18 – Nov 7, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Kerry Schuss Gallery": {"onView": "Aaron Birnbaum — Sep 22 – Oct 31, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Off Paradise": {"onView": "Through — Sep 17 – Nov 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Milton Resnick and Pat Passlof Foundation": {"onView": "Milton Resnick: Painter in the Age of Painting; Three Material Views — Sep 18, 2026 – Jan 16, 2027", "opening": "Fri, Sep 18, 6–8pm"}, "Hashimoto Contemporary": {"onView": "Mu Pan, Micro MUniverse — through Oct 10, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "Entrance": {"onView": "Tom Friedman, There's No Such Thing as Art — through Oct 10, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Fou Gallery": {"onView": "Synthetic Mobility — Sep 19 – Nov 8, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "CARVALHO": {"onView": "Alicja Biała + Diana Orving, Aether's Long Roots — Sep 19 – Oct 24, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Smack Mellon": {"onView": "How We Work: Smack Mellon at 30 — Sep 19 – Dec 6, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "Transmitter": {"onView": "Amy Rose Khoshbin, ANAHITA — Oct 3 – Nov 1, 2026", "opening": "Sat, Oct 3, 6–8pm"}, "Amant": {"onView": "Sentient Earth — through Feb 14, 2027; Matthew Lutz-Kinoy, The Mud Room", "opening": "Thu, Sep 17, 6–8pm"}, "47 Canal": {"onView": "Cici Wu, Auld Lang Syne (Prelude) — Oct 1 – Nov 7, 2026", "opening": "Thu, Oct 1, 6–8pm"}, "AINA Gallery": {"onView": "Other Stories — A Genealogy for the Present — Oct 1 – Dec 5, 2026", "opening": "Thu, Oct 1, 6–8pm"}, "Medium Rare Project Space": {"onView": "Irit Baniel & Alexis Granwell, Plumb Line — Oct 1 – Oct 17, 2026", "opening": "Thu, Oct 1, 6–8pm"}, "Frisson Gallery": {"onView": "Noah Pica & Paul Negron, 2 x Self — Oct 2 – Nov 7, 2026", "opening": "Fri, Oct 2, 6–8pm"}, "Art Cake": {"onView": "Thomas Nozkowski, The Mysterious Beauty of Everything — Oct 3 – Dec 12, 2026; plus Robin Dintiman, Carrie Johnson, Susan Poirer — Oct 3 – Nov 1", "opening": "Sat, Oct 3, 6–8pm"}, "Below Grand": {"onView": "Where Are My Keys? — Oct 3 – Nov 7, 2026", "opening": "Sat, Oct 3, 6–8pm"}, "Tiger Strikes Asteroid New York": {"onView": "Absorption: Nivia Hernandez, Daniel Anthony Vasquez, Kristen Jensen — Oct 3 – Nov 1, 2026", "opening": "Sat, Oct 3, 6–8pm"}, "Rodder": {"onView": "David Reed, Terrible Idea — Sep 9 – Oct 24, 2026", "opening": ""}, "Uffner & Liu": {"onView": "Laurie Nye, The Battlefield Where the Moon Says I Love You; Hanz Ronald, A Charmed Hour — Sep 10 – Oct 31, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Nancy Hoffman Gallery": {"onView": "Jody Guralnick, As Close As Breath — Sep 10 – Oct 28, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Sofia Sominsky": {"onView": "Samuel Farrier, Immediate Possession — Sep 9 – Oct 17, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Miguel Abreu Gallery": {"onView": "Eileen Quinlan, Line Call — Sep 10 – Oct 31, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "125 Newbury": {"onView": "Asher Liftin, Recent Work — Sep 18 – Oct 31, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Prince Street Gallery": {"onView": "Between shows (Marcie Bronkar closed Oct 3)", "opening": "Next: Rani Carson & Flavia Bacarella — Oct 6 – 31, 2026"}, "Victoria Munroe Fine Art": {"onView": "Between shows (last show closed Oct 3)", "opening": "Next: Bob Weinstein, Constellations — Oct 14 – Dec 12, 2026"}, "Collective Z": {"onView": "Cécile Roberfroid, Carried, Not Told — opened Oct 1, 2026", "opening": "Thu, Oct 1, 6–8pm"}, "Pen and Brush": {"onView": "Deborah Buck, New Jewels — opened Oct 1, 2026", "opening": "Thu, Oct 1, 6–8pm"}, "Renee & Chaim Gross Foundation": {"onView": "Gedi Sibony, The Carver's Order — opened Oct 1, 2026", "opening": "Thu, Oct 1, 6–8pm"}, "Spielzug": {"onView": "The Holes (Spielzug x Ward Gallery) — opened Oct 1, 2026", "opening": "Thu, Oct 1, 6–8pm (rescheduled from the week before)"}, "Brooklyn Museum": {"onView": "Hopi Kachina Dolls: Blessings for a Balanced World; Cézanne to Modigliani: Gifts of Modern Art from the Pearlman Collection — Oct 2, 2026 – Apr 18, 2027; Art of Manga — Oct 3, 2026 – Jan 31, 2027; Iris van Herpen: Sculpting the Senses — through Dec 6, 2026", "opening": "Hopi Kachina Dolls and Cézanne to Modigliani opened Fri, Oct 2; Art of Manga opened Sat, Oct 3"}, "Duane Thomas Gallery": {"onView": "Women's Drawings, Feminist Works on Paper — opened Oct 2, 2026", "opening": "Fri, Oct 2, 6–8pm"}, "Meredith Rosen Gallery": {"onView": "Anna Uddenberg, White Noise — opened Oct 2, 2026", "opening": "Fri, Oct 2, 6–8pm"}, "The Java Project": {"onView": "Norm Paris, Cover — opened Oct 2, 2026", "opening": "Fri, Oct 2, 6–8pm"}, "Wallach Art Gallery": {"onView": "Allan Sekula, Fish Story — opened Oct 2, 2026", "opening": "Opened Fri, Oct 2"}, "Jacqueline Sullivan Gallery": {"onView": "Fernberger Group Show — Sep 10 – Nov 21, 2026; Mirrors by Peter Rippon: A Unique Selection for the Library — opened Oct 3, 2026", "opening": "Fernberger: Thu, Sep 10, 6–8pm; Peter Rippon: Sat, Oct 3, 6–8pm"}, "MoMA": {"onView": "The Surrealist Book: Tomorrow Lives in Mirrors — Oct 4, 2026 – Jan 23, 2027; Taking Back Our Space: Photographic Perspectives — Sep 20, 2026 – May 2, 2027; Full Disclosure: The Edge of Information Design — Sep 27, 2026 – Jun 13, 2027; Sarah Michelson: nowhere — Sep 15 – Oct 11, 2026", "opening": "The Surrealist Book opened Sun, Oct 4; Sarah Michelson: Tue, Sep 15, 6–8pm; Taking Back Our Space: Sun, Sep 20"}, "The Metropolitan Museum of Art": {"onView": "Krasner and Pollock: Past Continuous — Oct 4, 2026 – Jan 31, 2027; There Are No Words: Si Lewen's Parade — Oct 1, 2026 – Jan 5, 2027; David Hartt: Peripheries — Sep 25, 2026 – Feb 7, 2027; Costume Art — through Jan 10, 2027; Liu Wei, Genesis Facade Commission — Sep 17, 2026 – Jun 8, 2027", "opening": "Krasner and Pollock opened Sun, Oct 4; Liu Wei facade: Thu, Sep 17"}, "Bowery Gallery": {"onView": "Between shows (Hearne Pardee, Landscaping closed Oct 3)", "opening": ""}, "Ceres Gallery New York": {"onView": "Between shows (Elizabeth Downer Riker and Jane Seavers closed Oct 3)", "opening": ""}, "Americas Society": {"onView": "Telenovela — opened Sep 9, 2026", "opening": "Telenovela — Wed, Sep 9, 6–8pm"}, "Heft": {"onView": "Auriea Harvey, Ready To Die — opened Sep 9, 2026", "opening": "Wed, Sep 9, 6–8pm"}, "Helm Contemporary": {"onView": "Between shows (Linsey Walt, the Measure of things closed Oct 3)", "opening": ""}, "JJ Murphy Gallery": {"onView": "Mala Iqbal, Among Us — opened Sep 9, 2026", "opening": "Wed, Sep 9, 6–8pm. Next: Brenda Goodman, Pieces of Time — opens Oct 14, 2026"}, "The Journal": {"onView": "Between shows (Mia Goldstein, Handle with Care closed Oct 3)", "opening": ""}, "FLOHAUS Gallery": {"onView": "The Horizon Was Closer Than I Remembered — opened Sep 10, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "TOTAH": {"onView": "Alexis Hunter, Chimera — opened Sep 10, 2026", "opening": "Thu, Sep 10, 6–8pm"}, "Artists Space": {"onView": "Theresa Hak Kyung Cha, Multiple Offerings — opened Sep 11, 2026", "opening": "Fri, Sep 11, 6–8pm. Segue Reading Series: Ken Chen & Cici Wu — Sat, Oct 3, 5pm"}, "All Street Gallery": {"onView": "Jade Doskow, The Dark Bright Sky — opened Sep 12, 2026", "opening": "Sat, Sep 12, 6–8pm"}, "EFA Project Space": {"onView": "Post Seduction; Sarah Leahy, Plain Sense — opened Sep 15, 2026", "opening": "Tue, Sep 15, 6–8pm"}, "Nguyen Wahed": {"onView": "Malleable Archives: What the Future Remembers — opened Sep 15, 2026", "opening": "Tue, Sep 15, 6–8pm"}, "A Space Gallery": {"onView": "vivmoe solo show: I'm tired of making content, can u pls come to vivmoe's solo show, thanks — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "Baxter St at the Camera Club of New York": {"onView": "Allie Tsubota, Milk Teeth; Azikiwe Mohammed, Where To, From Here — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "Cooper Union": {"onView": "Guild & Greyshkul — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "FIERMAN": {"onView": "A Portrait of Me Surrounding All of You: Ten Years of Fierman — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "Galerie Sardine": {"onView": "Frederik Nystrup-Larsen, Skin to Skin w. Dog Daisy — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "Goethe-Institut New York": {"onView": "Tammam Azzam, A Horizon Remains — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "Hill Art Foundation": {"onView": "Thucydides Fever Dream — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm. Talk: Thomas Crow — Mon, Oct 5, 6:30pm (doors 6pm)"}, "Kim and Gupta Gallery": {"onView": "Hannah Beerman, intramural kissing on the Little Dipper — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "Mishkin Gallery": {"onView": "People in the City: Modern Portraits from the Baruch College Art Collection — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "The James Gallery": {"onView": "ART/WORK: The Practice and Politics of CETA and the Arts, 1974–1981 — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "The Museum at FIT": {"onView": "Doll Dressing — opened Sep 16, 2026", "opening": "Wed, Sep 16, 6–8pm"}, "14BC": {"onView": "Alex Mitchell, Sex, War and the Devil (opened Sep 17); Joan LeMay, CRYPTICAL ENVELOPMENT (opened Sep 19)", "opening": "Alex Mitchell: Thu, Sep 17, 6–8pm; Joan LeMay: Sat, Sep 19, 6–8pm"}, "Bonner David Galleries": {"onView": "Garden Party — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Bruce Silverstein Gallery": {"onView": "Sarah Sense, Land, Line, Blood, Memory — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Dietl International": {"onView": "Mike Lee, SIGN LANGUAGE — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Eli Klein Gallery": {"onView": "Best by 07/21/2026 — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Friedman Benda": {"onView": "Wendell Castle, Living — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Gordon Gallery": {"onView": "Smadar Eliasaf, Groundwork — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Greenwich House Pottery": {"onView": "Ryan Flores, The Watchers — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Hannah Traore Gallery": {"onView": "James Perkins, Nonsites Revisited — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Hunter Dunbar Projects": {"onView": "Park Kwang-Jin, Seeker of Nature — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Kiang Malingue (New York)": {"onView": "Cho Yong-Ik, The Irreducible — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "National Academy of Design": {"onView": "Shelter from the Storm: An Artist's Eye with Stan Allen and Polly Apfelbaum — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Philippe Labaune Gallery": {"onView": "Mike Mignola, Circus of Bones — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Pietro Alexander": {"onView": "Luminous Landscapes; Eleven Day Paintings — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Print Center New York": {"onView": "Parasol Press: Breaking New Ground; Caroline Ongpin, Passage; Mira Dayal, Nets — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Ramiken": {"onView": "Lucas Quietzsch, Reduction to the Horizontal — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Ricco/Maresca Gallery": {"onView": "Kate Berry Brown, Holding Form; Leopold Strobl, Underneath — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "SPACS": {"onView": "Yu-Hsu Chou, Finite Matter, Infinite Image — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "Sous Les Etoiles Gallery": {"onView": "Sophie Delaporte, The Thread Between — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "The 8th Floor": {"onView": "Carlos Martiel, Dark Age — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "dieFirma": {"onView": "Bill Miller, Spanning Time — opened Sep 17, 2026", "opening": "Thu, Sep 17, 6–8pm"}, "601Artspace": {"onView": "Leaking Collections — opened Sep 18, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Aperture": {"onView": "Aperture Loves New York — opened Sep 18, 2026", "opening": "Fri, Sep 18, 6–8pm. Artist talk: Stephen Shore with Lucy Gallun — Sat, Oct 3, 1pm"}, "David Zwirner": {"onView": "Emma McIntyre, This body holds / swamp stuff — opened Sep 18, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Guggenheim Museum": {"onView": "Taryn Simon, Father Country I Do Love You — Sep 18, 2026 – Mar 14, 2027; Guggenheim Pop: 1960 to Now — through Jan 10, 2027", "opening": "Fri, Sep 18, 6–8pm"}, "IRL Gallery": {"onView": "Gabriele Grones, The Hidden Garden — opened Sep 18, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "The Jewish Museum": {"onView": "Sacred Splendor: Jewish Ritual Art and Christian Treasures from St. Vitus Cathedral in Prague — opened Sep 18, 2026; Women of the Wiener Werkstätte — through Nov 15, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Kates-Ferri Projects": {"onView": "Kevin Sabo, Cosmopolitini — opened Sep 18, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "LOMEX": {"onView": "Andrea Fourchy — opened Sep 18, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "Marc Straus": {"onView": "The Prime of Your Life — Sep 18 – Oct 31, 2026", "opening": "Fri, Sep 18, 6–8pm"}, "WHAAM!": {"onView": "Charlie Ahearn, New Paintings — opened Sep 18, 2026", "opening": "Fri, Sep 18, 6–8pm. Artist talk with Charlie Ahearn — Fri, Oct 2, 6pm"}, "Center for Art, Research and Alliances (CARA)": {"onView": "Johanna Hedva, Gravity, My / Favorite Enemy — opened Sep 19, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "International Waters": {"onView": "Marie Lorenz & Jeff Williams, Roll, Pitch, and Yaw — opened Sep 19, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "Kentler International Drawing Space": {"onView": "100 Works on Paper Benefit Exhibition 2026 — opened Sep 19, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "Performance Space New York": {"onView": "Jesús Hilario-Reyes, Cavernous Shoal — opened Sep 19, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "SculptureCenter": {"onView": "Aziz Hazara, Coming Home; Yining Fei, Feral Sediment; Cevdet Erek, Americas — opened Sep 19, 2026", "opening": "Sat, Sep 19, 6–8pm"}, "Whitney Museum of American Art": {"onView": "Coumba Samba, Stars and Stripes — Sep 19, 2026 – Jan 18, 2027; The Lost World: The Art of Minnie Evans — through Jan 10, 2027; Andy Warhol: Family Album — through Oct 19, 2026", "opening": "Coumba Samba: Sat, Sep 19. Next: Roy Lichtenstein: Like New opens Oct 11, 2026"}, "The FLAG Art Foundation": {"onView": "Sable Elyse Smith, Clockwork; Hank Willis Thomas — opened Sep 24, 2026", "opening": "Thu, Sep 24 (artist talk with Hank Willis Thomas Wed, Sep 30, 6pm)"}, "Storefront for Art and Architecture": {"onView": "The Biography of a Building: Runik's House of Culture — Hajde! Foundation and Petrit Halilaj with Ars Atelier — opened Sep 25, 2026", "opening": "Fri, Sep 25"}, "The Morgan Library & Museum": {"onView": "Hujar: Contact; Friends Who Came to See Me: Drawing from John Ashbery's Collection — through Oct 25, 2026 (Tarot! closes today, Oct 4)", "opening": "Hujar: Contact opened May 22; Ashbery drawings opened May 1"}, "Cooper Hewitt": {"onView": "Made in America: The Industrial Photography of Christopher Payne — through fall 2026 (check dates)", "opening": "Opened Dec 12, 2025. Pay-what-you-wish daily 5–6pm"}, "Bienvenu Steinberg & C": {"onView": "Between shows (Raphaël Denis, Fates of Works closed Oct 3)", "opening": "Fates of Works opened Sep 2"}, "Sotheby's": {"onView": "Fall auction previews: Reflections on Pop (Lichtenstein collection), Contemporary Curated (Robert A.M. Stern collection), Haring's House, Modern & Contemporary Discoveries, Prints, Photographs — on view Oct 2 – 7, 2026", "opening": "Auctions Oct 6 – 9, 2026; previews free and open to the public"}, "PHILLIPS": {"onView": "Photographs auction preview — sale Thu, Oct 8, 2026, 10am (check phillips.com for viewing hours)", "opening": ""}, "Christie's New York": {"onView": "No public exhibition listed for early October — check christies.com for upcoming sale previews", "opening": ""}, "Pace Di Donna Schrader Galleries": {"onView": "No current gallery exhibition listed (secondary-market gallery; by appointment)", "opening": ""}, "Upsilon Gallery": {"onView": "Between shows (Post-war and Pop Prints closed Oct 1)", "opening": "Post-war and Pop Prints ran Sep 12 – Oct 1"}, "Wilmer Jennings Gallery at Kenkeleba": {"onView": "Turntable: Visions of the Jazzmen — Oct 3 – Dec 5, 2026", "opening": "Sat, Oct 3, 3–6pm"}, "NYPL Schwarzman Building": {"onView": "The Polonsky Exhibition of The New York Public Library's Treasures — ongoing", "opening": ""}, "Lyles & King": {"onView": "Closed — the gallery shut its doors July 2, 2026", "opening": ""}, "Printed Matter": {"onView": "New Openings Against Old Surfaces: On Gordon Matta-Clark's Walls Paper — Sep 9 – Nov 29, 2026", "opening": "Book event: Melissa Auf der Maur, My '90s Rock Photographs — Thu, Oct 1, 6–8pm"}, "International Center of Photography": {"onView": "Andrea Hernández Briceño, Fire Becomes Spirit — through Oct 11, 2026 (Fuego Camina Conmigo closes today, Oct 4)", "opening": "Next: I'm So Happy You Are Here: Japanese Women Photographers from the 1950s to Now; Laia Abril: On Rape and Institutional Failure — open Oct 15, 2026"}, "Dia Chelsea": {"onView": "David Lamelas, The Machine — Mar 6, 2026 – Jan 16, 2027", "opening": "Symposium: Not Assimilated by Contemplation (Argentine avant-garde of the 1960s) — Fri, Oct 2, 10am–6:30pm"}, "ISLAA": {"onView": "The New York Graphic Workshop: Towards Total Art — Sep 26, 2026 – Jan 9, 2027", "opening": "Symposium day 2: Sat, Oct 3, 10:30am–4:30pm"}, "Hal Bromm Gallery": {"onView": "Grace Graupe-Pillard, Burning Point — Sep 9 – Nov 21, 2026", "opening": "Wed, Sep 9"}, "WSA": {"onView": "SI Offsite — Rafał Skoczek, Kino Drift (Swiss Institute, 7th floor) — Sep 23 – Nov 14, 2026", "opening": "Opened Wed, Sep 23. Publication launch for zweikommasieben: Sat, Oct 3, 7pm"}, "International Studio & Curatorial Program (ISCP)": {"onView": "Hans Rosenström, Conspirare — through Oct 9, 2026", "opening": "Next: The Skin of the Earth Is Seamless — Oct 27, 2026 – Feb 12, 2027. Talk: Madeleine Andersson, Mon, Oct 5, 6:30pm"}, "Head Hi": {"onView": "No exhibition listed — events space (talks, book launches)", "opening": "NY Architecture + Design Book Club: Charlotte Perriand — Thu, Oct 22, 6:30–8:30pm"}, "e-flux": {"onView": "No exhibition listed — screenings and talks", "opening": "Under the Red Sky: Pınar Öğrenci retrospective — Sat, Oct 10; Charles Mudede lecture — Thu, Oct 15"}, "ISSUE Project Room": {"onView": "Performance venue — no exhibition", "opening": "Sergei Tcherepnin performance — Thu, Oct 1, 8pm"}, "Triple Canopy": {"onView": "No exhibition listed — events and publications", "opening": ""}, "Wythe Hotel": {"onView": "No exhibition listed", "opening": ""}, "New York Irish Center": {"onView": "No exhibition listed", "opening": ""}, "Serving the People": {"onView": "No exhibition listed — events space", "opening": "SEEN / UNSEEN / OBSERVED (Jo Shane, Maya Martinez, Riley Mac) — Wed, Sep 30, 7:30pm"}, "Emily Harvey Foundation": {"onView": "No exhibition listed", "opening": "Anh Vo: Tỳ Bà Hành…But Alas There Was No Music (performance) — Sat, Oct 3, 4pm"}, "Dacia Gallery": {"onView": "Couldn't confirm a current show (last listed: Group Exhibition, Sep 1 – 13)", "opening": ""}, "2073 Adam Clayton Powell Jr Blvd": {"onView": "Alexandria Smith, The Three Graces — Sep 13 – Nov 15, 2026", "opening": "Sun, Sep 13"}, "225 Madison Ave": {"onView": "Hujar: Contact; Friends Who Came to See Me: Drawing from John Ashbery's Collection — through Oct 25, 2026 (Tarot! closes today, Oct 4)", "opening": "Hujar: Contact opened May 22; Ashbery drawings opened May 1"}, "1230 5th Ave": {"onView": "Teddy Sandoval and the Butch Gardens School of Art — Sep 10, 2026 – Jan 10, 2027", "opening": "Thu, Sep 10, 6–8pm"}, "20 Rockefeller Plaza": {"onView": "No public exhibition listed for early October — check christies.com for upcoming sale previews", "opening": ""}, "432 Park Ave": {"onView": "Photographs auction preview — sale Thu, Oct 8, 2026, 10am (check phillips.com for viewing hours)", "opening": ""}, "744 Madison Ave": {"onView": "No current gallery exhibition listed (secondary-market gallery; by appointment)", "opening": ""}, "47 E 60th St": {"onView": "Pioneers in Hand Papermaking: 50 Years of Innovation at Dieu Donné — Sep 8 – Nov 28, 2026", "opening": "Tue, Sep 8, 6–8pm"}, "621 E 11th St": {"onView": "Couldn't confirm a current show (last listed: Group Exhibition, Sep 1 – 13)", "opening": ""}, "219 E 2nd St": {"onView": "Turntable: Visions of the Jazzmen — Oct 3 – Dec 5, 2026", "opening": "Sat, Oct 3, 3–6pm"}, "68 Orchard St": {"onView": "Spazio e Forma: Lucio Fontana & Carla Prina — through Oct 23, 2026; Qin Shen, Like Birds, Toward Their Mountain — opened Sep 24, 2026", "opening": "Qin Shen: Thu, Sep 24"}, "19 Henry St": {"onView": "Closed — the gallery shut its doors July 2, 2026", "opening": ""}, "2075 Adam Clayton Powell Jr Blvd": {"onView": "Ransome, A Little Sugar in My Bowl — Sep 13 – Oct 17, 2026", "opening": ""}, "Cooper Hewitt, Smithsonian Design Museum": {"onView": "Made in America: The Industrial Photography of Christopher Payne — through fall 2026 (check dates)", "opening": "Opened Dec 12, 2025. Pay-what-you-wish daily 5–6pm"}, "New York Public Library, Schwarzman Building": {"onView": "The Polonsky Exhibition of The New York Public Library's Treasures — ongoing", "opening": ""}} };
+
+const NOTE_TIDY = {"Cici Wu: Auld Lang Syne (prelude)": "", "Other Stories—A Genealogy for the Present (formerly Aicon Art)": "Formerly Aicon Art", "Unit 1W. Cécile Roberfroid: Carried, Not Told": "Unit 1W", "Dumbo, Suite 619. Plumb Line": "Dumbo, Suite 619", "Deborah Buck: New Jewels": "", "Gedi Sibony: The Carver's Order": "", "The Holes (Spielzug x Ward Gallery)": "Spielzug x Ward Gallery", "Hopi Kachina Dolls; Cézanne to Modigliani: Pearlman Collection; Art of Manga": "", "3rd floor. Women's Drawings, Feminist Works on Paper": "3rd floor", "Noah Pica & Paul Negron: 2 x self": "", "6th floor. Anna Uddenberg: White Noise": "6th floor", "Greenpoint. Norm Paris: Cover": "Greenpoint", "Columbia Lenfest Center. Allan Sekula: Fish Story": "Columbia Lenfest Center", "Sunset Park. Thomas Nozkowski: The Mysterious Beauty of Everything": "Sunset Park", "Also 52 Allen St. Where Are My Keys?": "Also 52 Allen St", "Mirrors by Peter Rippon": "", "Bushwick, #2 (same building as Transmitter). Absorption": "Bushwick, #2 (same building as Transmitter)"};
+
+function applyExhibitUpdate(){
+  if (!state.appliedAdditions) state.appliedAdditions = [];
+  if (state.appliedAdditions.includes(EXHIBIT_UPDATE.id)) return;
+  const lookup = {};
+  Object.keys(EXHIBIT_UPDATE.byName).forEach(n => { lookup[normKey(n)] = EXHIBIT_UPDATE.byName[n]; });
+  let n = 0;
+  state.places.forEach(p => {
+    const rec = lookup[normKey(p.name)];
+    if (!rec) return;
+    if (p.note && Object.prototype.hasOwnProperty.call(NOTE_TIDY, p.note)) p.note = NOTE_TIDY[p.note];
+    p.onView = rec.onView || '';
+    p.opening = rec.opening || '';
+    n++;
+  });
+  state.appliedAdditions.push(EXHIBIT_UPDATE.id);
+  saveState();
+  render();
+}
+
+loadState();
+</script>
+</body>
+</html>
