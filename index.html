@@ -623,14 +623,12 @@
   @media (max-width:600px){ .tab-btn{padding:10px 16px 9px; border-radius:14px 14px 0 0;} .tab-btn.active{padding-top:12px;} }
 
   /* ---- 1950s filing cabinet: neighborhoods are file folders in a drawer ----
-     Tabs are staggered left / center / right like real folders, sit on the
+     Tabs line up on the left, sit on the
      folder's top edge, lift when pointed at, and carry a faint paper grain. */
   :root{ --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .15 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); --folder-bg:#DCEDD7; --folder-open:var(--card); }
   body{ background-image:var(--grain); }
   .group{position:relative; margin-bottom:6px;}
   .tab-line{display:flex; padding:0 14px; position:relative; z-index:2;}
-  .group.stagger-1 .tab-line{justify-content:center;}
-  .group.stagger-2 .tab-line{justify-content:flex-end;}
   .group-header{
     cursor:pointer; user-select:none;
     display:inline-flex !important; width:auto; max-width:100%;
