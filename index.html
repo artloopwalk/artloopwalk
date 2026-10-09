@@ -11,14 +11,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   :root{
-    --paper:#EAE6DA;
-    --card:#F5F2E8;
+    --paper:#DCEFD8;
+    --card:#EEF8EB;
     --ink:#20281F;
     --ink-soft:#5A6459;
     --teal:#2B6E6E;
     --teal-deep:#1D4E4E;
     --gold:#B98B2A;
-    --rule:#CCC4AE;
+    --rule:#AFD3A7;
     --danger:#A24C3D;
   }
   *{box-sizing:border-box;}
@@ -42,13 +42,13 @@
   .guide-title{
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:clamp(32px,6vw,46px);
+    font-size:clamp(33.33px,6vw,47.33px);
     margin:0;
   }
   .guide-intro{
     font-family:'Fraunces', serif;
     font-style:italic;
-    font-size:16px;
+    font-size:17.3px;
     color:var(--ink-soft);
     margin:8px 0 0;
   }
@@ -57,7 +57,7 @@
     justify-content:space-between;
     align-items:baseline;
     margin-top:14px;
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
     flex-wrap:wrap;
     gap:8px;
@@ -77,7 +77,7 @@
     color:#fff;
     padding:8px 15px;
     border-radius:2px;
-    font-size:13px;
+    font-size:14.3px;
     font-weight:500;
     letter-spacing:.2px;
     white-space:nowrap;
@@ -87,7 +87,7 @@
     background:none;
     color:var(--ink-soft);
     padding:4px 6px;
-    font-size:13px;
+    font-size:14.3px;
     text-decoration:underline;
     text-underline-offset:3px;
   }
@@ -102,7 +102,7 @@
     background:none;
     padding:10px 4px;
     margin-right:20px;
-    font-size:15px;
+    font-size:16.3px;
     font-weight:500;
     color:var(--ink-soft);
     border-bottom:2px solid transparent;
@@ -130,7 +130,7 @@
     gap:10px;
     padding:9px 12px;
     border-bottom:1px solid var(--rule);
-    font-size:13px;
+    font-size:14.3px;
   }
   .custom-item:last-child{border-bottom:none;}
   .custom-item-dot{
@@ -139,21 +139,21 @@
   }
   .custom-item-label{flex:1;color:var(--ink);}
   .custom-item .tag{
-    font-size:11px;
+    font-size:12.3px;
     padding:3px 9px;
     border-radius:20px;
     color:#fff;
     white-space:nowrap;
     flex:none;
   }
-  .custom-item .icon-btn{padding:2px 6px;font-size:15px;}
+  .custom-item .icon-btn{padding:2px 6px;font-size:16.3px;}
   .custom-selected-item{
     display:flex;
     align-items:center;
     gap:8px;
     padding:8px 0;
     border-bottom:1px solid var(--rule);
-    font-size:13px;
+    font-size:14.3px;
   }
   .custom-selected-item:last-child{border-bottom:none;}
   .custom-selected-item span:first-child{flex:1;color:var(--ink);}
@@ -162,12 +162,12 @@
   #custom-selected:empty::after{
     content:"No stops yet — check off places below to add them.";
     color:var(--ink-soft);
-    font-size:13px;
+    font-size:14.3px;
   }
   .search-row input{
     width:100%;
     font-family:'Work Sans', sans-serif;
-    font-size:15px;
+    font-size:16.3px;
     padding:12px 14px;
     border:1px solid var(--rule);
     background:#fff;
@@ -186,11 +186,11 @@
   .panel h2{
     font-family:'Fraunces', serif;
     font-weight:500;
-    font-size:19px;
+    font-size:20.3px;
     margin:0 0 4px;
   }
   .panel p.hint{
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
     margin:0 0 14px;
   }
@@ -198,7 +198,7 @@
     width:100%;
     min-height:110px;
     font-family:'Work Sans', sans-serif;
-    font-size:14px;
+    font-size:15.3px;
     padding:12px;
     border:1px solid var(--rule);
     background:#fff;
@@ -214,7 +214,7 @@
     margin-top:12px;
   }
   #status-line{
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
   }
 
@@ -240,7 +240,7 @@
   .btn.loop-btn{
     display:inline-block;
     padding:11px 24px;
-    font-size:14px;
+    font-size:15.3px;
     letter-spacing:.4px;
   }
   .btn.loop-btn.disabled{
@@ -258,7 +258,7 @@
   .loop-report h3{
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:15px;
+    font-size:16.3px;
     margin:0 0 10px;
   }
   .loop-report-row{
@@ -266,7 +266,7 @@
     align-items:center;
     justify-content:space-between;
     gap:10px;
-    font-size:13px;
+    font-size:14.3px;
     padding:5px 0;
     border-bottom:1px solid var(--rule);
   }
@@ -280,7 +280,7 @@
   .loop-report-row.flag-low .count{color:var(--gold); font-weight:600;}
   .loop-report-row.flag-ok .count{color:var(--teal-deep);}
   .loop-report-note{
-    font-size:12px;
+    font-size:13.3px;
     color:var(--ink-soft);
     margin-top:10px;
   }
@@ -292,7 +292,7 @@
     margin-bottom:18px;
   }
   .chip{
-    font-size:12px;
+    font-size:13.3px;
     padding:5px 12px;
     border-radius:20px;
     border:1px solid var(--rule);
@@ -318,7 +318,7 @@
     display:flex;
     align-items:center;
     gap:7px;
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
   }
   .legend-item .swatch{
@@ -331,9 +331,9 @@
     text-align:center;
     padding:60px 20px;
     color:var(--ink-soft);
-    font-size:14px;
+    font-size:15.3px;
   }
-  .empty strong{display:block;color:var(--ink);font-family:'Fraunces',serif;font-size:18px;font-weight:500;margin-bottom:6px;}
+  .empty strong{display:block;color:var(--ink);font-family:'Fraunces',serif;font-size:19.3px;font-weight:500;margin-bottom:6px;}
 
   .group{
     margin-bottom:34px;
@@ -354,7 +354,7 @@
     gap:8px;
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:17px;
+    font-size:18.3px;
   }
   .group-header .label .swatch{
     width:11px;height:11px;
@@ -362,7 +362,7 @@
     flex:none;
   }
   .group-header .maps-link{
-    font-size:12px;
+    font-size:13.3px;
     color:var(--teal-deep);
     text-decoration:underline;
     text-underline-offset:2px;
@@ -377,7 +377,7 @@
   .place-card{
     display:flex;
     gap:16px;
-    padding:16px 4px;
+    padding:32px 4px;
     border-bottom:1px solid var(--rule);
   }
   .place-card .dot{
@@ -388,24 +388,24 @@
   .place-card h3{
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:19px;
+    font-size:25px;
     margin:0 0 2px;
   }
   .featured-star{
     color:var(--gold);
-    font-size:15px;
+    font-size:16.3px;
   }
   .place-card .addr{
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
     margin-bottom:2px;
   }
   .place-card .addr.coord{
-    font-size:12px;
+    font-size:13.3px;
     color:#8b9186;
   }
   .place-card .exhibit{
-    font-size:13.5px;
+    font-size:14.8px;
     color:var(--ink);
     margin-top:6px;
     line-height:1.45;
@@ -418,7 +418,7 @@
   }
   .place-card .exhibit.muted{color:var(--ink-soft);}
   .place-card .note{
-    font-size:14px;
+    font-size:15.3px;
     color:var(--ink);
     margin-top:6px;
     font-style:italic;
@@ -430,7 +430,7 @@
     margin-top:8px;
   }
   .tag{
-    font-size:11px;
+    font-size:12.3px;
     padding:2px 9px;
     border-radius:20px;
     color:#fff;
@@ -443,7 +443,7 @@
     border-bottom:1px solid var(--rule);
     background:transparent;
     font-family:'Work Sans', sans-serif;
-    font-size:14px;
+    font-size:15.3px;
     color:var(--ink);
     outline:none;
     padding:3px 0;
@@ -452,7 +452,7 @@
   .edit-field.name-field{
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:18px;
+    font-size:19.3px;
   }
   .edit-actions{
     display:flex;
@@ -468,7 +468,7 @@
   .icon-btn{
     background:none;
     color:var(--ink-soft);
-    font-size:12px;
+    font-size:13.3px;
     text-decoration:underline;
     text-underline-offset:2px;
   }
@@ -483,7 +483,7 @@
 
   footer.tip{
     margin-top:36px;
-    font-size:12px;
+    font-size:13.3px;
     color:var(--ink-soft);
     border-top:1px solid var(--rule);
     padding-top:16px;
@@ -497,11 +497,11 @@
   section.archive h2{
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:22px;
+    font-size:23.3px;
     margin:0 0 4px;
   }
   section.archive p.hint{
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
     margin:0 0 18px;
   }
@@ -521,11 +521,11 @@
   .archive-week-header h3{
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:16px;
+    font-size:17.3px;
     margin:0;
   }
   .archive-week-header a{
-    font-size:12px;
+    font-size:13.3px;
     color:var(--teal-deep);
     text-decoration:underline;
     text-underline-offset:2px;
@@ -535,11 +535,11 @@
   .archive-week ul{
     margin:0;
     padding-left:18px;
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
   }
   .archive-empty{
-    font-size:13px;
+    font-size:14.3px;
     color:var(--ink-soft);
     font-style:italic;
   }
@@ -624,9 +624,9 @@ Lil' Deb's Oasis — 90 Seneca St, Hudson, NY #dinner #favorite | tasting menu, 
     <section class="panel" id="custom-panel">
       <h2>Make your own loop</h2>
       <p class="hint">Check off any places to build your own route, reorder them, then send the whole thing to Google Maps.</p>
-      <input id="custom-search" type="text" placeholder="Search all places…" style="width:100%;font-family:'Work Sans', sans-serif;font-size:14px;padding:10px 12px;border:1px solid var(--rule);background:#fff;color:var(--ink);outline:none;margin-bottom:14px;" />
+      <input id="custom-search" type="text" placeholder="Search all places…" style="width:100%;font-family:'Work Sans', sans-serif;font-size:15.3px;padding:10px 12px;border:1px solid var(--rule);background:#fff;color:var(--ink);outline:none;margin-bottom:14px;" />
       <div class="custom-picker" id="custom-picker"></div>
-      <h2 style="font-size:16px;margin-top:22px;">Your route (<span id="custom-count">0</span> stops)</h2>
+      <h2 style="font-size:17.3px;margin-top:22px;">Your route (<span id="custom-count">0</span> stops)</h2>
       <div id="custom-selected"></div>
       <div class="panel-actions">
         <button class="btn ghost" id="custom-clear-btn" type="button">Clear route</button>

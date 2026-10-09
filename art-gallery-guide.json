@@ -1,7 +1,9 @@
 {
   "title": "Art Gallery Guide",
   "intro": "",
-  "tagColors": {},
+  "tagColors": {
+    "tribeca": "#2E9E4F"
+  },
   "places": [
     {
       "name": "Sotheby's",
