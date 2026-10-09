@@ -661,9 +661,8 @@
       transparent calc(14px - var(--folder-line-w)), #1A1A1A calc(14px - var(--folder-line-w)),
       #1A1A1A 14px, var(--tab-fill) 14px);
   }
-  .group-header:hover{--tab-fill:#E6F3E2;}
   .group.open .group-header{--tab-fill:var(--card);}
-  .group-header:hover{background-color:#E6F3E2;}
+  .group-header:hover, .group.open .group-header:hover{background:#fff; --tab-fill:#fff;}
   .group-header:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
   .group.open .group-header{background:var(--card); padding-top:13px;}
   .group-header .chev{
@@ -694,6 +693,19 @@
   .place-card{box-shadow:0 1px 0 rgba(0,0,0,.05), 0 2px 6px rgba(0,0,0,.05);}
   .place-card .exhibit-label{font-family:'Courier Prime','Courier New',Courier,monospace; font-weight:700; letter-spacing:.01em;}
   #filters[hidden]{display:none !important;}
+  /* Favorite star next to each gallery's color dot */
+  .place-card .mark{display:flex; align-items:center; gap:4px; flex:none; align-self:flex-start; margin-top:4px;}
+  .place-card .mark .dot{margin-top:0;}
+  .fav-star{
+    background:none; border:none; padding:0 2px; cursor:pointer;
+    font-size:21px; line-height:1; color:var(--ink-soft);
+    transition:transform .12s ease, color .12s ease;
+  }
+  .fav-star:hover{transform:scale(1.15); color:var(--ink);}
+  .fav-star.on{color:#C9A227;}
+  .fav-star:focus-visible{outline:2px solid var(--teal); outline-offset:2px; border-radius:4px;}
+  .fav-list{gap:12px; padding-top:8px;}
+  #favorites-maps{padding:0 0 4px;}
 </style>
 </head>
 <body>
@@ -720,6 +732,7 @@
   <div class="tab-row" id="tab-row">
     <button class="tab-btn active" id="tab-featured-btn" type="button">Galleries</button>
     <button class="tab-btn" id="tab-custom-btn" type="button">Make your own loop</button>
+    <button class="tab-btn" id="tab-favorites-btn" type="button">Favorites</button>
   </div>
 
   <div id="featured-view">
@@ -779,6 +792,19 @@ Lil' Deb's Oasis — 90 Seneca St, Hudson, NY #dinner #favorite | tasting menu, 
       <div id="custom-maps-links"></div>
     </section>
 
+  </div>
+
+  <div id="favorites-view" style="display:none">
+    <section class="panel" id="favorites-panel">
+      <h2>Favorites</h2>
+      <p class="hint">Tap the ☆ next to any gallery to save it here. Favorites are kept on this device.</p>
+      <div class="group-maps" id="favorites-maps"></div>
+      <div class="place-list fav-list" id="favorites-list"></div>
+      <div class="empty" id="favorites-empty">
+        <strong>No favorites yet</strong>
+        Tap the ☆ next to a gallery on the Galleries tab to add it here.
+      </div>
+    </section>
   </div>
 
   <footer class="tip">Search or filter by tag to find a place, then use "Open in Google Maps" on any loop to get walking directions through every stop in it.</footer>
@@ -1083,7 +1109,11 @@ function renderGroups(){
       const dot = document.createElement('div');
       dot.className = 'dot';
       dot.style.background = primaryTag(p) ? tagColor(primaryTag(p)) : '#9aa79f';
-      card.appendChild(dot);
+      const mark = document.createElement('div');
+      mark.className = 'mark';
+      mark.appendChild(dot);
+      mark.appendChild(favStarButton(p));
+      card.appendChild(mark);
 
       const body = document.createElement('div');
       body.className = 'body';
@@ -1486,6 +1516,100 @@ function render(){
   renderArchive();
   renderCustomPicker();
   renderCustomSelected();
+  renderFavorites();
+}
+
+// ---- Favorites: visitors star galleries; kept in this browser (localStorage) ----
+const FAV_KEY = 'artloopwalk:favorites';
+function favKey(p){ return (p.name || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+let favorites = (() => {
+  try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); }
+  catch(e){ return new Set(); }
+})();
+function saveFavorites(){
+  try { localStorage.setItem(FAV_KEY, JSON.stringify([...favorites])); } catch(e){ /* storage unavailable */ }
+}
+function isFavorite(p){ return favorites.has(favKey(p)); }
+function toggleFavorite(p){
+  const k = favKey(p);
+  if (favorites.has(k)) favorites.delete(k); else favorites.add(k);
+  saveFavorites();
+  renderGroups();
+  renderFavorites();
+}
+function favStarButton(p){
+  const on = isFavorite(p);
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'fav-star' + (on ? ' on' : '');
+  b.textContent = on ? '★' : '☆';
+  b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  b.setAttribute('aria-label', (on ? 'Remove ' : 'Add ') + p.name + (on ? ' from' : ' to') + ' favorites');
+  b.title = on ? 'Remove from favorites' : 'Add to favorites';
+  b.addEventListener('click', e => { e.stopPropagation(); toggleFavorite(p); });
+  return b;
+}
+function renderFavorites(){
+  const list = document.getElementById('favorites-list');
+  if (!list) return;
+  const favs = state.places.filter(isFavorite).sort((a, b) =>
+    (neighborhoodName(primaryTag(a) || 'zz')).localeCompare(neighborhoodName(primaryTag(b) || 'zz')) || a.name.localeCompare(b.name));
+  const btn = document.getElementById('tab-favorites-btn');
+  if (btn) btn.textContent = favs.length ? `Favorites (${favs.length})` : 'Favorites';
+  document.getElementById('favorites-empty').style.display = favs.length ? 'none' : 'block';
+  list.style.display = favs.length ? '' : 'none';
+  list.innerHTML = '';
+  favs.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'place-card';
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.background = primaryTag(p) ? tagColor(primaryTag(p)) : '#9aa79f';
+    const mark = document.createElement('div');
+    mark.className = 'mark';
+    mark.appendChild(dot);
+    mark.appendChild(favStarButton(p));
+    card.appendChild(mark);
+    const body = document.createElement('div');
+    body.className = 'body';
+    const h3 = document.createElement('h3');
+    h3.textContent = p.name;
+    body.appendChild(h3);
+    const addrIsCoords = /^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$/.test(p.address || '');
+    const where = [p.address && !addrIsCoords ? p.address : '', primaryTag(p) ? neighborhoodName(primaryTag(p)) : ''].filter(Boolean).join(' · ');
+    if (where){
+      const a = document.createElement('div');
+      a.className = 'addr';
+      a.textContent = where;
+      body.appendChild(a);
+    }
+    if (p.onView){
+      [['On View:', p.onView, false], ['Opening:', p.opening || 'Not listed', !p.opening]].forEach(([lab, txt, muted]) => {
+        const row = document.createElement('div');
+        row.className = 'exhibit' + (muted ? ' muted' : '');
+        const l = document.createElement('span');
+        l.className = 'exhibit-label';
+        l.textContent = lab;
+        row.appendChild(l);
+        row.appendChild(document.createTextNode(txt));
+        body.appendChild(row);
+      });
+    }
+    card.appendChild(body);
+    list.appendChild(card);
+  });
+  const mapsEl = document.getElementById('favorites-maps');
+  mapsEl.innerHTML = '';
+  const chunks = chunkPlacesForMaps(favs);
+  chunks.forEach((chunk, idx) => {
+    const url = chunk.length ? googleMapsUrlForGroup(chunk) : null;
+    if (!url) return;
+    const a = document.createElement('a');
+    a.className = 'maps-link';
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = chunks.length > 1 ? `Walk your favorites in Google Maps (Part ${idx + 1} of ${chunks.length})` : 'Walk your favorites in Google Maps';
+    mapsEl.appendChild(a);
+  });
 }
 
 function switchTab(tab){
@@ -1494,6 +1618,8 @@ function switchTab(tab){
   document.getElementById('tab-custom-btn').classList.toggle('active', tab === 'custom');
   document.getElementById('featured-view').style.display = tab === 'featured' ? '' : 'none';
   document.getElementById('custom-view').style.display = tab === 'custom' ? '' : 'none';
+  document.getElementById('tab-favorites-btn').classList.toggle('active', tab === 'favorites');
+  document.getElementById('favorites-view').style.display = tab === 'favorites' ? '' : 'none';
   if (tab === 'featured' && map) setTimeout(() => map.invalidateSize(), 0);
   render();
 }
@@ -2070,6 +2196,7 @@ document.getElementById('search').addEventListener('input', e => {
 
 document.getElementById('tab-featured-btn').addEventListener('click', () => switchTab('featured'));
 document.getElementById('tab-custom-btn').addEventListener('click', () => switchTab('custom'));
+document.getElementById('tab-favorites-btn').addEventListener('click', () => switchTab('favorites'));
 
 document.getElementById('custom-search').addEventListener('input', e => {
   customSearchQuery = e.target.value;
