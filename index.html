@@ -684,7 +684,7 @@
     <h1 class="guide-title" id="guide-title"></h1>
     <p class="guide-intro" id="guide-intro"></p>
     <div class="meta-row">
-      <span id="place-count">0 places</span>
+      <span id="place-count">0 galleries</span>
       <div class="meta-actions">
         <button class="btn text" id="copy-btn">Copy guide as text</button>
         <button class="btn text" id="export-json-btn">Export JSON</button>
@@ -1255,7 +1255,7 @@ function renderGroups(){
   });
 
   document.getElementById('place-count').textContent =
-    vis.length + (vis.length === 1 ? ' place' : ' places') +
+    vis.length + (vis.length === 1 ? ' gallery' : ' galleries') +
     (vis.length !== state.places.length ? ` of ${state.places.length}` : '');
 }
 
