@@ -627,7 +627,7 @@
   /* Neighborhoods match the Galleries / Make your own loop tabs: a tab sitting on
      one black line that runs the full width in front of it; opens like an accordion */
   .group{position:relative; margin-bottom:10px;}
-  .tab-line{display:flex; align-items:flex-end; position:relative;}
+  .tab-line{display:flex; align-items:flex-end; position:relative; padding-left:16px;}
   .tab-line::after{
     content:""; position:absolute; left:0; right:0; bottom:0;
     height:var(--folder-line-w); background:#1A1A1A; z-index:2; pointer-events:none;
@@ -640,8 +640,29 @@
     border-radius:16px 16px 0 0;
     padding:11px 22px 10px;
     margin:0;
+    position:relative;
+    --tab-fill:#DCEDD7;
     transition:background-color .15s ease;
   }
+  /* Bottom corners flare outward and flow down into the black line */
+  .group-header::before, .group-header::after{
+    content:""; position:absolute; bottom:0; width:calc(14px + var(--folder-line-w)); height:14px;
+    pointer-events:none;
+  }
+  .group-header::before{
+    left:calc(-14px - var(--folder-line-w));
+    background:radial-gradient(circle at var(--folder-line-w) 0,
+      transparent calc(14px - var(--folder-line-w)), #1A1A1A calc(14px - var(--folder-line-w)),
+      #1A1A1A 14px, var(--tab-fill) 14px);
+  }
+  .group-header::after{
+    right:calc(-14px - var(--folder-line-w));
+    background:radial-gradient(circle at calc(100% - var(--folder-line-w)) 0,
+      transparent calc(14px - var(--folder-line-w)), #1A1A1A calc(14px - var(--folder-line-w)),
+      #1A1A1A 14px, var(--tab-fill) 14px);
+  }
+  .group-header:hover{--tab-fill:#E6F3E2;}
+  .group.open .group-header{--tab-fill:var(--card);}
   .group-header:hover{background-color:#E6F3E2;}
   .group-header:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
   .group.open .group-header{background:var(--card); padding-top:13px;}
