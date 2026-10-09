@@ -6,7 +6,7 @@
 <title>Art Loop Walk</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Archivo:wdth,wght@100..125,700..900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -570,6 +570,16 @@
   .leaflet-bar a:last-child{border-radius:0 0 var(--r-sm) var(--r-sm) !important;}
   .leaflet-popup-content-wrapper{border-radius:var(--r-md);}
   @media (max-width:600px){ :root{ --r-md:16px; --r-lg:20px; } }
+
+  /* Main title: bold, slightly expanded retro grotesque (Helvetica lineage, 70s character) */
+  .guide-title{
+    font-family:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight:850;
+    font-stretch:112%;
+    font-variation-settings:"wdth" 112;
+    letter-spacing:-0.025em;
+    line-height:1.0;
+  }
 </style>
 </head>
 <body>
