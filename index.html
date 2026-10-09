@@ -549,6 +549,27 @@
     #map{border:none;}
     body{background:#fff;}
   }
+
+  /* ---- Visitor view: owner tools hidden unless the page is opened with ?owner ---- */
+  body:not(.owner) .meta-actions,
+  body:not(.owner) #add-panel,
+  body:not(.owner) .card-actions,
+  body:not(.owner) .edit-actions{display:none !important;}
+
+  /* ---- Corners: smooth, proportional radii tuned for phone-sized boxes ---- */
+  :root{ --r-xs:8px; --r-sm:12px; --r-md:18px; --r-lg:24px; }
+  .btn, .btn.loop-btn, .btn.ghost{border-radius:var(--r-sm);}
+  .btn.text{border-radius:var(--r-xs);}
+  /* tabs keep their underline style */
+  .search-row input, #custom-search, textarea, .edit-field{border-radius:var(--r-sm);}
+  .panel, .legend, .loop-report, .custom-picker, .archive-week{border-radius:var(--r-md); overflow:hidden;}
+  #map{border-radius:var(--r-lg); overflow:hidden;}
+  .chip, .tag{border-radius:999px;}
+  .leaflet-bar{border-radius:var(--r-sm) !important; overflow:hidden;}
+  .leaflet-bar a:first-child{border-radius:var(--r-sm) var(--r-sm) 0 0 !important;}
+  .leaflet-bar a:last-child{border-radius:0 0 var(--r-sm) var(--r-sm) !important;}
+  .leaflet-popup-content-wrapper{border-radius:var(--r-md);}
+  @media (max-width:600px){ :root{ --r-md:16px; --r-lg:20px; } }
 </style>
 </head>
 <body>
@@ -1975,6 +1996,15 @@ function applyExhibitUpdate(){
 }
 
 loadState();
+</script>
+<script>
+(function(){
+  try{
+    var q=new URLSearchParams(location.search);
+    if(q.has('owner')) localStorage.setItem('alw-owner', q.get('owner')==='off' ? '' : '1');
+    if(localStorage.getItem('alw-owner')==='1') document.body.classList.add('owner');
+  }catch(e){ if(/[?&]owner(?!=off)/.test(location.search)) document.body.classList.add('owner'); }
+})();
 </script>
 </body>
 </html>
