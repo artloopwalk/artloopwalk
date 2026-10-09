@@ -586,20 +586,20 @@
     line-height:1.0;
   }
 
-  /* Title backdrop: triangle, circle and square behind "Art Loop Walk"
-     (triangle and square share the same softly rounded corners) */
+  /* Logo mark: triangle, circle and square in a row above "Art Loop Walk"
+     (triangle and square share the same softly rounded corners).
+     Sized in em so the mark scales with the title. */
   .guide-title{
     position:relative; display:inline-block; isolation:isolate;
-    padding:22px 30px;
+    padding:1.25em 0 0;
   }
   .guide-title::before{
-    content:""; position:absolute; inset:-1.5px 0; z-index:-1; pointer-events:none;
+    content:""; position:absolute; top:0; left:0.04em; width:3.3em; height:0.95em; z-index:-1; pointer-events:none;
     background:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23C2E3E5'/%3E%3C/svg%3E") 50% center / auto 100% no-repeat,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='4' y='4' width='92' height='92' rx='3' fill='%23D5DBF0'/%3E%3C/svg%3E") right 58% / auto 86% no-repeat,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 116 100'%3E%3Cpolygon points='58,4 112,97 4,97' fill='%23A4C2E0' stroke='%23A4C2E0' stroke-width='6' stroke-linejoin='round'/%3E%3C/svg%3E") left bottom / auto 96% no-repeat;
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23C2E3E5'/%3E%3C/svg%3E") 53% center / auto 100% no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='4' y='4' width='92' height='92' rx='3' fill='%23D5DBF0'/%3E%3C/svg%3E") right center / auto 100% no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 116 100'%3E%3Cpolygon points='58,4 112,97 4,97' fill='%23A4C2E0' stroke='%23A4C2E0' stroke-width='6' stroke-linejoin='round'/%3E%3C/svg%3E") left center / auto 100% no-repeat;
   }
-  @media (max-width:600px){ .guide-title{padding:18px 20px;} }
 
 
   /* Neighborhood subheadings: same typeface as the main title */
