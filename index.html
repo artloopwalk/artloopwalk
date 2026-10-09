@@ -782,6 +782,21 @@ function tagColor(tag){
   return PALETTE[h % PALETTE.length];
 }
 
+// Title: each word gets its own color from the retro palette
+const TITLE_WORD_COLORS = ['#E35F2A', '#3A87B7', '#2B2D7A'];
+function setGuideTitle(text){
+  const el = document.getElementById('guide-title');
+  el.textContent = '';
+  String(text).split(/(\s+)/).forEach((part, i) => {
+    if (!part || /^\s+$/.test(part)){ el.appendChild(document.createTextNode(part)); return; }
+    const span = document.createElement('span');
+    span.className = 'title-word';
+    span.style.color = TITLE_WORD_COLORS[(i / 2) % TITLE_WORD_COLORS.length];
+    span.textContent = part;
+    el.appendChild(span);
+  });
+}
+
 async function loadState(){
   try{
     const r = await window.storage.get('guide');
@@ -812,7 +827,7 @@ async function loadState(){
     state.tagColors = Object.assign({}, BASE_GUIDE.tagColors || {}, state.tagColors);
     state.places = BASE_GUIDE.places.map(p => Object.assign({ id: uid(), status: (p.lat != null ? 'ok' : 'failed') }, p));
   }
-  document.getElementById('guide-title').textContent = state.title || 'Art Loop Walk';
+  setGuideTitle(state.title || 'Art Loop Walk');
   document.getElementById('guide-intro').textContent = state.intro || '';
   document.getElementById('guide-intro').style.display = state.intro ? 'block' : 'none';
   render();
@@ -2011,7 +2026,7 @@ document.getElementById('import-json-file').addEventListener('change', (e) => {
           status: (p.lat != null && p.lon != null) ? 'ok' : 'failed'
         }))
       };
-      document.getElementById('guide-title').textContent = state.title || 'Art Loop Walk';
+      setGuideTitle(state.title || 'Art Loop Walk');
       document.getElementById('guide-intro').textContent = state.intro || '';
       document.getElementById('guide-intro').style.display = state.intro ? 'block' : 'none';
       saveState();
