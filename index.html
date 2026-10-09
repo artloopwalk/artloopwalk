@@ -601,6 +601,15 @@
   }
   @media (max-width:600px){ .guide-title{padding:18px 20px;} }
 
+  /* Retro creme lettering: cream fill, ink outline, offset ink shadow */
+  .guide-title{
+    color:#F4E6C2;
+    -webkit-text-stroke:1.6px var(--ink);
+    paint-order:stroke fill;
+    text-shadow:3px 3px 0 var(--ink);
+  }
+  @media (max-width:600px){ .guide-title{ -webkit-text-stroke:1.2px var(--ink); text-shadow:2px 2px 0 var(--ink); } }
+
   /* Neighborhood subheadings: same typeface as the main title */
   .group-header .label{
     font-family:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
