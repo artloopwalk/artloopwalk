@@ -782,19 +782,8 @@ function tagColor(tag){
   return PALETTE[h % PALETTE.length];
 }
 
-// Title: each word gets its own color from the retro palette
-const TITLE_WORD_COLORS = ['#E35F2A', '#3A87B7', '#2B2D7A'];
 function setGuideTitle(text){
-  const el = document.getElementById('guide-title');
-  el.textContent = '';
-  String(text).split(/(\s+)/).forEach((part, i) => {
-    if (!part || /^\s+$/.test(part)){ el.appendChild(document.createTextNode(part)); return; }
-    const span = document.createElement('span');
-    span.className = 'title-word';
-    span.style.color = TITLE_WORD_COLORS[(i / 2) % TITLE_WORD_COLORS.length];
-    span.textContent = part;
-    el.appendChild(span);
-  });
+  document.getElementById('guide-title').textContent = text;
 }
 
 async function loadState(){
