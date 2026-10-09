@@ -6,7 +6,7 @@
 <title>Art Loop Walk</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Archivo:wdth,wght@100..125,700..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Archivo:wdth,wght@100..125,700..900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -611,7 +611,7 @@
     margin-right:0; padding:11px 22px 10px;
     border:var(--folder-line); border-bottom:none;
     border-radius:16px 16px 0 0;
-    background:#DCEDD7; color:var(--ink-soft);
+    background:#DCEDD7; background-image:var(--grain); color:var(--ink-soft);
     top:0;
   }
   .tab-btn:hover{color:var(--ink);}
@@ -622,21 +622,29 @@
   }
   @media (max-width:600px){ .tab-btn{padding:10px 16px 9px; border-radius:14px 14px 0 0;} .tab-btn.active{padding-top:12px;} }
 
-  /* Neighborhoods as stacked file-folder tabs; each opens like an accordion */
-  .group{margin-bottom:calc(-1 * var(--folder-line-w)); position:relative;}
+  /* ---- 1950s filing cabinet: neighborhoods are file folders in a drawer ----
+     Tabs are staggered left / center / right like real folders, sit on the
+     folder's top edge, lift when pointed at, and carry a faint paper grain. */
+  :root{ --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .15 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); --folder-bg:#DCEDD7; --folder-open:var(--card); }
+  body{ background-image:var(--grain); }
+  .group{position:relative; margin-bottom:6px;}
+  .tab-line{display:flex; padding:0 14px; position:relative; z-index:2;}
+  .group.stagger-1 .tab-line{justify-content:center;}
+  .group.stagger-2 .tab-line{justify-content:flex-end;}
   .group-header{
     cursor:pointer; user-select:none;
-    background:#DCEDD7;
-    border:var(--folder-line);
-    border-radius:16px 16px 0 0;
-    padding:14px 18px;
-    margin-bottom:0;
-    transition:background .15s ease;
+    display:inline-flex !important; width:auto; max-width:100%;
+    background-color:var(--folder-bg); background-image:var(--grain);
+    border:var(--folder-line); border-bottom:none;
+    border-radius:12px 12px 0 0;
+    padding:11px 18px 10px;
+    margin:0 0 calc(-1 * var(--folder-line-w));
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 -2px 6px rgba(0,0,0,.06);
+    transition:transform .15s ease, background-color .15s ease;
   }
-  .group-header:hover{background:#E6F3E2;}
+  .group-header:hover{transform:translateY(-3px);}
   .group-header:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
-  .group.open{margin-bottom:14px; z-index:1;}
-  .group.open .group-header{background:var(--card); border-bottom-color:transparent;}
+  .group.open .group-header{background-color:var(--folder-open); transform:none;}
   .group-header .chev{
     width:0; height:0; flex:none; margin-right:2px;
     border-left:7px solid var(--ink-soft);
@@ -645,27 +653,41 @@
   }
   .group.open .group-header .chev{transform:rotate(90deg);}
   .group-header .group-count{
-    font-family:'Work Sans',sans-serif; font-weight:500; font-size:13px;
+    font-family:'Courier Prime','Courier New',Courier,monospace; font-weight:700; font-size:13px;
     font-stretch:100%; font-variation-settings:normal; letter-spacing:0;
     color:var(--ink-soft);
     background:rgba(255,255,255,.7); border:1px solid var(--rule);
-    border-radius:999px; padding:1px 9px; margin-left:4px;
+    border-radius:4px; padding:0 7px; margin-left:4px;
   }
-  .group .place-list{display:none;}
+  /* Folder body: a thin top edge when closed, the full folder when open */
+  .group .place-list{
+    display:flex;
+    background-color:var(--folder-bg); background-image:var(--grain);
+    border:var(--folder-line);
+    border-radius:10px;
+    height:14px; padding:0; overflow:hidden;
+    box-shadow:0 2px 0 rgba(0,0,0,.07), 0 3px 8px rgba(0,0,0,.05);
+  }
+  .group .place-list > *{visibility:hidden;}
+  .group.open{margin-bottom:16px;}
+  .group.open .place-list{
+    height:auto; overflow:visible;
+    background-color:var(--folder-open);
+    padding:10px 14px 16px;
+  }
+  .group.open .place-list > *{visibility:visible;}
   .group-maps{display:flex; flex-wrap:wrap; gap:6px 18px; padding:2px 4px 4px;}
   .group-maps .maps-link{font-size:13.3px; color:var(--teal-deep); text-decoration:underline; text-underline-offset:2px; white-space:nowrap;}
   .group-maps .maps-link:hover{color:var(--teal);}
-  .group.open .place-list{
-    display:flex;
-    background:var(--card);
-    border:var(--folder-line); border-top:none;
-    border-radius:0 0 var(--r-md) var(--r-md);
-    padding:6px 14px 16px;
-  }
+  /* Index cards inside the folders */
+  .place-card{box-shadow:0 1px 0 rgba(0,0,0,.05), 0 2px 6px rgba(0,0,0,.05);}
+  .place-card .exhibit-label{font-family:'Courier Prime','Courier New',Courier,monospace; font-weight:700; letter-spacing:.01em;}
   @media (max-width:600px){
-    .group-header{padding:12px 14px;}
-    .group.open .place-list{padding:4px 10px 12px;}
+    .tab-line{padding:0 10px;}
+    .group-header{padding:10px 14px 9px;}
+    .group.open .place-list{padding:6px 10px 12px;}
   }
+  @media (hover:none){ .group-header:hover{transform:none;} }
   #filters[hidden]{display:none !important;}
 </style>
 </head>
@@ -980,10 +1002,10 @@ function renderGroups(){
   });
   order.sort((a,b) => a === 'Other' ? 1 : b === 'Other' ? -1 : a.localeCompare(b));
 
-  order.forEach(key => {
+  order.forEach((key, gi) => {
     const items = byGroup[key];
     const group = document.createElement('div');
-    group.className = 'group';
+    group.className = 'group stagger-' + (gi % 3);
 
     const forceOpen = !!(searchQuery.trim() || activeFilters.size || items.some(p => editingIds.has(p.id)));
     if (forceOpen || !closedGroups.has(key)) group.classList.add('open');
@@ -1041,7 +1063,10 @@ function renderGroups(){
       });
     }
 
-    group.appendChild(header);
+    const tabLine = document.createElement('div');
+    tabLine.className = 'tab-line';
+    tabLine.appendChild(header);
+    group.appendChild(tabLine);
 
     const list = document.createElement('div');
     list.className = 'place-list';
@@ -1166,18 +1191,15 @@ function renderGroups(){
         pendingLine.textContent = 'Locating…';
         body.appendChild(pendingLine);
       } else {
-        if (p.address){
+        // Show the street address only; hide raw "lat, lon" values
+        const addrIsCoords = /^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$/.test(p.address || '');
+        if (p.address && !addrIsCoords){
           const addrLine = document.createElement('div');
           addrLine.className = 'addr';
           addrLine.textContent = p.address;
           body.appendChild(addrLine);
         }
-        if (p.lat != null && p.lon != null){
-          const coordLine = document.createElement('div');
-          coordLine.className = 'addr coord';
-          coordLine.textContent = `${p.lat.toFixed(4)}, ${p.lon.toFixed(4)}`;
-          body.appendChild(coordLine);
-        } else if (p.status === 'failed'){
+        if ((p.lat == null || p.lon == null) && p.status === 'failed'){
           const warnLine = document.createElement('div');
           warnLine.className = 'addr';
           warnLine.style.color = 'var(--danger)';
