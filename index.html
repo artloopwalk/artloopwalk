@@ -373,13 +373,18 @@
   .place-list{
     display:flex;
     flex-direction:column;
+    gap:12px;
+    padding-top:6px;
   }
   .place-card{
     display:flex;
     gap:16px;
-    padding:32px 4px;
-    border-bottom:1px solid var(--rule);
+    padding:22px 22px;
+    background:#fff;
+    border:1px solid var(--rule);
+    border-radius:var(--r-md);
   }
+  @media (max-width:600px){ .place-card{ padding:18px 16px; } }
   .place-card .dot{
     width:10px;height:10px;border-radius:50%;
     margin-top:8px;flex:none;
