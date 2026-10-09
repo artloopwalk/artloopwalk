@@ -11,15 +11,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   :root{
-    --paper:#E8F5E5;
-    --card:#F4FBF2;
-    --ink:#20281F;
-    --ink-soft:#5A6459;
-    --teal:#2B6E6E;
-    --teal-deep:#1D4E4E;
-    --gold:#B98B2A;
-    --rule:#C3DFBD;
-    --danger:#A24C3D;
+    --paper:#EFE3C6;
+    --card:#F8F0DD;
+    --ink:#1A1A1A;
+    --ink-soft:#5E5446;
+    --teal:#2B2D7A;
+    --teal-deep:#1E2060;
+    --gold:#E39234;
+    --rule:#DCC99E;
+    --danger:#D9532A;
   }
   *{box-sizing:border-box;}
   body{
@@ -484,7 +484,7 @@
     border:1px solid var(--teal-deep);
     padding:7px 14px;
   }
-  .btn.ghost:hover{background:rgba(43,110,110,.08);}
+  .btn.ghost:hover{background:rgba(43,45,122,.08);}
 
   footer.tip{
     margin-top:36px;
@@ -594,9 +594,9 @@
   .guide-title::before{
     content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
     background:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='#F3DE86'/%3E%3C/svg%3E") left center / auto 100% no-repeat,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='4' y='4' width='92' height='92' rx='3' fill='#F7E9AE'/%3E%3C/svg%3E") 50% 58% / auto 86% no-repeat,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 116 100'%3E%3Cpolygon points='58,0 116,100 0,100' fill='#F0D66E'/%3E%3C/svg%3E") right bottom / auto 96% no-repeat;
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23F2C641'/%3E%3C/svg%3E") left center / auto 100% no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='4' y='4' width='92' height='92' rx='3' fill='%23EFA3BA'/%3E%3C/svg%3E") 50% 58% / auto 86% no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 116 100'%3E%3Cpolygon points='58,0 116,100 0,100' fill='%23E7743D'/%3E%3C/svg%3E") right bottom / auto 96% no-repeat;
   }
   @media (max-width:600px){ .guide-title{padding:18px 20px;} }
 
@@ -617,7 +617,7 @@
     margin-right:0; padding:11px 22px 10px;
     border:1px solid var(--rule); border-bottom:none;
     border-radius:16px 16px 0 0;
-    background:#DCEDD7; color:var(--ink-soft);
+    background:#E5D5AE; color:var(--ink-soft);
     top:1px;
   }
   .tab-btn:hover{color:var(--ink);}
@@ -718,8 +718,22 @@ Lil' Deb's Oasis — 90 Seneca St, Hudson, NY #dinner #favorite | tasting menu, 
 </div>
 
 <script>
-const PALETTE = ['#2B6E6E','#B98B2A','#6B4C6B','#46586B','#6E7B4E','#A24C3D'];
-const LOOP_COLORS = ['#3C7A4E','#C9A227','#6B4C6B','#B98B2A','#A24C3D','#46586B'];
+const PALETTE = ['#E35F2A','#3A87B7','#4E9466','#E58FAD','#2B2D7A','#E39234','#1A1A1A','#E9B92F'];
+const DEFAULT_TAG_COLORS = {
+  chelsea:'#2B2D7A', lowereastside:'#E35F2A', uppereastside:'#3A87B7', brooklyn:'#E39234',
+  eastvillage:'#E58FAD', midtown:'#1A1A1A', harlem:'#4E9466', soho:'#E9B92F', nolita:'#E58FAD',
+  westvillage:'#3A87B7', queens:'#4E9466', garmentdistrict:'#E35F2A', flatiron:'#E9B92F',
+  greenwichvillage:'#2B2D7A', financialdistrict:'#1A1A1A', unionsquare:'#E39234',
+  gramercy:'#4E9466', meatpacking:'#E58FAD', upperwestside:'#E35F2A', lowermanhattan:'#3A87B7'
+};
+function tagTextColor(bg){
+  const m = /^#?([0-9a-f]{6})$/i.exec(bg || '');
+  if (!m) return '#fff';
+  const n = parseInt(m[1], 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
+  const lum = (0.299*r + 0.587*g + 0.114*b) / 255;
+  return lum > 0.6 ? '#1A1A1A' : '#fff';
+}
+const LOOP_COLORS = ['#4E9466','#E39234','#E58FAD','#3A87B7','#E35F2A','#2B2D7A'];
 let state = { title:'', intro:'', places:[], tagColors:{} };
 let map, markersLayer;
 let activeFilters = new Set();
@@ -730,6 +744,7 @@ let customSearchQuery = '';
 
 function tagColor(tag){
   if (state.tagColors && state.tagColors[tag]) return state.tagColors[tag];
+  if (DEFAULT_TAG_COLORS[tag]) return DEFAULT_TAG_COLORS[tag];
   const loopMatch = tag.match(/^loop(\d+)$/i);
   if (loopMatch){
     const idx = (parseInt(loopMatch[1], 10) - 1) % LOOP_COLORS.length;
@@ -853,7 +868,7 @@ function renderFilters(){
     const b = document.createElement('button');
     b.className = 'chip' + (activeFilters.has(t) ? ' active' : '');
     b.textContent = '#' + t;
-    if (activeFilters.has(t)) b.style.background = tagColor(t);
+    if (activeFilters.has(t)){ b.style.background = tagColor(t); b.style.color = tagTextColor(tagColor(t)); }
     b.onclick = () => {
       if (activeFilters.has(t)) activeFilters.delete(t); else activeFilters.add(t);
       render();
@@ -886,7 +901,7 @@ function renderMap(){
   visiblePlaces().forEach(p => {
     if (p.lat == null || p.lon == null) return;
     const tag = primaryTag(p);
-    const color = tag ? tagColor(tag) : '#2B6E6E';
+    const color = tag ? tagColor(tag) : '#2B2D7A';
     const m = L.marker([p.lat, p.lon], { icon: makeIcon(color) });
     const tagsHtml = (p.tags||[]).filter(t => !isLoopTag(t)).map(t=>`#${t}`).join(' ');
     m.bindPopup(`<strong>${escapeHtml(p.name)}</strong><br>${escapeHtml(p.address||'')}<br><span style="color:${color}">${tagsHtml}</span>`);
@@ -1142,6 +1157,7 @@ function renderGroups(){
           chip.className = 'tag';
           chip.textContent = '#' + t;
           chip.style.background = tagColor(t);
+          chip.style.color = tagTextColor(tagColor(t));
           row.appendChild(chip);
         });
         body.appendChild(row);
@@ -1440,6 +1456,7 @@ function renderCustomPicker(){
       tagChip.className = 'tag';
       tagChip.textContent = '#' + colorTag;
       tagChip.style.background = tagColor(colorTag);
+      tagChip.style.color = tagTextColor(tagColor(colorTag));
       row.appendChild(tagChip);
     }
 
