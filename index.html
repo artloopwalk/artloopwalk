@@ -887,6 +887,20 @@ function renderMap(){
   }
 }
 
+const NEIGHBORHOOD_NAMES = {
+  art:'Art', brooklyn:'Brooklyn', chelsea:'Chelsea', eastvillage:'East Village',
+  financialdistrict:'Financial District', flatiron:'Flatiron', garmentdistrict:'Garment District',
+  gramercy:'Gramercy', greenwichvillage:'Greenwich Village', harlem:'Harlem',
+  lowereastside:'Lower East Side', lowermanhattan:'Lower Manhattan', meatpacking:'Meatpacking District',
+  midtown:'Midtown', nolita:'Nolita', queens:'Queens', soho:'SoHo', tribeca:'Tribeca',
+  unionsquare:'Union Square', uppereastside:'Upper East Side', upperwestside:'Upper West Side',
+  westvillage:'West Village'
+};
+function neighborhoodName(tag){
+  if (NEIGHBORHOOD_NAMES[tag]) return NEIGHBORHOOD_NAMES[tag];
+  return tag.replace(/[-_]+/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
 function renderGroups(){
   const groupsEl = document.getElementById('groups');
   const emptyEl = document.getElementById('empty-state');
@@ -920,7 +934,7 @@ function renderGroups(){
       label.appendChild(sw);
     }
     const labelText = document.createElement('span');
-    labelText.textContent = key === 'Other' ? 'Other' : ('#' + key);
+    labelText.textContent = key === 'Other' ? 'Other' : neighborhoodName(key);
     label.appendChild(labelText);
     header.appendChild(label);
 
