@@ -782,7 +782,7 @@ let searchQuery = '';
 let editingIds = new Set();
 let currentTab = 'featured';
 let customSearchQuery = '';
-let openGroup = null; // neighborhood folder currently open (accordion)
+let closedGroups = new Set(); // neighborhood folders the visitor has closed; all start open
 
 function tagColor(tag){
   if (state.tagColors && state.tagColors[tag]) return state.tagColors[tag];
@@ -990,7 +990,7 @@ function renderGroups(){
     group.className = 'group';
 
     const forceOpen = !!(searchQuery.trim() || activeFilters.size || items.some(p => editingIds.has(p.id)));
-    if (forceOpen || openGroup === key) group.classList.add('open');
+    if (forceOpen || !closedGroups.has(key)) group.classList.add('open');
 
     const header = document.createElement('div');
     header.className = 'group-header';
@@ -999,13 +999,9 @@ function renderGroups(){
     header.setAttribute('aria-expanded', group.classList.contains('open') ? 'true' : 'false');
     const toggle = () => {
       const willOpen = !group.classList.contains('open');
-      groupsEl.querySelectorAll('.group.open').forEach(g => {
-        if (g !== group && !forceOpen){ g.classList.remove('open'); g.querySelector('.group-header').setAttribute('aria-expanded','false'); }
-      });
       group.classList.toggle('open', willOpen);
       header.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-      openGroup = willOpen ? key : null;
-      if (willOpen) header.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      if (willOpen) closedGroups.delete(key); else closedGroups.add(key);
     };
     header.addEventListener('click', e => { if (!e.target.closest('a')) toggle(); });
     header.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); } });
