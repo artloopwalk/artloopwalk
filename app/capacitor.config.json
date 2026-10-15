@@ -1,0 +1,17 @@
+{
+  "appId": "com.artloopwalk.app",
+  "appName": "Art Loop Walk",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#E8F5E5",
+    "scheme": "Art Loop Walk"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 800,
+      "backgroundColor": "#E8F5E5",
+      "showSpinner": false
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "art-loop-walk-app",
+  "version": "1.0.0",
+  "description": "iOS app wrapper for Art Loop Walk",
+  "scripts": {
+    "build": "node scripts/build-www.mjs",
+    "sync": "npm run build && npx cap sync ios",
+    "open": "npx cap open ios",
+    "assets": "npx capacitor-assets generate --ios"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.4",
+    "leaflet": "^1.9.4",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.3"
+  },
+  "private": true
+}
