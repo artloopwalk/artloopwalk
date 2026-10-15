@@ -14,8 +14,8 @@
         "uppereastside"
       ],
       "note": "Breuer building, HQ since Nov 2025",
-      "onView": "Fall auction previews: Reflections on Pop (Lichtenstein collection), Contemporary Curated (Robert A.M. Stern collection), Haring's House, Modern & Contemporary Discoveries, Prints, Photographs — on view Oct 2 – 7, 2026",
-      "opening": "Auctions Oct 6 – 9, 2026; previews free and open to the public"
+      "onView": "Magnum Opus: A Private Collection of Exceptional Art and Objects Through the Ages — auction previews ahead of Oct 20 – 23, 2026 sales; check sothebys.com for viewing hours",
+      "opening": "Auctions Oct 20 – 23, 2026"
     },
     {
       "name": "Long Gallery, Harlem",
@@ -50,8 +50,8 @@
         "uppereastside"
       ],
       "note": "",
-      "onView": "No New York show listed this week (Post-war and Pop Prints closed Oct 1)",
-      "opening": "Post-war and Pop Prints ran Sep 12 – Oct 1"
+      "onView": "No New York show currently listed (by appointment)",
+      "opening": ""
     },
     {
       "name": "Pace Di Donna Schrader Galleries",
@@ -74,7 +74,7 @@
         "midtown"
       ],
       "note": "",
-      "onView": "Photographs auction preview — sale Thu, Oct 8, 2026, 10am (check phillips.com for viewing hours)",
+      "onView": "No public exhibition listed — Photographs sale held Oct 8, 2026; check phillips.com for upcoming previews",
       "opening": ""
     },
     {
@@ -122,7 +122,7 @@
         "uppereastside"
       ],
       "note": "",
-      "onView": "Sacred Splendor: Jewish Ritual Art and Christian Treasures from St. Vitus Cathedral in Prague — opened Sep 18, 2026; Women of the Wiener Werkstätte — through Nov 15, 2026",
+      "onView": "Sacred Splendor: Jewish Ritual Art and Christian Treasures from St. Vitus Cathedral in Prague — Sep 18, 2026 – Feb 7, 2027; Modernity and Opulence: Women of the Wiener Werkstätte — through Nov 15, 2026; Hannah Altman and Afruz Amighi (Focus Gallery) — through Feb 7, 2027",
       "opening": "Fri, Sep 18, 6–8pm"
     },
     {
@@ -307,7 +307,7 @@
         "lowereastside"
       ],
       "note": "Scott Kahn: Silent Night: September 10 - October 17, 2026",
-      "onView": "Emma McIntyre, This body holds / swamp stuff — opened Sep 18, 2026",
+      "onView": "Emma McIntyre, This body holds / swamp stuff — Sep 18 – Oct 24, 2026 (Tribeca). Next: Jem Perucchini, Sospiro — Nov 6 – Dec 19, 2026",
       "opening": "Fri, Sep 18, 6–8pm"
     },
     {
@@ -573,7 +573,7 @@
         "tribeca"
       ],
       "note": "Mia Goldstein, Handle with Care — opens Sept 9, 2026",
-      "onView": "No current exhibition listed (Mia Goldstein, Handle with Care closed Oct 3)",
+      "onView": "No current exhibition listed",
       "opening": ""
     },
     {
@@ -669,8 +669,8 @@
         "tribeca"
       ],
       "note": "Lorna Bauer, Peter Brock, Mira Dayal, Emma Safir — opens Sept 9, 2026",
-      "onView": "By Ear: Lorna Bauer, Peter Brock, Mira Dayal, Emma Safir — Sep 9 – Oct 10, 2026",
-      "opening": "Wed, Sep 9, 6–8pm"
+      "onView": "Between shows — By Ear closed Oct 10, 2026; next show not yet announced",
+      "opening": ""
     },
     {
       "name": "Ellie Rines Gallery (fka 56 Henry)",
@@ -777,7 +777,7 @@
         "lowereastside"
       ],
       "note": "Dindga McCannon — opens Sept 9, 2026",
-      "onView": "Dindga McCannon, Yesterday and Today — Sep 9 – Oct 14, 2026",
+      "onView": "Dindga McCannon, Yesterday and Today — Sep 9 – Oct 18, 2026",
       "opening": "Wed, Sep 9, 6–8pm"
     },
     {
@@ -994,8 +994,8 @@
         "uppereastside"
       ],
       "note": "Sachiko Morita, Raja Ram Sharma, Kathryn Lynch — opens Sept 9, 2026",
-      "onView": "Sachiko Morita, Drawn by Light; Kathryn Lynch, Liminal; Raja Ram Sharma, The Earth Responds — through Oct 10, 2026 (Bob Weinstein, Constellations opens Oct 14)",
-      "opening": "Next: Bob Weinstein, Constellations — Oct 14 – Dec 12, 2026"
+      "onView": "Bob Weinstein, Constellations — Oct 14 – Dec 12, 2026",
+      "opening": "Opened Wed, Oct 14"
     },
     {
       "name": "Guggenheim Museum",
@@ -1078,7 +1078,7 @@
         "uppereastside"
       ],
       "note": "",
-      "onView": "Sophie Delaporte, The Thread Between — opened Sep 17, 2026",
+      "onView": "Sophie Delaporte, The Thread Between — Sep 17 – Oct 31, 2026",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1162,7 +1162,7 @@
         "uppereastside"
       ],
       "note": "",
-      "onView": "Telenovela — opened Sep 9, 2026",
+      "onView": "Telenovela — Sep 9, 2026 – Mar 27, 2027",
       "opening": "Telenovela — Wed, Sep 9, 6–8pm"
     },
     {
@@ -1210,7 +1210,7 @@
         "chelsea"
       ],
       "note": "",
-      "onView": "Wendell Castle, Living — opened Sep 17, 2026",
+      "onView": "Wendell Castle, Living — Sep 17 – Oct 17, 2026. Next: Misha Kahn, All Intensive Purposes — Oct 29 – Dec 12, 2026",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1294,7 +1294,7 @@
         "chelsea"
       ],
       "note": "",
-      "onView": "Sarah Sense, Land, Line, Blood, Memory — opened Sep 17, 2026",
+      "onView": "Sarah Sense, Land, Line, Blood, Memory — Sep 17 – Nov 21, 2026",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1318,7 +1318,7 @@
         "chelsea"
       ],
       "note": "",
-      "onView": "Park Kwang-Jin, Seeker of Nature — opened Sep 17, 2026",
+      "onView": "Park Kwang-Jin, Seeker of Nature — Sep 17 – Oct 24, 2026",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1330,7 +1330,7 @@
         "chelsea"
       ],
       "note": "",
-      "onView": "Parasol Press: Breaking New Ground; Caroline Ongpin, Passage; Mira Dayal, Nets — opened Sep 17, 2026",
+      "onView": "Parasol Press: Breaking New Ground — Sep 17 – Dec 19, 2026; Caroline Ongpin, Passage and Mira Dayal, Nets — Sep 17 – Nov 21, 2026",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1426,7 +1426,7 @@
         "flatiron"
       ],
       "note": "",
-      "onView": "Carlos Martiel, Dark Age — opened Sep 17, 2026",
+      "onView": "Carlos Martiel, Dark Age — Sep 17, 2026 – Jan 30, 2027",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1462,7 +1462,7 @@
         "chelsea"
       ],
       "note": "",
-      "onView": "Doll Dressing — opened Sep 16, 2026",
+      "onView": "Doll Dressing — Sep 16, 2026 – Jan 3, 2027",
       "opening": "Wed, Sep 16, 6–8pm"
     },
     {
@@ -1498,7 +1498,7 @@
         "upperwestside"
       ],
       "note": "",
-      "onView": "Aperture Loves New York — opened Sep 18, 2026",
+      "onView": "Aperture Loves New York — Sep 18 – Nov 1, 2026",
       "opening": "Fri, Sep 18, 6–8pm. Artist talk: Stephen Shore with Lucy Gallun — Sat, Oct 3, 1pm"
     },
     {
@@ -1534,7 +1534,7 @@
         "soho"
       ],
       "note": "",
-      "onView": "Luminous Landscapes; Eleven Day Paintings — opened Sep 17, 2026",
+      "onView": "Hudson River School: Luminous Landscapes — Sep 24 – Oct 29, 2026; Ryan & Trevor Oakes, Eleven-Day Paintings — Sep 17 – Oct 29, 2026",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1678,7 +1678,7 @@
         "lowereastside"
       ],
       "note": "",
-      "onView": "Hannah Beerman, intramural kissing on the Little Dipper — opened Sep 16, 2026",
+      "onView": "Hannah Beerman, intramural kissing on the Little Dipper — Sep 9 – Oct 31, 2026",
       "opening": "Wed, Sep 16, 6–8pm"
     },
     {
@@ -1690,7 +1690,7 @@
         "lowereastside"
       ],
       "note": "",
-      "onView": "Leaking Collections — opened Sep 18, 2026",
+      "onView": "Leaking Collections, curated by Roxana Fabius — Sep 19 – Nov 22, 2026",
       "opening": "Fri, Sep 18, 6–8pm"
     },
     {
@@ -1714,7 +1714,7 @@
         "lowereastside"
       ],
       "note": "",
-      "onView": "Cho Yong-Ik, The Irreducible — opened Sep 17, 2026",
+      "onView": "Cho Yong-Ik, The Irreducible — Sep 18 – Oct 31, 2026",
       "opening": "Thu, Sep 17, 6–8pm"
     },
     {
@@ -1726,8 +1726,8 @@
         "lowereastside"
       ],
       "note": "",
-      "onView": "Mu Pan, Micro MUniverse — through Oct 10, 2026",
-      "opening": "Sat, Sep 19, 6–8pm"
+      "onView": "Between shows — Mu Pan, Micro MUniverse closed Oct 10, 2026; next show not yet announced",
+      "opening": ""
     },
     {
       "name": "Baxter St at the Camera Club of New York",
@@ -1738,7 +1738,7 @@
         "lowereastside"
       ],
       "note": "",
-      "onView": "Allie Tsubota, Milk Teeth; Azikiwe Mohammed, Where To, From Here — opened Sep 16, 2026",
+      "onView": "Allie Tsubota, Milk Teeth; Azikiwe Mohammed, Where To, From Here — Sep 16 – Nov 11, 2026",
       "opening": "Wed, Sep 16, 6–8pm"
     },
     {
@@ -1846,7 +1846,7 @@
         "eastvillage"
       ],
       "note": "",
-      "onView": "Malleable Archives: What the Future Remembers — opened Sep 15, 2026",
+      "onView": "1 BILLION DOLLAR SHOW: 0xfff — Sep 25 – Oct 19, 2026",
       "opening": "Tue, Sep 15, 6–8pm"
     },
     {
@@ -1894,7 +1894,7 @@
         "eastvillage"
       ],
       "note": "",
-      "onView": "Jesús Hilario-Reyes, Cavernous Shoal — opened Sep 19, 2026",
+      "onView": "Jesús Hilario-Reyes, Cavernous Shoal — Sep 19, 2026 – Jun 16, 2027",
       "opening": "Sat, Sep 19, 6–8pm"
     },
     {
@@ -1906,7 +1906,7 @@
         "eastvillage"
       ],
       "note": "",
-      "onView": "Guild & Greyshkul — opened Sep 16, 2026",
+      "onView": "Guild & Greyshkul — opened Sep 16, 2026; Primers for a Handmade Utopia (Chanin School of Architecture) — Oct 8 – 29, 2026",
       "opening": "Wed, Sep 16, 6–8pm"
     },
     {
@@ -2074,8 +2074,8 @@
         "brooklyn"
       ],
       "note": "",
-      "onView": "Hans Rosenström, Conspirare — through Oct 9, 2026",
-      "opening": "Next: The Skin of the Earth Is Seamless — Oct 27, 2026 – Feb 12, 2027. Talk: Madeleine Andersson, Mon, Oct 5, 6:30pm"
+      "onView": "Between shows — next: The Skin of the Earth Is Seamless — Oct 27, 2026 – Feb 12, 2027",
+      "opening": "Opens Tue, Oct 27"
     },
     {
       "name": "e-flux",
@@ -2218,7 +2218,7 @@
         "flatiron"
       ],
       "note": "",
-      "onView": "Deborah Buck, New Jewels — opened Oct 1, 2026",
+      "onView": "Deborah Buck, New Jewels — Oct 1, 2026 – Feb 1, 2027",
       "opening": "Thu, Oct 1, 6–8pm"
     },
     {
@@ -2230,7 +2230,7 @@
         "greenwichvillage"
       ],
       "note": "",
-      "onView": "Gedi Sibony, The Carver's Order — opened Oct 1, 2026",
+      "onView": "Gedi Sibony, The Carver's Order — Oct 1 – Nov 21, 2026; Figure/Ground — through Dec 2026",
       "opening": "Thu, Oct 1, 6–8pm"
     },
     {
