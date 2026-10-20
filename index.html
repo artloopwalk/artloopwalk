@@ -327,6 +327,12 @@
     font-size:14.3px;
     color:var(--ink-soft);
   }
+  button.legend-item{background:none; border:0; padding:2px 0; margin:0; font:inherit; font-size:14.3px; color:var(--ink-soft); cursor:pointer; text-align:left;}
+  button.legend-item:hover, button.legend-item:focus-visible{color:var(--ink); text-decoration:underline; text-underline-offset:3px;}
+  button.legend-item:focus-visible{outline:2px solid var(--teal); outline-offset:3px; border-radius:4px;}
+  .group{scroll-margin-top:14px;}
+  @keyframes groupFlash{0%{box-shadow:0 0 0 0 rgba(43,110,110,0);}25%{box-shadow:0 0 0 4px rgba(43,110,110,.45);}100%{box-shadow:0 0 0 0 rgba(43,110,110,0);}}
+  .group.flash .group-header{animation:groupFlash 1.5s ease-out;}
   .legend-item .swatch{
     width:12px;height:12px;
     border-radius:50%;
@@ -986,8 +992,11 @@ function renderLegend(){
   const tags = allTags();
   el.innerHTML = '';
   tags.forEach(t => {
-    const item = document.createElement('div');
+    const item = document.createElement('button');
+    item.type = 'button';
     item.className = 'legend-item';
+    item.title = 'Go to ' + neighborhoodName(t);
+    item.addEventListener('click', () => jumpToGroup(t));
     const sw = document.createElement('span');
     sw.className = 'swatch';
     sw.style.background = tagColor(t);
@@ -997,6 +1006,29 @@ function renderLegend(){
     item.appendChild(label);
     el.appendChild(item);
   });
+}
+
+function groupDomId(key){ return 'group-' + String(key).toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+
+// Legend dot click: scroll to that neighborhood folder, opening it if closed
+function jumpToGroup(tag){
+  let el = document.getElementById(groupDomId(tag));
+  if (!el && searchQuery.trim()){
+    searchQuery = '';
+    const s = document.getElementById('search'); if (s) s.value = '';
+    render();
+    el = document.getElementById(groupDomId(tag));
+  }
+  if (!el) return;
+  closedGroups.delete(tag);
+  if (!el.classList.contains('open')){
+    el.classList.add('open');
+    const hd = el.querySelector('.group-header');
+    if (hd) hd.setAttribute('aria-expanded', 'true');
+  }
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 1600);
 }
 
 function renderMap(){
@@ -1051,6 +1083,7 @@ function renderGroups(){
     const items = byGroup[key];
     const group = document.createElement('div');
     group.className = 'group stagger-' + (gi % 3);
+    group.id = groupDomId(key);
 
     const forceOpen = !!(searchQuery.trim() || activeFilters.size || items.some(p => editingIds.has(p.id)));
     if (forceOpen || !closedGroups.has(key)) group.classList.add('open');
