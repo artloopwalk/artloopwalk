@@ -66,6 +66,8 @@
     flex-wrap:wrap;
     gap:8px;
   }
+  .place-count{font-size:14.3px; color:var(--ink-soft); margin:0 0 8px;}
+  body:not(.owner) .meta-row{display:none;}
   .meta-actions{
     display:flex;
     gap:14px;
@@ -726,7 +728,6 @@
     <h1 class="guide-title" id="guide-title"></h1>
     <p class="guide-intro" id="guide-intro"></p>
     <div class="meta-row">
-      <span id="place-count">0 galleries</span>
       <div class="meta-actions">
         <button class="btn text" id="copy-btn">Copy guide as text</button>
         <button class="btn text" id="export-json-btn">Export JSON</button>
@@ -758,6 +759,8 @@ Lil' Deb's Oasis — 90 Seneca St, Hudson, NY #dinner #favorite | tasting menu, 
         <span id="status-line"></span>
       </div>
     </section>
+
+    <div class="place-count" id="place-count">0 galleries</div>
 
     <div class="search-row">
       <input id="search" type="text" placeholder="Search places, addresses, or tags…" />
