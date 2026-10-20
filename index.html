@@ -621,7 +621,13 @@
     border-color:#1A1A1A;
     padding-top:13px;
   }
-  @media (max-width:600px){ .tab-btn{padding:10px 16px 9px; border-radius:14px 14px 0 0;} .tab-btn.active{padding-top:12px;} }
+  .tab-btn{font-family:inherit; white-space:nowrap; line-height:1.2;}
+  @media (max-width:600px){
+    .tab-row{gap:4px;}
+    .tab-btn{flex:1 1 auto; min-width:0; text-align:center; font-size:14.3px; padding:10px 8px 9px; border-radius:12px 12px 0 0;}
+    .tab-btn.active{padding-top:12px;}
+  }
+  @media (max-width:360px){ .tab-btn{font-size:13px; padding-left:6px; padding-right:6px;} }
 
   :root{ --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .15 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); --folder-bg:#DCEDD7; --folder-open:var(--card); }
   body{ background-image:var(--grain); }
