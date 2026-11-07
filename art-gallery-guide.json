@@ -2110,7 +2110,7 @@
         "brooklyn"
       ],
       "note": "",
-      "onView": "Amy Rose Khoshbin, ANAHITA — Oct 3 – Nov 2, 2026",
+      "onView": "Between shows — last exhibition closed Nov 2; next show not yet announced",
       "opening": ""
     },
     {
@@ -2624,8 +2624,8 @@
       "tags": [
         "chelsea"
       ],
-      "onView": "The Showroom: Mid-Century Modern — Oct 15 – Nov 3, 2026",
-      "opening": "Thu, Oct 15, 6–8pm"
+      "onView": "Between shows — last exhibition closed Nov 3; next show not yet announced",
+      "opening": ""
     },
     {
       "name": "Albertz Benda",
@@ -2930,8 +2930,8 @@
       "tags": [
         "lowereastside"
       ],
-      "onView": "Museum Collection; This Side Up (Thirsty Bstrd x Leo Manelli) — Oct 17 – Nov 6, 2026",
-      "opening": "Sat, Oct 17"
+      "onView": "Between shows — last exhibition closed Nov 6; next show not yet announced",
+      "opening": ""
     },
     {
       "name": "Pushup Gallery",
@@ -2992,6 +2992,18 @@
       "note": "Loft 509",
       "onView": "Sum of its Parts — Oct 18 – Nov 8, 2026",
       "opening": "Sun, Oct 18, 4–6pm"
+    },
+    {
+      "name": "Bureau",
+      "address": "112 Duane St, New York, NY 10007",
+      "lat": 40.7155,
+      "lon": -74.0063,
+      "tags": [
+        "tribeca"
+      ],
+      "note": "Tue–Sat 10am–6pm",
+      "onView": "No current exhibition listed online (As it happens and The world is not enough closed Oct 24); next show not yet announced",
+      "opening": ""
     }
   ]
 }
