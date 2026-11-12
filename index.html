@@ -726,6 +726,38 @@
   .fav-list{gap:12px; padding-top:8px;}
   #favorites-maps{padding:0 0 4px;}
 </style>
+<script>
+/* Analytics: PostHog, website only.
+   Off in the iPhone app and in local previews (only runs on artloopwalk.com / artloopwalk.github.io).
+   To turn on, paste the project API key (starts with phc_) below. */
+(function(){
+  var POSTHOG_KEY = '';
+  var POSTHOG_HOST = 'https://us.i.posthog.com';
+  var queue = [], ready = null;
+  window.alwTrack = function(name, props){
+    try { if (ready) ready.capture(name, props || {}); else if (queue.length < 50) queue.push([name, props || {}]); } catch (e) {}
+  };
+  var host = location.hostname;
+  var onSite = /(^|\.)artloopwalk\.com$/.test(host) || host === 'artloopwalk.github.io';
+  if (!POSTHOG_KEY || !onSite) return;
+  var s = document.createElement('script');
+  s.async = true; s.crossOrigin = 'anonymous';
+  s.src = POSTHOG_HOST.replace('.i.posthog.com', '-assets.i.posthog.com') + '/static/array.js';
+  s.onload = function(){
+    if (!window.posthog || !window.posthog.init) return;
+    window.posthog.init(POSTHOG_KEY, {
+      api_host: POSTHOG_HOST,
+      person_profiles: 'identified_only',
+      persistence: 'localStorage',
+      disable_session_recording: true,
+      capture_pageview: true,
+      capture_pageleave: true,
+      loaded: function(ph){ ready = ph; queue.splice(0).forEach(function(e){ ph.capture(e[0], e[1]); }); }
+    });
+  };
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -1012,6 +1044,7 @@ function groupDomId(key){ return 'group-' + String(key).toLowerCase().replace(/[
 
 // Legend dot click: scroll to that neighborhood folder, opening it if closed
 function jumpToGroup(tag){
+  window.alwTrack && alwTrack('neighborhood_jump', { neighborhood: tag });
   let el = document.getElementById(groupDomId(tag));
   if (!el && searchQuery.trim()){
     searchQuery = '';
@@ -1579,7 +1612,9 @@ function saveFavorites(){
 function isFavorite(p){ return favorites.has(favKey(p)); }
 function toggleFavorite(p){
   const k = favKey(p);
-  if (favorites.has(k)) favorites.delete(k); else favorites.add(k);
+  const adding = !favorites.has(k);
+  if (adding) favorites.add(k); else favorites.delete(k);
+  window.alwTrack && alwTrack(adding ? 'favorite_added' : 'favorite_removed', { gallery: p.name, neighborhood: (p.tags || [])[0] || '' });
   saveFavorites();
   renderGroups();
   renderFavorites();
@@ -1660,6 +1695,7 @@ function renderFavorites(){
 }
 
 function switchTab(tab){
+  if (tab !== currentTab && window.alwTrack) alwTrack('tab_viewed', { tab });
   currentTab = tab;
   document.getElementById('tab-featured-btn').classList.toggle('active', tab === 'featured');
   document.getElementById('tab-custom-btn').classList.toggle('active', tab === 'custom');
@@ -2236,10 +2272,25 @@ document.getElementById('import-json-file').addEventListener('change', (e) => {
 });
 document.getElementById('export-xlsx-btn').addEventListener('click', exportXLSX);
 
+let searchTrackTimer = null;
 document.getElementById('search').addEventListener('input', e => {
   searchQuery = e.target.value;
   render();
+  clearTimeout(searchTrackTimer);
+  const q = searchQuery.trim();
+  if (q.length >= 2) searchTrackTimer = setTimeout(() => {
+    window.alwTrack && alwTrack('search', { query: q.slice(0, 60), results: document.querySelectorAll('#groups .place-card').length });
+  }, 1500);
 });
+
+// Walking-route links that open Google Maps
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a[href*="google.com/maps"]');
+  if (!a || !window.alwTrack) return;
+  const m = a.href.match(/waypoints=([^&]*)/);
+  const stops = a.href.includes('/dir/') ? 2 + (m ? decodeURIComponent(m[1]).split('|').length : 0) : 1;
+  alwTrack('google_maps_opened', { stops, tab: currentTab });
+}, true);
 
 document.getElementById('tab-featured-btn').addEventListener('click', () => switchTab('featured'));
 document.getElementById('tab-custom-btn').addEventListener('click', () => switchTab('custom'));
