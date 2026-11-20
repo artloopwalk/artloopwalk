@@ -1334,7 +1334,7 @@ function renderOpeningsStrip(){
   strip.hidden = false;
   const n = nyParts(Date.now());
   const todayLabel = `${DOW[new Date(Date.UTC(n.y, n.m, n.d)).getUTCDay()]}, ${MON_SHORT[n.m]} ${n.d}`;
-  document.getElementById('os-kicker').textContent = today.length ? 'Art Openings Today' : 'Upcoming Art Openings';
+  document.getElementById('os-kicker').textContent = today.length ? 'Art Gallery Openings' : 'Upcoming Art Gallery Openings';
   document.getElementById('os-date').textContent = today.length ? todayLabel : 'Next two weeks';
   const track = document.getElementById('os-track');
   track.innerHTML = '';
