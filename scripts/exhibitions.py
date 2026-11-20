@@ -14,6 +14,7 @@
       Unknown names are an error. Then runs tidy.
 
   python3 scripts/exhibitions.py tidy [--today YYYY-MM-DD]
+      - An announced "Next:" show that has opened becomes the current show
       - Cards whose shows have all ended become "Between shows - ..."
       - "opens Oct 15" in the past becomes "opened Oct 15"
       - Removes notes that describe old shows (dated notes)
@@ -71,10 +72,44 @@ def classify(p, today, soon_days):
     return 'OK', end
 
 
+FIRST_DATE_RE = re.compile(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})(?:,\s*(\d{4}))?')
+
+
+def first_date(text, year):
+    m = FIRST_DATE_RE.search(text or '')
+    if not m:
+        return None
+    try:
+        return dt.date(int(m.group(3)) if m.group(3) else year, MON[m.group(1).lower()], int(m.group(2)))
+    except ValueError:
+        return None
+
+
+def promote_next(v, today):
+    """Once an announced "Next:" show has opened, make it the current show."""
+    m = re.match(r'^Between shows\s*—\s*next:\s*(.+)$', v, re.I)
+    if m:
+        start = first_date(m.group(1), today.year)
+        if start and start <= today:
+            return m.group(1).strip()
+        return v
+    m = re.match(r'^(.*?)\.\s+Next:\s*(.+)$', v)
+    if m:
+        cur_end = last_end(m.group(1), today.year)
+        start = first_date(m.group(2), today.year)
+        if start and start <= today and (cur_end is None or cur_end < today):
+            return m.group(2).strip()
+    return v
+
+
 def tidy(d, today):
     changed = 0
     for p in d['places']:
         v = p.get('onView') or ''
+        nv = promote_next(v, today)
+        if nv != v:
+            p['onView'] = v = nv
+            changed += 1
         kind, end = classify(p, today, 0)
         if kind == 'CLOSED' and not re.search(r'\bNext:', v):
             p['onView'] = f"Between shows — last exhibition closed {MONTHS[end.month - 1]} {end.day}; next show not yet announced"
