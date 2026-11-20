@@ -724,6 +724,34 @@
   .fav-star.on{color:#C9A227;}
   .fav-star:focus-visible{outline:2px solid var(--teal); outline-offset:2px; border-radius:4px;}
   .fav-list{gap:12px; padding-top:8px;}
+
+  /* ---- Polish pass (Nov 2026) ---- */
+  .place-card{position:relative; padding:20px 22px 18px; gap:0; transition:box-shadow .15s ease, transform .15s ease;}
+  .place-card:hover{box-shadow:0 1px 0 rgba(0,0,0,.05), 0 6px 16px rgba(0,0,0,.08);}
+  .place-card .mark{position:absolute; top:16px; right:14px; margin:0;}
+  .place-card .mark .dot{display:none;}
+  .place-card h3{padding-right:30px; line-height:1.18; letter-spacing:-0.005em;}
+  .place-card .addr{margin-top:3px; margin-bottom:4px;}
+  .place-card .exhibit{margin-top:8px; line-height:1.5;}
+  .place-card .exhibit + .exhibit{margin-top:4px;}
+  .place-card .exhibit-label{font-style:normal; font-synthesis:none; display:inline-block; min-width:4.6em; font-size:11.3px; text-transform:uppercase; letter-spacing:.09em; color:var(--teal-deep); margin-right:8px; vertical-align:1px;}
+  .place-card .exhibit.muted{color:var(--ink-soft); font-style:italic;}
+  .place-card .note{font-size:14.3px; color:var(--ink-soft); margin-top:8px;}
+  .place-card .tag-row{margin-top:10px;}
+  .fav-star{font-size:18px;}
+  .group-maps{gap:8px; padding:2px 0 6px;}
+  .group-maps .maps-link{display:inline-block; font-size:13.3px; font-weight:500; color:var(--teal-deep); text-decoration:none; padding:5px 12px; border:1px solid var(--teal-deep); border-radius:999px; background:rgba(255,255,255,.55); transition:background .12s ease, color .12s ease;}
+  .group-maps .maps-link:hover{background:var(--teal-deep); color:#fff;}
+  .group-maps .route-short{display:none;}
+  @media (max-width:600px){
+    .place-card{padding:18px 16px 16px;}
+    .place-card .mark{top:14px; right:10px;}
+    .place-card h3{font-size:20.3px;}
+    .group-maps{gap:6px;}
+    .group-maps .maps-link{padding:4px 10px; font-size:12.8px;}
+    .group-maps .route-long{display:none;}
+    .group-maps .route-short{display:inline;}
+  }
   #favorites-maps{padding:0 0 4px;}
 </style>
 <script>
@@ -1040,6 +1068,8 @@ function renderLegend(){
   });
 }
 
+function isBetweenShows(text){ return /^(Between shows|No current|No public|No exhibition|No New York|Temporarily closed)/i.test(text || ''); }
+
 function groupDomId(key){ return 'group-' + String(key).toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
 
 // Legend dot click: scroll to that neighborhood folder, opening it if closed
@@ -1168,8 +1198,10 @@ function renderGroups(){
         a.href = mapsUrl;
         a.target = '_blank';
         a.rel = 'noopener';
-        const base = 'Open in Google Maps';
-        a.textContent = mapsChunks.length > 1 ? `${base} (Part ${idx + 1} of ${mapsChunks.length})` : base;
+        a.innerHTML = mapsChunks.length > 1
+          ? `<span class="route-long">Walking route</span><span class="route-short">Route</span> ${idx + 1} of ${mapsChunks.length} ↗`
+          : 'Walking route<span class="route-long"> in Google Maps</span> ↗';
+        a.title = 'Open walking directions in Google Maps';
         mapsRow.appendChild(a);
       });
     }
@@ -1325,21 +1357,24 @@ function renderGroups(){
       if (p.onView){
         const ov = document.createElement('div');
         ov.className = 'exhibit';
+        if (isBetweenShows(p.onView)) ov.classList.add('muted');
         const ovL = document.createElement('span');
         ovL.className = 'exhibit-label';
-        ovL.textContent = 'On View:';
+        ovL.textContent = 'On View';
         ov.appendChild(ovL);
         ov.appendChild(document.createTextNode(p.onView));
         body.appendChild(ov);
 
-        const op = document.createElement('div');
-        op.className = 'exhibit' + (p.opening ? '' : ' muted');
-        const opL = document.createElement('span');
-        opL.className = 'exhibit-label';
-        opL.textContent = 'Opening:';
-        op.appendChild(opL);
-        op.appendChild(document.createTextNode(p.opening || 'Not listed'));
-        body.appendChild(op);
+        if (p.opening){
+          const op = document.createElement('div');
+          op.className = 'exhibit';
+          const opL = document.createElement('span');
+          opL.className = 'exhibit-label';
+          opL.textContent = 'Opening';
+          op.appendChild(opL);
+          op.appendChild(document.createTextNode(p.opening));
+          body.appendChild(op);
+        }
       }
       if (p.note){
         const noteEl = document.createElement('div');
@@ -1347,7 +1382,8 @@ function renderGroups(){
         noteEl.textContent = p.note;
         body.appendChild(noteEl);
       }
-      const visibleTags = (p.tags||[]).filter(t => !isLoopTag(t));
+      // Inside a neighborhood folder, don't repeat that folder's own tag
+      const visibleTags = (p.tags||[]).filter(t => !isLoopTag(t) && (document.body.classList.contains('owner') || t !== key));
       if (visibleTags.length){
         const row = document.createElement('div');
         row.className = 'tag-row';
@@ -1666,7 +1702,7 @@ function renderFavorites(){
       body.appendChild(a);
     }
     if (p.onView){
-      [['On View:', p.onView, false], ['Opening:', p.opening || 'Not listed', !p.opening]].forEach(([lab, txt, muted]) => {
+      [['On View', p.onView, isBetweenShows(p.onView)], ['Opening', p.opening, false]].filter(r => r[1]).forEach(([lab, txt, muted]) => {
         const row = document.createElement('div');
         row.className = 'exhibit' + (muted ? ' muted' : '');
         const l = document.createElement('span');
