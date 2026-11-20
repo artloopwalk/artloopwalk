@@ -1325,8 +1325,9 @@ function renderOpeningsStrip(){
   const upcoming = all.filter(e => { const dd = dayDiff(e); return dd >= 0 && dd <= 14; }).sort((a, b) => eventSortKey(a) - eventSortKey(b));
   const today = upcoming.filter(e => dayDiff(e) === 0);
   // Today's openings first; top up with the next ones so the strip is never thin
-  let items = today.slice();
-  upcoming.forEach(e => { if (items.length < 10 && dayDiff(e) > 0) items.push(e); });
+  // No openings today: hide the strip and its heading entirely
+  let items = today.length ? today.slice() : [];
+  upcoming.forEach(e => { if (items.length && items.length < 10 && dayDiff(e) > 0) items.push(e); });
   const sig = items.map(e => e.place.name + eventSortKey(e)).join('|');
   if (sig === stripSignature) return;
   stripSignature = sig;
@@ -1334,8 +1335,8 @@ function renderOpeningsStrip(){
   strip.hidden = false;
   const n = nyParts(Date.now());
   const todayLabel = `${DOW[new Date(Date.UTC(n.y, n.m, n.d)).getUTCDay()]}, ${MON_SHORT[n.m]} ${n.d}`;
-  document.getElementById('os-kicker').textContent = today.length ? 'Art Gallery Openings' : 'Upcoming Art Gallery Openings';
-  document.getElementById('os-date').textContent = today.length ? todayLabel : 'Next two weeks';
+  document.getElementById('os-kicker').textContent = 'Art Gallery Openings';
+  document.getElementById('os-date').textContent = todayLabel;
   const track = document.getElementById('os-track');
   track.innerHTML = '';
   const build = (e, dup) => {
