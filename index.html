@@ -730,9 +730,6 @@
   .os-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; margin:0 0 8px;}
   .os-kicker{white-space:nowrap; font-family:'Courier Prime','Courier New',monospace; font-weight:700; font-size:12.3px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-deep);}
   .os-date{font-size:13.3px; color:var(--ink-soft); white-space:nowrap;}
-  .os-empty{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 12px; padding:14px 18px; background:#FBF5E1; border:1px solid #EADFBF; border-radius:14px;}
-  .os-empty[hidden], .openings-strip.empty .os-head, .openings-strip.empty .os-viewport{display:none;}
-  .os-empty-text{font-family:'Courier Prime','Courier New',monospace; font-weight:700; font-size:12.8px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-deep);}
   .os-viewport{overflow:hidden; position:relative;
     -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
             mask-image:linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);}
@@ -851,10 +848,6 @@
     </div>
     <div class="os-viewport" id="os-viewport">
       <div class="os-track" id="os-track"></div>
-    </div>
-    <div class="os-empty" id="os-empty" hidden>
-      <span class="os-empty-text">No art gallery openings today</span>
-      <span class="os-date" id="os-empty-date"></span>
     </div>
   </section>
   <div class="cal-menu" id="cal-menu" role="menu" hidden>
@@ -1323,7 +1316,7 @@ function jumpToPlace(p){
   window.alwTrack && alwTrack('opening_strip_clicked', { gallery: p.name });
 }
 
-let stripSignature = null;
+let stripSignature = '';
 function renderOpeningsStrip(){
   const strip = document.getElementById('openings-strip');
   if (!strip) return;
@@ -1338,18 +1331,10 @@ function renderOpeningsStrip(){
   const sig = items.map(e => e.place.name + eventSortKey(e)).join('|');
   if (sig === stripSignature) return;
   stripSignature = sig;
+  if (!items.length){ strip.hidden = true; return; }
+  strip.hidden = false;
   const n = nyParts(Date.now());
   const todayLabel = `${DOW[new Date(Date.UTC(n.y, n.m, n.d)).getUTCDay()]}, ${MON_SHORT[n.m]} ${n.d}`;
-  strip.hidden = false;
-  // Quiet day: a simple banner instead of the rolling strip
-  const empty = !items.length;
-  strip.classList.toggle('empty', empty);
-  document.getElementById('os-empty').hidden = !empty;
-  if (empty){
-    document.getElementById('os-empty-date').textContent = todayLabel;
-    document.getElementById('os-track').innerHTML = '';
-    return;
-  }
   document.getElementById('os-kicker').textContent = 'Art Gallery Openings';
   document.getElementById('os-date').textContent = todayLabel;
   const track = document.getElementById('os-track');
