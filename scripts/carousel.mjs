@@ -103,7 +103,7 @@ for (const e of events){
   capLines.push(`${e.gallery}${e.show ? ': ' + e.show : ''}${e.time ? ' · ' + e.time : ''} (${e.hood})`);
 }
 capLines.push('', `Every opening across ${guide.places.length} NYC galleries, with walking routes: artloopwalk.com (link in bio).`,
-  'Save this for your week, and follow @artloop for openings every week.', '',
+  'Save this for your week, and follow @artloopnyc for openings every week.', '',
   '#nycart #artopenings #nycgalleries #artgallery #contemporaryart ' + [...hoods].slice(0, 3).map(h => '#' + h.toLowerCase().replace(/[^a-z]/g, '') + 'galleries').join(' '));
 const caption = capLines.join('\n');
 fs.mkdirSync(outDir, { recursive: true });
@@ -164,7 +164,7 @@ body{background:#ccc}
 .end .handle{font-family:Archivo;font-weight:800;font-stretch:112%;font-size:58px;color:#1D4E4E;margin-top:14px}
 `;
 const total = pages.length + 2;
-const foot = n => `<div class="foot"><b>@artloop</b><span>${n} / ${total}</span></div>`;
+const foot = n => `<div class="foot"><b>@artloopnyc</b><span>${n} / ${total}</span></div>`;
 let slides = `<section class="slide cover"><div class="kicker" style="font-size:30px">Art Loop Walk</div>
 <h1 class="brand">Art Gallery Openings</h1><div class="period">${esc(periodTitle)}</div>
 <div class="meta">${events.length} ${events.length === 1 ? 'opening' : 'openings'} across ${hoods.size} ${hoods.size === 1 ? 'neighborhood' : 'neighborhoods'}</div>
@@ -181,7 +181,7 @@ pages.forEach((pg, i) => {
 slides += `<section class="slide end"><div class="kicker" style="font-size:30px">Plan your walk</div>
 <h2 class="brand">Every opening.<br>Every gallery.</h2>
 <p>${guide.places.length} NYC galleries by neighborhood, what's on view, and walking routes in Google Maps.</p>
-<div class="url">artloopwalk.com</div><div class="handle">Follow @artloop</div>${foot(total)}</section>`;
+<div class="url">artloopwalk.com</div><div class="handle">Follow @artloopnyc</div>${foot(total)}</section>`;
 const page = `<!doctype html><html><head><meta charset="utf-8"><style>${css}</style></head><body>${slides}</body></html>`;
 const tmp = path.join(outDir, '.slides.html');
 fs.writeFileSync(tmp, page);
@@ -201,14 +201,14 @@ fs.unlinkSync(tmp);
 // ---------- a phone-friendly kit page: save the slides, copy the caption ----------
 const slideFiles = els.map((_, i) => `slide-${String(i + 1).padStart(2, '0')}.png`);
 const kitHtml = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>@artloop post kit · ${esc(periodTitle)}</title><meta name="robots" content="noindex">
+<title>@artloopnyc post kit · ${esc(periodTitle)}</title><meta name="robots" content="noindex">
 <style>body{margin:0;background:#E8F5E5;color:#20281F;font:16px/1.5 -apple-system,system-ui,sans-serif}main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
 h1{font-size:24px;margin:0 0 4px}p.m{color:#5A6459;margin:0 0 20px}ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 li img{width:100%;border-radius:10px;border:1px solid #C3DFBD;display:block}li a{font-size:13px;color:#1D4E4E}
 textarea{width:100%;box-sizing:border-box;min-height:260px;font:14px/1.45 ui-monospace,Menlo,monospace;padding:12px;border-radius:10px;border:1px solid #C3DFBD;margin-top:8px}
 button{margin-top:10px;font:inherit;font-weight:600;padding:10px 18px;border-radius:999px;border:1px solid #1D4E4E;background:#1D4E4E;color:#fff}h2{font-size:18px;margin:28px 0 0}</style></head>
 <body><main><h1>Openings · ${esc(periodTitle)}</h1><p class="m">${events.length} openings · ${slideFiles.length} slides · built ${iso(new Date())}</p>
-<p>On your phone: tap and hold each slide to save it to Photos (in order), then copy the caption and post as a carousel on @artloop.</p>
+<p>On your phone: tap and hold each slide to save it to Photos (in order), then copy the caption and post as a carousel on @artloopnyc.</p>
 <ol>${slideFiles.map((f, i) => `<li><a href="${f}" download><img src="${f}" alt="Slide ${i + 1}"></a><a href="${f}" download>Slide ${i + 1}</a></li>`).join('')}</ol>
 <h2>Caption</h2><textarea id="cap" readonly>${esc(caption)}</textarea>
 <button onclick="navigator.clipboard.writeText(document.getElementById('cap').value).then(()=>{this.textContent='Copied'})">Copy caption</button>
@@ -218,6 +218,6 @@ fs.writeFileSync(path.join(outDir, 'index.html'), kitHtml);
 const socialRoot = path.join(ROOT, 'social');
 if (outDir.startsWith(socialRoot)){
   const rel = path.relative(socialRoot, outDir).split(path.sep).join('/');
-  fs.writeFileSync(path.join(socialRoot, 'latest.html'), `<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${rel}/"><a href="${rel}/">Latest @artloop post kit</a>\n`);
+  fs.writeFileSync(path.join(socialRoot, 'latest.html'), `<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${rel}/"><a href="${rel}/">Latest @artloopnyc post kit</a>\n`);
 }
 console.log(`\nWrote ${els.length} slides, caption.txt and a post kit page (index.html) to ${path.relative(ROOT, outDir)}`);

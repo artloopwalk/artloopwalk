@@ -56,6 +56,29 @@
     color:#3B4439;
     margin:8px 0 0;
   }
+  .intro-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:4px 16px;
+    margin-top:8px;
+  }
+  .intro-row .guide-intro{margin:0;}
+  .ig-link{
+    font-family:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-stretch:112%;
+    font-variation-settings:"wdth" 112;
+    letter-spacing:-0.01em;
+    font-size:13.3px;
+    color:#3B4439;
+    text-decoration:none;
+    border-bottom:1.5px solid currentColor;
+    padding-bottom:1px;
+    white-space:nowrap;
+  }
+  .ig-link:hover{color:var(--ink);}
   .meta-row{
     display:flex;
     justify-content:space-between;
@@ -827,7 +850,10 @@
 
   <header class="masthead">
     <h1 class="guide-title" id="guide-title"></h1>
-    <p class="guide-intro" id="guide-intro"></p>
+    <div class="intro-row">
+      <p class="guide-intro" id="guide-intro"></p>
+      <a class="ig-link" id="ig-link" href="https://www.instagram.com/artloopnyc/" target="_blank" rel="noopener" aria-label="Art Loop on Instagram, @artloopnyc">Follow @artloopnyc</a>
+    </div>
     <div class="meta-row">
       <div class="meta-actions">
         <button class="btn text" id="copy-btn">Copy guide as text</button>
@@ -2810,6 +2836,9 @@ loadState();
     if(localStorage.getItem('alw-owner')==='1') document.body.classList.add('owner');
   }catch(e){ if(/[?&]owner(?!=off)/.test(location.search)) document.body.classList.add('owner'); }
 })();
+</script>
+<script>
+document.getElementById('ig-link')?.addEventListener('click', () => { try { window.alwTrack && window.alwTrack('instagram_clicked'); } catch (e) {} });
 </script>
 </body>
 </html>

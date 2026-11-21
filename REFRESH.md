@@ -67,7 +67,7 @@ The gallery count must be unchanged. If the push is rejected, `git pull --rebase
 
 ## 5. Instagram post kit
 
-After the listings are updated, build the carousel for @artloop:
+After the listings are updated, build the carousel for @artloopnyc:
 
 ```
 node scripts/carousel.mjs --week <this Monday, YYYY-MM-DD>
