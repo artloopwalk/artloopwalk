@@ -730,12 +730,11 @@
   .os-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; margin:0 0 8px;}
   .os-kicker{white-space:nowrap; font-family:'Courier Prime','Courier New',monospace; font-weight:700; font-size:12.3px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-deep);}
   .os-date{font-size:13.3px; color:var(--ink-soft); white-space:nowrap;}
-  .os-viewport{overflow:hidden; position:relative;
+  .os-viewport{overflow-x:auto; overflow-y:hidden; position:relative; scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; cursor:grab;
     -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
             mask-image:linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);}
-  .os-track{display:flex; gap:12px; width:max-content; animation:osRoll var(--os-dur, 60s) linear infinite;}
-  .os-viewport:hover .os-track, .os-viewport:focus-within .os-track, .openings-strip.paused .os-track{animation-play-state:paused;}
-  @keyframes osRoll{from{transform:translateX(0);} to{transform:translateX(calc(-50% - 6px));}}
+  .os-viewport::-webkit-scrollbar{display:none;}
+  .os-track{display:flex; gap:12px; width:max-content; padding:0 2px;}
   .os-item{flex:none; width:268px; background:#FBF5E1; border:1px solid #EADFBF; border-radius:14px; padding:11px 14px 12px; display:flex; flex-direction:column; gap:3px;}
   .os-item.today{background:#fff; border-color:var(--teal-deep);}
   .os-when{font-family:'Courier Prime','Courier New',monospace; font-weight:700; font-size:11.3px; letter-spacing:.09em; text-transform:uppercase; color:var(--teal-deep);}
@@ -753,10 +752,8 @@
   .place-card.flash{animation:groupFlash 1.5s ease-out;}
   @media (max-width:600px){ .os-item{width:236px;} .openings-strip{margin:2px 0 20px;} }
   @media (prefers-reduced-motion: reduce){
-    .os-track{animation:none;}
-    .os-viewport{overflow-x:auto; -webkit-mask-image:none; mask-image:none; scroll-snap-type:x mandatory;}
+    .os-viewport{-webkit-mask-image:none; mask-image:none; scroll-snap-type:x mandatory;}
     .os-item{scroll-snap-align:start;}
-    .os-track .os-item.dup{display:none;}
   }
 
   /* ---- Polish pass (Nov 2026) ---- */
@@ -1327,7 +1324,7 @@ function renderOpeningsStrip(){
   // Today's openings first; top up with the next ones so the strip is never thin
   // Today's openings first, then the next ones coming up (on quiet days the strip shows only upcoming openings)
   let items = today.slice();
-  upcoming.forEach(e => { if (items.length < 10 && dayDiff(e) > 0) items.push(e); });
+  upcoming.forEach(e => { if (dayDiff(e) > 0) items.push(e); });   // the next 30 days
   const sig = items.map(e => e.place.name + eventSortKey(e)).join('|');
   if (sig === stripSignature) return;
   stripSignature = sig;
@@ -1356,9 +1353,66 @@ function renderOpeningsStrip(){
     return it;
   };
   items.forEach(e => track.appendChild(build(e, false)));
-  items.forEach(e => track.appendChild(build(e, true)));   // second copy makes the loop seamless
-  track.style.setProperty('--os-dur', Math.max(28, items.length * 7) + 's');
+  const vp = document.getElementById('os-viewport');
+  vp.scrollLeft = 0;
+  if (reduceMotion()) { stripDrift.unit = 0; return; }   // no auto-scroll: people swipe or scroll themselves
+  // Repeat the set until one copy is at least as wide as the strip, then add one more copy so the loop wraps seamlessly
+  const unit = track.scrollWidth + 12;                     // one copy + the gap after it
+  const copies = Math.max(1, Math.ceil(vp.clientWidth / unit)) + 1;
+  for (let c = 0; c < copies; c++) items.forEach(e => track.appendChild(build(e, true)));
+  stripDrift.unit = unit;
+  startStripDrift();
 }
+
+// ---- Openings strip motion: drifts right to left; a touch, hover, wheel or open menu pauses it ----
+const stripDrift = { unit: 0, pausedUntil: 0, touching: false, hovering: false, running: false, last: 0, pos: 0 };
+function reduceMotion(){ return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+function pauseStrip(ms){ stripDrift.pausedUntil = Math.max(stripDrift.pausedUntil, performance.now() + ms); }
+function startStripDrift(){
+  const vp = document.getElementById('os-viewport');
+  stripDrift.pos = vp.scrollLeft;
+  if (stripDrift.running) return;
+  stripDrift.running = true;
+  const SPEED = 34;   // pixels per second
+  const step = t => {
+    const dt = stripDrift.last ? Math.min(64, t - stripDrift.last) : 16;
+    stripDrift.last = t;
+    const strip = document.getElementById('openings-strip');
+    const busy = stripDrift.touching || stripDrift.hovering || t < stripDrift.pausedUntil || document.hidden
+      || strip.hidden || strip.classList.contains('paused') || vp.contains(document.activeElement);
+    if (stripDrift.unit && !busy){
+      stripDrift.pos += SPEED * dt / 1000;
+      if (stripDrift.pos >= stripDrift.unit) stripDrift.pos -= stripDrift.unit;
+      vp.scrollLeft = stripDrift.pos;
+    } else {
+      stripDrift.pos = vp.scrollLeft;
+    }
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+(function wireStrip(){
+  const vp = document.getElementById('os-viewport');
+  if (!vp) return;
+  // Keep a person's own scrolling inside the loop: past the end wraps to the start, before the start wraps to the end
+  vp.addEventListener('scroll', () => {
+    const u = stripDrift.unit; if (!u) return;
+    if (vp.scrollLeft >= u + 1) { vp.scrollLeft -= u; stripDrift.pos = vp.scrollLeft; }
+    else if (vp.scrollLeft <= 0 && (stripDrift.touching || performance.now() < stripDrift.pausedUntil)) { vp.scrollLeft += u; stripDrift.pos = vp.scrollLeft; }
+  }, { passive: true });
+  vp.addEventListener('touchstart', () => { stripDrift.touching = true; }, { passive: true });
+  const release = () => { stripDrift.touching = false; pauseStrip(4000); };
+  vp.addEventListener('touchend', release, { passive: true });
+  vp.addEventListener('touchcancel', release, { passive: true });
+  vp.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') stripDrift.hovering = true; });
+  vp.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { stripDrift.hovering = false; pauseStrip(800); } });
+  vp.addEventListener('wheel', () => pauseStrip(3000), { passive: true });
+  // drag to scroll with a mouse
+  let drag = null;
+  vp.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && !e.target.closest('button')) drag = { x: e.clientX, left: vp.scrollLeft, moved: false }; });
+  window.addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 3) drag.moved = true; vp.scrollLeft = drag.left - dx; pauseStrip(3000); });
+  window.addEventListener('pointerup', () => { drag = null; });
+})();
 
 function groupDomId(key){ return 'group-' + String(key).toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
 
