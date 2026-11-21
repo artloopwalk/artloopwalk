@@ -65,9 +65,30 @@ git push origin main
 
 The gallery count must be unchanged. If the push is rejected, `git pull --rebase origin main` and push again.
 
-## 5. Summary
+## 5. Instagram post kit
+
+After the listings are updated, build the carousel for @artloop:
+
+```
+node scripts/carousel.mjs --week <this Monday, YYYY-MM-DD>
+```
+
+This covers Monday to Sunday. In the first run of each month, also build the month's kit:
+
+```
+node scripts/carousel.mjs --month <YYYY-MM>
+```
+
+Each kit lands in `social/<label>/`: slide PNGs (1080 × 1350), `caption.txt`, and an `index.html` page for saving the slides and copying the caption on a phone. `social/latest.html` always points to the newest kit.
+
+- Skip the weekly kit if the week has fewer than 3 openings; say so in the summary.
+- Check the dry run first (`--dry`): every opening needs a real date, time and show title, and no "Between shows" text.
+- Commit `social/` together with the JSON.
+
+## 6. Summary
 
 Report:
+- the post kit link: https://artloopwalk.com/social/<label>/ (also `social/latest.html`), with the number of openings and slides;
 - how many galleries got new shows, and which;
 - how many are marked between shows;
 - what's still unverified;
