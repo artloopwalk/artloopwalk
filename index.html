@@ -741,6 +741,7 @@
   .os-item.today .os-when{color:#A23B2A;}
   .os-gallery{font-family:'Fraunces',serif; font-weight:600; font-size:17.3px; line-height:1.2; color:var(--ink); background:none; border:0; padding:0; text-align:left; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .os-gallery:hover{text-decoration:underline; text-underline-offset:3px;}
+  .os-hood{font-size:12.3px; line-height:1.2; color:var(--ink-soft); margin:-1px 0 2px;}
   .os-show{font-size:13.8px; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .os-cal{align-self:flex-start; margin-top:5px; font:inherit; font-size:12.8px; font-weight:500; color:var(--teal-deep); background:rgba(255,255,255,.6); border:1px solid var(--teal-deep); border-radius:999px; padding:3px 10px; cursor:pointer;}
   .os-cal:hover{background:var(--teal-deep); color:#fff;}
@@ -1341,6 +1342,8 @@ function renderOpeningsStrip(){
     it.className = 'os-item' + (dayDiff(e) === 0 ? ' today' : '') + (dup ? ' dup' : '');
     if (dup) it.setAttribute('aria-hidden', 'true');
     const when = document.createElement('div'); when.className = 'os-when'; when.textContent = fmtWhen(e);
+    const tag = primaryTag(e.place);
+    const hood = document.createElement('div'); hood.className = 'os-hood'; hood.textContent = tag ? '#' + tag : '';
     const g = document.createElement('button'); g.type = 'button'; g.className = 'os-gallery'; g.textContent = e.place.name; g.title = 'Show ' + e.place.name;
     if (dup) g.tabIndex = -1;
     g.addEventListener('click', () => jumpToPlace(e.place));
@@ -1349,7 +1352,7 @@ function renderOpeningsStrip(){
     const cal = document.createElement('button'); cal.type = 'button'; cal.className = 'os-cal'; cal.textContent = '+ Add to calendar';
     if (dup) cal.tabIndex = -1;
     cal.addEventListener('click', ev => { ev.stopPropagation(); openCalMenu(cal, e); });
-    it.append(when, g, show, cal);
+    it.append(when, hood, g, show, cal);
     return it;
   };
   items.forEach(e => track.appendChild(build(e, false)));
